@@ -86,13 +86,13 @@ Table of Contents
    6.  VNF Benchmark Report  . . . . . . . . . . . . . . . . . . . .  14
    7.  Open Source Reference Implementations . . . . . . . . . . . .  14
    7.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  14
-   7.2.  tng-prf . . . . . . . . . . . . . . . . . . . . . . . . . .  15
+   7.2.  tng-bench . . . . . . . . . . . . . . . . . . . . . . . . .  15
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
-   10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  16
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
+   10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  17
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
    11.1.  Normative References . . . . . . . . . . . . . . . . . . .  17
-   11.2.  Informative References . . . . . . . . . . . . . . . . . .  17
+   11.2.  Informative References . . . . . . . . . . . . . . . . . .  18
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
 1.  Introduction
@@ -623,7 +623,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 5.3.  Automated Benchmarking Procedures
 
-   The case of a VNF benchmarking address the possibility of defining
+   The case of a VNF benchmarking addresses the possibility of defining
    distinct aspects/steps, which can be automated or not:
 
    Orchestration:   placement (assignment/allocation of resources) and
@@ -639,11 +639,11 @@ Internet-Draft                  VNFBench                       June 2018
 
    Execution:   Tests/experiments are executed according to
       configuration and orchestrated components -> Runs specific
-      benchmark case.
+      benchmarking case.
 
    Output:   There might be generic VNF footprint metrics (e.g., CPU,
       memory) and specific VNF traffic processing metrics (e.g.,
-      transactions, throughput, ).  Output processing must be taken into
+      transactions or throughput).  Output processing must be taken into
       account (e.g., if sampling is applied or not) in a generic
       (statistics) or specific (clustering) ways -> Generates metrics
       report.
@@ -654,13 +654,13 @@ Internet-Draft                  VNFBench                       June 2018
    Trial:   Consists in a single process or iteration to obtain VNF
       benchmarking metrics as a singular measurement.
 
-   Test:   Defines strict parameters for benchmarking components perform
-      one or more trials.
+   Test:   Defines strict parameters for benchmarking components to
+      perform one or more trials.
 
    Method:   Consists of a VNF-BD targeting one or more Tests to achieve
       VNF benchmarking measurements.  A Method explicits ranges of
       parameter values for the configuration of benchmarking components
-      realized in a Test.
+      realized in a Test., e.g., Methods can define parameter studies.
 
    The following sequence of events compose basic general procedures
    that must be performed for the execution of a VNF benchmarking test.
@@ -674,10 +674,10 @@ Rosa, et al.            Expires December 13, 2018              [Page 12]
 Internet-Draft                  VNFBench                       June 2018
 
 
-   1.   The sketch of a VNF benchmarking setup must be defined to later
-      be translated into a deployment scenario.  Such sketch must
-      contain all the structural and functional settings composing a
-      VNF-BD.  At the end of this step the complete Method of
+   1.   A VNF-BD must be defined to be later translated into, and
+      executes as a deployment scenario.  Such a description must
+      contain all the structural and functional settings defined in
+      Section 5.1.  At the end of this step the complete Method of
       benchmarking the target VNF is defined.
 
    2.   Via an automated orchestrator or in a manual process, all the
@@ -687,14 +687,17 @@ Internet-Draft                  VNFBench                       June 2018
 
    3.   Manager, Agent(s) and Monitor(s) (if existent), must be started
       and configured to execute the benchmark stimuli and retrieve
-      expected/target metrics captured during and at the end of the VNF
-      benchmarking test.  One or more trials realize the measurement of
-      VNF performance metrics.
+      expected/target metrics captured during at the end of each trail.
+      One or more trials realize the required measurements to
+      characterize the performance behavior of a VNF according to the
+      benchmark setup defined in the VNF-BD.
 
    4.   Output results from each obtained benchmarking test must be
-      received by Manager.  In an automated or manual process, intended
-      metrics to be extracted defined in the VNF-BD must compose a VNF-
-      PP, resulting in a VNF benchmark report.
+      collected by the Manager.  In an automated or manual process,
+      intended metrics, as described in the VNF-BD, are extracted and
+      combined to the final VNF-PP.  The combination of used VNF-BD and
+      generated VNF-BB make up the resulting VNF benchmark report (VNF-
+      BR).
 
 5.4.  Particular Cases
 
@@ -717,11 +720,8 @@ Internet-Draft                  VNFBench                       June 2018
       workload stimulus.
 
    Flexibility and Elasticity:   Having the possibility of a VNF be
-      composed by multiple components, internal events of the VNF might
-      trigger variated behaviors activating functionalities associated
-      with elasticity, such as load balancing.  In this terms, a
-      detailed characterization of a VNF must be specified and be
-      contained in the VNF-PP and benchmarking report.
+      composed by multiple components (VNFCs), internal events of the
+      VNF might trigger variated behaviors activating functionalities
 
 
 
@@ -730,11 +730,17 @@ Rosa, et al.            Expires December 13, 2018              [Page 13]
 Internet-Draft                  VNFBench                       June 2018
 
 
-   On Failures:   Similarly to the case before, benchmarking setups of
-      VNF must also capture the dynamics involved in the VNF behavior.
-      In case of failures, a VNF would restart itself and possibly
-      result in a off-line period.  A VNF-PP and benchmarking report
-      must clearly capture such variation of VNF states.
+      associated with elasticity, such as load balancing.  In this
+      terms, a detailed characterization of a VNF must be specified
+      (e.g. the VNFs scaling state) and be contained in the VNF-PP and
+      thus the VNF benchmarking report.
+
+   On Failures:   Similarly to the case before, VNF benchmarking setups
+      must also capture the dynamics involved in the VNF behavior.  In
+      case of failures, a VNF might restart itself and possibly result
+      in a off-line period (e.g., self healing).  A VNF-PP and
+      benchmarking report must clearly capture such variation of VNF
+      states.
 
    White Box VNF:   A benchmarking setup must define deployment
       scenarios to be compared with and without monitor components into
@@ -771,13 +777,7 @@ Internet-Draft                  VNFBench                       June 2018
    prototyping ideas were presented at IETF/IRTF meetings seeking impact
    into NFVRG and BMWG.
 
-   Gym was built to receive high-level test descriptors and execute them
-   to extract VNFs profiles, containing measurements of performance
-   metrics - especially to associate resources allocation (e.g., vCPU)
-   with packet processing metrics (e.g., throughput) of VNFs.  From the
-   original research ideas [Rosa-a], such output profiles might be used
-   by orchestrator functions to perform VNF lifecycle tasks (e.g.,
-   deployment, maintenance, tear-down).
+
 
 
 
@@ -785,6 +785,14 @@ Rosa, et al.            Expires December 13, 2018              [Page 14]
 
 Internet-Draft                  VNFBench                       June 2018
 
+
+   Gym was built to receive high-level test descriptors and execute them
+   to extract VNFs profiles, containing measurements of performance
+   metrics - especially to associate resources allocation (e.g., vCPU)
+   with packet processing metrics (e.g., throughput) of VNFs.  From the
+   original research ideas [Rosa-a], such output profiles might be used
+   by orchestrator functions to perform VNF lifecycle tasks (e.g.,
+   deployment, maintenance, tear-down).
 
    The proposed guiding principles, elaborated in [Rosa-b], to design
    and build Gym can be compounded in multiple practical ways for
@@ -819,21 +827,13 @@ Internet-Draft                  VNFBench                       June 2018
    also VNF Benchmarking Descriptor (VNF-BD) examples on the vIMS and
    OVS targets as described in [Rosa-b] and [Rosa-c].
 
-7.2.  tng-prf
+7.2.  tng-bench
 
    Another software that focuses on implementing a framework to
-   benchmark VNFs is called "tng-prf" (previously "son-profile") and was
-   developed as part of the two European Union H2020 projects SONATA NFV
-   and 5GTANGO [tango].  Its initial ideas were presented in [Peu-a] and
-   the system design of the end-to-end prototype was presented in
-   [Peu-b].
+   benchmark VNFs is the "5GTANGO VNF/NS Benchmarking Framework" also
+   called "tng-bench" (previously "son-profile") and was is as part of
+   the two European Union H2020 projects SONATA NFV and 5GTANGO [tango].
 
-   Tng-prf's aims to act as a framework for the end-to-end automation of
-   VNF benchmarking processes.  Its goal is to automate the benchmarking
-   process in such a way that VNF-PPs can be generated without further
-   human interaction.  This enables the integration of VNF benchmarking
-   into continuous integration and continuous delivery (CI/CD) pipelines
-   so that new VNF-PPs are generated on-the-fly for every new software
 
 
 
@@ -842,14 +842,23 @@ Rosa, et al.            Expires December 13, 2018              [Page 15]
 Internet-Draft                  VNFBench                       June 2018
 
 
-   version of a VNF.  Those automatically generated VNF-PPs can then be
-   bundled with the VNFs and serve as inputs for orchestration systems,
-   fitting to the original research ideas presented in [Rosa-a] and
-   [Peu-a].
+   Its initial ideas were presented in [Peu-a] and the system design of
+   the end-to-end prototype was presented in [Peu-b].
+
+   Tng-bench's aims to act as a framework for the end-to-end automation
+   of VNF benchmarking processes.  Its goal is to automate the
+   benchmarking process in such a way that VNF-PPs can be generated
+   without further human interaction.  This enables the integration of
+   VNF benchmarking into continuous integration and continuous delivery
+   (CI/CD) pipelines so that new VNF-PPs are generated on-the-fly for
+   every new software version of a VNF.  Those automatically generated
+   VNF-PPs can then be bundled with the VNFs and serve as inputs for
+   orchestration systems, fitting to the original research ideas
+   presented in [Rosa-a] and [Peu-a].
 
    Following the same high-level VNF testing purposes as Gym, namely:
    Comparability, repeatability, configurability, and interoperability,
-   tng-prf specifically aims to explore description approaches for VNF
+   tng-bench specifically aims to explore description approaches for VNF
    benchmarking experiments.  In [Peu-b] a prototype specification VNF-
    BDs is presented which not only allows to specify generic, abstract
    VNF benchmarking experiments, it also allows to describe sets of
@@ -858,24 +867,36 @@ Internet-Draft                  VNFBench                       June 2018
    parameter studies on the SUT, e.g., testing a VNF's performance under
    different CPU, memory, or software configurations.
 
-   Tng-prf was used to perform a set of initial benchmarking experiments
-   using different VNFs, like a Squid proxy, an Nginx load balancer, and
-   a Socat TCP relay in [Peu-b].  Those VNFs have not only been
-   benchmarked in isolation, but also in combined setups in which up to
-   three VNFs were chained one after each other.  These experiments were
-   used to test tng-prf for scenarios in which composed VNFs, consisting
-   of multiple VNF components (VNFCs), have to be benchmarked.  The
-   presented results highlight the need to benchmark composed VNFs in
-   end-to-end scenarios rather than only benchmark each individual
-   component in isolation, to produce meaningful VNF-PPs for the
-   complete VNF.
+   Tng-bench was used to perform a set of initial benchmarking
+   experiments using different VNFs, like a Squid proxy, an Nginx load
+   balancer, and a Socat TCP relay in [Peu-b].  Those VNFs have not only
+   been benchmarked in isolation, but also in combined setups in which
+   up to three VNFs were chained one after each other.  These
+   experiments were used to test tng-bench for scenarios in which
+   composed VNFs, consisting of multiple VNF components (VNFCs), have to
+   be benchmarked.  The presented results highlight the need to
+   benchmark composed VNFs in end-to-end scenarios rather than only
+   benchmark each individual component in isolation, to produce
+   meaningful VNF-PPs for the complete VNF.
 
-   Tng-prf is actively developed and released as open source tool under
-   Apache 2.0 license [tng-prf].
+   Tng-bench is actively developed and released as open source tool
+   under Apache 2.0 license [tng-bench].
 
 8.  Security Considerations
 
    TBD
+
+
+
+
+
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 16]
+
+Internet-Draft                  VNFBench                       June 2018
+
 
 9.  IANA Considerations
 
@@ -887,16 +908,6 @@ Internet-Draft                  VNFBench                       June 2018
    Brazil.  Parts of this work have received funding from the European
    Union's Horizon 2020 research and innovation programme under grant
    agreement No.  H2020-ICT-2016-2 761493 (5GTANGO: https://5gtango.eu).
-
-
-
-
-
-
-Rosa, et al.            Expires December 13, 2018              [Page 16]
-
-Internet-Draft                  VNFBench                       June 2018
-
 
 11.  References
 
@@ -935,6 +946,14 @@ Internet-Draft                  VNFBench                       June 2018
               Switches in the Open Platform for NFV (OPNFV)", September
               2017, <https://www.rfc-editor.org/info/rfc8204>.
 
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 17]
+
+Internet-Draft                  VNFBench                       June 2018
+
+
 11.2.  Informative References
 
    [Gym]      "Gym Home Page", <https://github.com/intrig-unicamp/gym>.
@@ -944,15 +963,6 @@ Internet-Draft                  VNFBench                       June 2018
               Fifth European Workshop on Software Defined Networks
               (EWSDN) , 2016,
               <http://ieeexplore.ieee.org/document/7956044/>.
-
-
-
-
-
-Rosa, et al.            Expires December 13, 2018              [Page 17]
-
-Internet-Draft                  VNFBench                       June 2018
-
 
    [Peu-b]    M. Peuster, H. Karl, "Profile Your Chains, Not Functions:
               Automated Network Service Profiling in DevOps
@@ -981,21 +991,11 @@ Internet-Draft                  VNFBench                       June 2018
               industry-specific network services and apps",
               <https://5gtango.eu>.
 
-   [tng-prf]  "5GTANGO Profiler Page",
-              <https://github.com/sonata-nfv/tng-sdk-profile>.
+   [tng-bench]
+              "5GTANGO VNF/NS Benchmarking Framework",
+              <https://github.com/sonata-nfv/tng-sdk-benchmark>.
 
 Authors' Addresses
-
-   Raphael Vicente Rosa (editor)
-   University of Campinas
-   Av. Albert Einstein, 400
-   Campinas, Sao Paulo  13083-852
-   Brazil
-
-   Email: rvrosa@dca.fee.unicamp.br
-   URI:   https://intrig.dca.fee.unicamp.br/raphaelvrosa/
-
-
 
 
 
@@ -1008,6 +1008,16 @@ Authors' Addresses
 Rosa, et al.            Expires December 13, 2018              [Page 18]
 
 Internet-Draft                  VNFBench                       June 2018
+
+
+   Raphael Vicente Rosa (editor)
+   University of Campinas
+   Av. Albert Einstein, 400
+   Campinas, Sao Paulo  13083-852
+   Brazil
+
+   Email: rvrosa@dca.fee.unicamp.br
+   URI:   https://intrig.dca.fee.unicamp.br/raphaelvrosa/
 
 
    Christian Esteve Rothenberg
@@ -1038,16 +1048,6 @@ Internet-Draft                  VNFBench                       June 2018
 
    Email: holger.karl@upb.de
    URI:   https://cs.uni-paderborn.de/cn/
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -558,7 +558,7 @@
 
     <section title="Automated Benchmarking Procedures" anchor="procedures">
 
-      <t>The case of a VNF benchmarking address the possibility of
+      <t>The case of a VNF benchmarking addresses the possibility of
       defining distinct aspects/steps, which can be automated or not:</t>
 
       <t><list style="hanging">
@@ -574,11 +574,11 @@
 
         <t hangText="Execution: "> Tests/experiments are executed
           according to configuration and orchestrated components
-           -> Runs specific benchmark case. </t>
+           -> Runs specific benchmarking case. </t>
 
         <t hangText="Output: "> There might be generic VNF footprint metrics
            (e.g., CPU, memory) and specific VNF traffic processing metrics
-           (e.g., transactions, throughput, ). Output processing must be
+           (e.g., transactions or throughput). Output processing must be
            taken into account (e.g., if sampling is applied or not) in a
            generic (statistics) or specific (clustering) ways
             -> Generates metrics report. </t>
@@ -591,21 +591,21 @@
       <t><list style="hanging">
         <t hangText="Trial: "> Consists in a single process or iteration to
           obtain VNF benchmarking metrics as a singular measurement.</t>
-        <t hangText="Test: "> Defines strict parameters for benchmarking components
+        <t hangText="Test: "> Defines strict parameters for benchmarking components to
           perform one or more trials.</t>
         <t hangText="Method: "> Consists of a VNF-BD targeting one or more Tests
           to achieve VNF benchmarking measurements. A Method explicits ranges of
           parameter values for the configuration of benchmarking components realized
-          in a Test.</t>
+          in a Test., e.g., Methods can define parameter studies.</t>
       </list></t>
 
       <t>The following sequence of events compose basic general procedures
         that must be performed for the execution of a VNF benchmarking test.</t>
 
       <t><list style="hanging">
-        <t hangText="1. "> The sketch of a VNF benchmarking setup must be defined
-          to later be translated into a deployment scenario. Such sketch must contain
-          all the structural and functional settings composing a VNF-BD. At the end
+        <t hangText="1. "> A VNF-BD must be defined to be later translated into,
+        and executes as a deployment scenario. Such a description must contain
+          all the structural and functional settings defined in <xref target="vnf-bd" />. At the end
           of this step the complete Method of benchmarking the target VNF is defined.</t>
         <t hangText="2. "> Via an automated orchestrator or in a manual process,
           all the components of the VNF benchmark setup must be allocated and interconnected.
@@ -613,12 +613,14 @@
           the VNF benchmark stimuli. </t>
         <t hangText="3. "> Manager, Agent(s) and Monitor(s) (if existent), must be
           started and configured to execute the benchmark stimuli and retrieve
-          expected/target metrics captured during and at the end of the VNF benchmarking test.
-          One or more trials realize the measurement of VNF performance metrics.</t>
+          expected/target metrics captured during at the end of each trail.
+          One or more trials realize the required measurements to characterize the performance
+        behavior of a VNF according to the benchmark setup defined in the VNF-BD.</t>
         <t hangText="4. "> Output results from each obtained benchmarking test
-          must be received by Manager. In an automated or manual process, intended
-          metrics to be extracted defined in the VNF-BD must compose a VNF-PP, resulting
-          in a VNF benchmark report.</t>
+          must be collected by the Manager. In an automated or manual process, intended
+          metrics, as described in the VNF-BD, are extracted and combined to the final VNF-PP.
+          The combination of used VNF-BD and generated VNF-BB make up the resulting
+          VNF benchmark report (VNF-BR).</t>
       </list></t>
     </section>
 
@@ -644,16 +646,17 @@
             behavior of performance in comparison with the value of the workload stimulus.</t>
 
           <t hangText="Flexibility and Elasticity: "> Having the possibility of a VNF
-            be composed by multiple components, internal events of the VNF might trigger
+            be composed by multiple components (VNFCs), internal events of the VNF might trigger
             variated behaviors activating functionalities associated with elasticity,
             such as load balancing. In this terms, a detailed characterization of a VNF
-            must be specified and be contained in the VNF-PP and benchmarking report.</t>
+            must be specified (e.g. the VNFs scaling state) and be contained in the VNF-PP
+          and thus the VNF benchmarking report.</t>
 
-          <t hangText="On Failures: "> Similarly to the case before, benchmarking setups
-            of VNF must also capture the dynamics involved in the VNF behavior.
-            In case of failures, a VNF would restart itself and possibly result in a
-            off-line period. A VNF-PP and benchmarking report must clearly capture such
-            variation of VNF states.</t>
+          <t hangText="On Failures: "> Similarly to the case before, VNF benchmarking setups
+            must also capture the dynamics involved in the VNF behavior.
+            In case of failures, a VNF might restart itself and possibly result in a
+            off-line period (e.g., self healing). A VNF-PP and benchmarking report must
+            clearly capture such variation of VNF states.</t>
 
           <t hangText="White Box VNF: "> A benchmarking setup must define deployment
             scenarios to be compared with and without monitor components into the VNF and/or
@@ -741,16 +744,17 @@
     </t>
   </section>
   
-  <section title="tng-prf" anchor="opensource_tng_profile">
+  <section title="tng-bench" anchor="opensource_tng_profile">
  
     <t>Another software that focuses on implementing a framework to benchmark
-    VNFs is called "tng-prf" (previously "son-profile") and was developed as
+    VNFs is the "5GTANGO VNF/NS Benchmarking Framework" also called "tng-bench"
+    (previously "son-profile") and was is as
     part of the two European Union H2020 projects SONATA NFV and 5GTANGO <xref target="tango"/>.
     Its initial ideas were presented in <xref target="Peu-a"/>
     and the system design of the end-to-end prototype
     was presented in <xref target="Peu-b"/>.</t>
 
-    <t>Tng-prf's aims to act as a framework for the end-to-end automation of
+    <t>Tng-bench's aims to act as a framework for the end-to-end automation of
     VNF benchmarking processes. Its goal is to automate the benchmarking process
     in such a way that VNF-PPs can be generated without further human interaction.
     This enables the integration of VNF benchmarking into continuous integration
@@ -761,7 +765,7 @@
     <xref target="Peu-a"/>.</t>
 
     <t>Following the same high-level VNF testing purposes as Gym, namely: Comparability,
-    repeatability, configurability, and interoperability, tng-prf specifically aims to
+    repeatability, configurability, and interoperability, tng-bench specifically aims to
     explore description approaches for VNF benchmarking experiments. In <xref target="Peu-b"/>
     a prototype specification VNF-BDs is presented which not only allows to specify generic,
     abstract VNF benchmarking experiments, it also allows to describe sets of parameter
@@ -769,16 +773,17 @@
     to automatically execute complex parameter studies on the SUT, e.g., testing a VNF's performance
     under different CPU, memory, or software configurations.</t>
 
-    <t>Tng-prf was used to perform a set of initial benchmarking experiments using different VNFs,
+    <t>Tng-bench was used to perform a set of initial benchmarking experiments using different VNFs,
     like a Squid proxy, an Nginx load balancer, and a Socat TCP relay in <xref target="Peu-b"/>.
     Those VNFs have not only been benchmarked in isolation, but also in combined setups in which
     up to three VNFs were chained one after each other. These experiments were used to test
-    tng-prf for scenarios in which composed VNFs, consisting of multiple VNF components (VNFCs),
+    tng-bench for scenarios in which composed VNFs, consisting of multiple VNF components (VNFCs),
     have to be benchmarked. The presented results highlight the need to benchmark composed VNFs in
     end-to-end scenarios rather than only benchmark each individual component in isolation, to produce
     meaningful VNF-PPs for the complete VNF.</t>
 
-    <t>Tng-prf is actively developed and released as open source tool under Apache 2.0 license <xref target="tng-prf"/>.</t>
+    <t>Tng-bench is actively developed and released as open source tool
+    under Apache 2.0 license <xref target="tng-bench"/>.</t>
     
   </section>
 
@@ -959,9 +964,9 @@
       </front>
     </reference>
     
-    <reference anchor="tng-prf" target="https://github.com/sonata-nfv/tng-sdk-profile">
+    <reference anchor="tng-bench" target="https://github.com/sonata-nfv/tng-sdk-benchmark">
       <front>
-        <title>5GTANGO Profiler Page</title>
+        <title>5GTANGO VNF/NS Benchmarking Framework</title>
         <author/>
         <date/>
       </front>
