@@ -658,55 +658,102 @@
 </section>
 
 
-<section title="Open Source Reference Implementation" anchor="opensource">
+<section title="Open Source Reference Implementations" anchor="opensource">
 
-  <t>The software, named Gym, is a framework for automated benchmarking of
-  Virtualized Network Functions (VNFs). It was coded following the initial ideas
-   presented in a 2015 scientific paper entitled “VBaaS: VNF Benchmark-as-a-Service”
-  <xref target="Rosa-a"/>.  Later, the evolved design and prototyping ideas were presented at
-   IETF/IRTF meetings seeking impact into NFVRG and BMWG.</t>
+  <t>There are two open source reference implementations that are build to
+  automate benchmarking of Virtualized Network Functions (VNFs).</t>
 
-  <t>Gym was built to receive high-level test descriptors and execute them to
-   extract VNFs profiles, containing measurements of performance metrics –
-   especially to associate resources allocation (e.g., vCPU) with packet
-   processing metrics (e.g., throughput) of VNFs. From the original research
+  <section title="Gym" anchor="opensource_gym">
+
+    <t>The software, named Gym, is a framework for automated benchmarking of
+    Virtualized Network Functions (VNFs). It was coded following the initial ideas
+    presented in a 2015 scientific paper entitled “VBaaS: VNF Benchmark-as-a-Service”
+    <xref target="Rosa-a"/>.  Later, the evolved design and prototyping ideas were presented at
+    IETF/IRTF meetings seeking impact into NFVRG and BMWG.</t>
+
+    <t>Gym was built to receive high-level test descriptors and execute them to
+    extract VNFs profiles, containing measurements of performance metrics –
+    especially to associate resources allocation (e.g., vCPU) with packet
+    processing metrics (e.g., throughput) of VNFs. From the original research
     ideas <xref target="Rosa-a"/>, such output profiles might be used by orchestrator functions
     to perform VNF lifecycle tasks (e.g., deployment, maintenance, tear-down).</t>
 
     <t>The proposed guiding principles, elaborated in <xref target="Rosa-b"/>,
-   to design and build Gym can be compounded
+    to design and build Gym can be compounded
     in multiple practical ways for multiple VNF testing purposes:</t>
 
-  <t><list style="symbols">
-    <t>Comparability: Output of tests shall be simple to understand and process,
-  in a human-read able format, coherent, and easily reusable (e.g., inputs
-  for analytic applications).</t>
-    <t>Repeatability: Test setup shall be comprehensively defined through a
-  flexible design model that can be interpreted and executed by the testing
-   platform repeatedly but supporting customization.</t>
-   <t>Configurability: Open interfaces and extensible messaging models shall
-  be available between components for flexible composition of test descriptors
-   and platform configurations.</t>
-   <t>Interoperability: Tests shall be ported to different environments
-  using lightweight components.</t>
-  </list></t>
+    <t><list style="symbols">
+      <t>Comparability: Output of tests shall be simple to understand and process,
+      in a human-read able format, coherent, and easily reusable (e.g., inputs
+      for analytic applications).</t>
+      <t>Repeatability: Test setup shall be comprehensively defined through a
+      flexible design model that can be interpreted and executed by the testing
+      platform repeatedly but supporting customization.</t>
+      <t>Configurability: Open interfaces and extensible messaging models shall
+      be available between components for flexible composition of test descriptors
+      and platform configurations.</t>
+      <t>Interoperability: Tests shall be ported to different environments
+      using lightweight components.</t>
+    </list></t>
 
-  <t>In <xref target="Rosa-b"/> Gym was utilized to benchmark a decomposed
-  IP Multimedia Subsystem VNF. And in <xref target="Rosa-c"/>, a virtual switch
-  (Open vSwitch - OVS) was the target VNF of Gym for the analysis of VNF benchmarking automation.
-  Such articles validated Gym as a prominent open
-  source reference implementation for VNF benchmarking tests.
-  Such articles set important contributions as discussion of the lessons
-  learned and the overall NFV performance testing landscape, included automation.</t>
+    <t>In <xref target="Rosa-b"/> Gym was utilized to benchmark a decomposed
+    IP Multimedia Subsystem VNF. And in <xref target="Rosa-c"/>, a virtual switch
+    (Open vSwitch - OVS) was the target VNF of Gym for the analysis of VNF benchmarking automation.
+    Such articles validated Gym as a prominent open
+    source reference implementation for VNF benchmarking tests.
+    Such articles set important contributions as discussion of the lessons
+    learned and the overall NFV performance testing landscape, included automation.</t>
 
-  <t>Gym stands as the open source reference implementation
-    that realizes the VNF Benchmarking Methodologies presented in this
+    <t>Gym stands as one open source reference implementation
+    that realizes the VNF benchmarking methodologies presented in this
     document.
     Gym is being released open source at <xref target="Gym"/>.
-   The code repository includes also VNF Benchmarking Descriptor (VNF-BD)
-   examples on the vIMS and OVS targets as described
-   in <xref target="Rosa-b"/> and <xref target="Rosa-c"/>.
-  </t>
+    The code repository includes also VNF Benchmarking Descriptor (VNF-BD)
+    examples on the vIMS and OVS targets as described
+    in <xref target="Rosa-b"/> and <xref target="Rosa-c"/>.
+    </t>
+  </section>
+  
+  <section title="tng-prf" anchor="opensource_tng_profile">
+ 
+    <t>Another software that focuses on implementing a framework to benchmark
+    VNFs is called "tng-prf" (previously "son-profile") and was developed as
+    part of the two European Union H2020 projects SONATA NFV and 5GTANGO <xref target="tango"/>.
+    Its initial ideas were presented in <xref target="Peu-a"/>
+    and the system design of the end-to-end prototype
+    was presented in <xref target="Peu-b"/>.</t>
+
+    <t>Tng-prf's aims to act as a framework for the end-to-end automation of
+    VNF benchmarking processes. Its goal is to automate the benchmarking process
+    in such a way that VNF-PPs can be generated without further human interaction.
+    This enables the integration of VNF benchmarking into continuous integration
+    and continuous delivery (CI/CD) pipelines so that new VNF-PPs are generated on-the-fly for
+    every new software version of a VNF. Those automatically generated VNF-PPs
+    can then be bundled with the VNFs and serve as inputs for orchestration systems,
+    fitting to the original research ideas presented in <xref target="Rosa-a"/> and
+    <xref target="Peu-a"/>.</t>
+
+    <t>Following the same high-level VNF testing purposes as Gym, namely: Comparability,
+    repeatability, configurability, and interoperability, tng-prf specifically aims to
+    explore description approaches for VNF benchmarking experiments. In <xref target="Peu-b"/>
+    a prototype specification VNF-BDs is presented which not only allows to specify generic,
+    abstract VNF benchmarking experiments, it also allows to describe sets of parameter
+    configurations to be tested during the benchmarking process, allowing the system
+    to automatically execute complex parameter studies on the SUT, e.g., testing a VNF's performance
+    under different CPU, memory, or software configurations.</t>
+
+    <t>Tng-prf was used to perform a set of initial benchmarking experiments using different VNFs,
+    like a Squid proxy, an Nginx load balancer, and a Socat TCP relay in <xref target="Peu-b"/>.
+    Those VNFs have not only been benchmarked in isolation, but also in combined setups in which
+    up to three VNFs were chained one after each other. These experiments were used to test
+    tng-prf for scenarios in which composed VNFs, consisting of multiple virtual deployment units (VDUs),
+    have to be benchmarked. The presented results highlight the need to benchmark composed VNFs in
+    end-to-end scenarios rather than only benchmark each individual component in isolation, to produce
+    meaningful VNF-PPs for the complete VNF.</t>
+
+    <t>Tng-prf is actively developed and released as open source tool under Apache 2.0 license <xref target="tng-prf"/>.</t>
+    
+  </section>
 
 </section>
 
@@ -720,7 +767,8 @@
 </section>
 
 <section title="Acknowledgement" anchor="acknowledgement">
-	  <t>The authors would like to thank the support of Ericsson Research, Brazil.</t>
+  <t>The authors would like to thank the support of Ericsson Research, Brazil.
+  Parts of this work have received funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No. H2020-ICT-2016-2 761493 (5GTANGO: https://5gtango.eu).</t>
 </section>
 
 </middle>
@@ -866,6 +914,14 @@
       <seriesInfo name="IEEE Conference on Network Function Virtualization and Software Defined Networks (NFV-SDN)" value="" />
     </reference>
 
+    <reference anchor="tango" target="https://5gtango.eu">
+      <front>
+        <title>5GTANGO: Development and validation platform for global industry-specific network services and apps</title>
+        <author/>
+        <date/>
+      </front>
+    </reference>
+    
     <reference anchor="tng-prf" target="https://github.com/sonata-nfv/tng-sdk-profile">
       <front>
         <title>5GTANGO Profiler Page</title>

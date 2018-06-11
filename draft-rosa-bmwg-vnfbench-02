@@ -84,14 +84,16 @@ Table of Contents
    5.3.  Automated Benchmarking Procedures . . . . . . . . . . . . .  11
    5.4.  Particular Cases  . . . . . . . . . . . . . . . . . . . . .  12
    6.  VNF Benchmark Report  . . . . . . . . . . . . . . . . . . . .  13
-   7.  Open Source Reference Implementation  . . . . . . . . . . . .  13
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
-   10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  15
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
-   11.1.  Normative References . . . . . . . . . . . . . . . . . . .  15
-   11.2.  Informative References . . . . . . . . . . . . . . . . . .  15
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
+   7.  Open Source Reference Implementations . . . . . . . . . . . .  13
+   7.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  14
+   7.2.  tng-prf . . . . . . . . . . . . . . . . . . . . . . . . . .  15
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
+   10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  16
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+   11.1.  Normative References . . . . . . . . . . . . . . . . . . .  16
+   11.2.  Informative References . . . . . . . . . . . . . . . . . .  17
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
 
 1.  Introduction
 
@@ -103,9 +105,7 @@ Table of Contents
    comparison factor with physical network functions; (iii) and output
    results for analytical VNF development.
 
-   Having no strict and clear execution boundaries, different from
-   earlier self-contained black-box benchmarking methodologies described
-   in BMWG, a VNF depends on underlying virtualized environment
+
 
 
 
@@ -114,6 +114,9 @@ Rosa, et al.            Expires December 13, 2018               [Page 2]
 Internet-Draft                  VNFBench                       June 2018
 
 
+   Having no strict and clear execution boundaries, different from
+   earlier self-contained black-box benchmarking methodologies described
+   in BMWG, a VNF depends on underlying virtualized environment
    parameters [ETS14a], intrinsic considerations for analysis when
    addressing performance.  This document stands as a ground methodology
    guide for VNF benchmarking automation.  It addresses the state-of-
@@ -158,9 +161,6 @@ Internet-Draft                  VNFBench                       June 2018
    NFVO:  NFV Orchestrator - functional block that manages the Network
       Service (NS) life-cycle and coordinates the management of NS life-
       cycle, VNF life-cycle (supported by the VNFM) and NFVI resources
-      (supported by the VIM) to ensure an optimized allocation of the
-      necessary resources and connectivity.
-
 
 
 
@@ -169,6 +169,9 @@ Rosa, et al.            Expires December 13, 2018               [Page 3]
 
 Internet-Draft                  VNFBench                       June 2018
 
+
+      (supported by the VIM) to ensure an optimized allocation of the
+      necessary resources and connectivity.
 
    VNF:  Virtualized Network Function - a software-based network
       function.
@@ -216,15 +219,15 @@ Internet-Draft                  VNFBench                       June 2018
       interactions may be required, or if possible, underlying allocated
       resources need to be dynamically altered.
 
-   Note: Verification and Dimensioning can be reduced to Benchmarking.
-   Therefore, we detail Benchmarking in what follows.
-
 
 
 Rosa, et al.            Expires December 13, 2018               [Page 4]
 
 Internet-Draft                  VNFBench                       June 2018
 
+
+   Note: Verification and Dimensioning can be reduced to Benchmarking.
+   Therefore, we detail Benchmarking in what follows.
 
 4.2.  Generic VNF Benchmarking Setup
 
@@ -271,9 +274,6 @@ Internet-Draft                  VNFBench                       June 2018
       deployment scenario, one Agent can create the benchmark stimuli
       and the other end be the VNF itself where, for example, one-way
       latency is evaluated.  A prober defines a software/hardware-based
-      tool able to generate traffic specific to a VNF (e.g., sipp) or
-      generic to multiple VNFs (e.g., pktgen).  An Agent can be defined
-      by a physical or virtual network function.
 
 
 
@@ -281,6 +281,10 @@ Rosa, et al.            Expires December 13, 2018               [Page 5]
 
 Internet-Draft                  VNFBench                       June 2018
 
+
+      tool able to generate traffic specific to a VNF (e.g., sipp) or
+      generic to multiple VNFs (e.g., pktgen).  An Agent can be defined
+      by a physical or virtual network function.
 
    Monitor --  when possible, it is instantiated inside the target VNF
       or NFVI PoP (e.g., as a plug-in process in a virtualized
@@ -327,16 +331,15 @@ Internet-Draft                  VNFBench                       June 2018
    virtual instantiation of components defined in a VNF benchmarking
    setup.
 
-   Based on a generic VNF benchmarking setup, the following
-   considerations hold for deployment scenarios:
-
-
 
 
 Rosa, et al.            Expires December 13, 2018               [Page 6]
 
 Internet-Draft                  VNFBench                       June 2018
 
+
+   Based on a generic VNF benchmarking setup, the following
+   considerations hold for deployment scenarios:
 
    o  Components can be composed in a single entity and defined as black
       or white boxes.  For instance, Manager and Agents could jointly
@@ -383,9 +386,6 @@ Internet-Draft                  VNFBench                       June 2018
 
    Agent:  The toolset available for benchmarking stimulus for a VNF and
       its characteristics of packets format, disposition, and workload
-      can interfere in a benchmarking setup.  VNFs can support specific
-      traffic format as stimulus.
-
 
 
 
@@ -393,6 +393,9 @@ Rosa, et al.            Expires December 13, 2018               [Page 7]
 
 Internet-Draft                  VNFBench                       June 2018
 
+
+      can interfere in a benchmarking setup.  VNFs can support specific
+      traffic format as stimulus.
 
    Monitor:  In a particular benchmarking setup where measurements of
       VNF and/or execution environment metrics are available for
@@ -439,9 +442,6 @@ Internet-Draft                  VNFBench                       June 2018
    VNF performance metrics.
 
    The following items define the VNF-BD contents.
-
-
-
 
 
 
@@ -714,14 +714,14 @@ Internet-Draft                  VNFBench                       June 2018
    A VNF performance profile must address the combined set of classified
    items in the 3x3 Matrix Coverage defined in [RFC8172].
 
-7.  Open Source Reference Implementation
+7.  Open Source Reference Implementations
 
-   The software, named Gym, is a framework for automated benchmarking of
-   Virtualized Network Functions (VNFs).  It was coded following the
-   initial ideas presented in a 2015 scientific paper entitled "VBaaS:
-   VNF Benchmark-as-a-Service" [Rosa-a].  Later, the evolved design and
-   prototyping ideas were presented at IETF/IRTF meetings seeking impact
-   into NFVRG and BMWG.
+   There are two open source reference implementations that are build to
+   automate benchmarking of Virtualized Network Functions (VNFs).
+
+
+
+
 
 
 
@@ -729,6 +729,15 @@ Rosa, et al.            Expires December 13, 2018              [Page 13]
 
 Internet-Draft                  VNFBench                       June 2018
 
+
+7.1.  Gym
+
+   The software, named Gym, is a framework for automated benchmarking of
+   Virtualized Network Functions (VNFs).  It was coded following the
+   initial ideas presented in a 2015 scientific paper entitled "VBaaS:
+   VNF Benchmark-as-a-Service" [Rosa-a].  Later, the evolved design and
+   prototyping ideas were presented at IETF/IRTF meetings seeking impact
+   into NFVRG and BMWG.
 
    Gym was built to receive high-level test descriptors and execute them
    to extract VNFs profiles, containing measurements of performance
@@ -765,18 +774,9 @@ Internet-Draft                  VNFBench                       June 2018
    set important contributions as discussion of the lessons learned and
    the overall NFV performance testing landscape, included automation.
 
-   Gym stands as the open source reference implementation that realizes
-   the VNF Benchmarking Methodologies presented in this document.  Gym
+   Gym stands as one open source reference implementation that realizes
+   the VNF benchmarking methodologies presented in this document.  Gym
    is being released open source at [Gym].  The code repository includes
-   also VNF Benchmarking Descriptor (VNF-BD) examples on the vIMS and
-   OVS targets as described in [Rosa-b] and [Rosa-c].
-
-8.  Security Considerations
-
-   TBD
-
-
-
 
 
 
@@ -786,6 +786,66 @@ Rosa, et al.            Expires December 13, 2018              [Page 14]
 Internet-Draft                  VNFBench                       June 2018
 
 
+   also VNF Benchmarking Descriptor (VNF-BD) examples on the vIMS and
+   OVS targets as described in [Rosa-b] and [Rosa-c].
+
+7.2.  tng-prf
+
+   Another software that focuses on implementing a framework to
+   benchmark VNFs is called "tng-prf" (previously "son-profile") and was
+   developed as part of the two European Union H2020 projects SONATA NFV
+   and 5GTANGO [tango].  Its initial ideas were presented in [Peu-a] and
+   the system design of the end-to-end prototype was presented in
+   [Peu-b].
+
+   Tng-prf's aims to act as a framework for the end-to-end automation of
+   VNF benchmarking processes.  Its goal is to automate the benchmarking
+   process in such a way that VNF-PPs can be generated without further
+   human interaction.  This enables the integration of VNF benchmarking
+   into continuous integration and continuous delivery (CI/CD) pipelines
+   so that new VNF-PPs are generated on-the-fly for every new software
+   version of a VNF.  Those automatically generated VNF-PPs can then be
+   bundled with the VNFs and serve as inputs for orchestration systems,
+   fitting to the original research ideas presented in [Rosa-a] and
+   [Peu-a].
+
+   Following the same high-level VNF testing purposes as Gym, namely:
+   Comparability, repeatability, configurability, and interoperability,
+   tng-prf specifically aims to explore description approaches for VNF
+   benchmarking experiments.  In [Peu-b] a prototype specification VNF-
+   BDs is presented which not only allows to specify generic, abstract
+   VNF benchmarking experiments, it also allows to describe sets of
+   parameter configurations to be tested during the benchmarking
+   process, allowing the system to automatically execute complex
+   parameter studies on the SUT, e.g., testing a VNF's performance under
+   different CPU, memory, or software configurations.
+
+   Tng-prf was used to perform a set of initial benchmarking experiments
+   using different VNFs, like a Squid proxy, an Nginx load balancer, and
+   a Socat TCP relay in [Peu-b].  Those VNFs have not only been
+   benchmarked in isolation, but also in combined setups in which up to
+   three VNFs were chained one after each other.  These experiments were
+   used to test tng-prf for scenarios in which composed VNFs, consisting
+   of multiple virtual deployment units (VDUs), have to be benchmarked.
+   The presented results highlight the need to benchmark composed VNFs
+   in end-to-end scenarios rather than only benchmark each individual
+   component in isolation, to produce meaningful VNF-PPs for the
+   complete VNF.
+
+   Tng-prf is actively developed and released as open source tool under
+   Apache 2.0 license [tng-prf].
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 15]
+
+Internet-Draft                  VNFBench                       June 2018
+
+
+8.  Security Considerations
+
+   TBD
+
 9.  IANA Considerations
 
    This document does not require any IANA actions.
@@ -793,7 +853,9 @@ Internet-Draft                  VNFBench                       June 2018
 10.  Acknowledgement
 
    The authors would like to thank the support of Ericsson Research,
-   Brazil.
+   Brazil.  Parts of this work have received funding from the European
+   Union's Horizon 2020 research and innovation programme under grant
+   agreement No.  H2020-ICT-2016-2 761493 (5GTANGO: https://5gtango.eu).
 
 11.  References
 
@@ -825,22 +887,37 @@ Internet-Draft                  VNFBench                       June 2018
               Switches in the Open Platform for NFV (OPNFV)", September
               2017, <https://www.rfc-editor.org/info/rfc8204>.
 
+
+
+
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 16]
+
+Internet-Draft                  VNFBench                       June 2018
+
+
 11.2.  Informative References
 
    [Gym]      "Gym Home Page", <https://github.com/intrig-unicamp/gym>.
+
+   [Peu-a]    M. Peuster, H. Karl, "Understand Your Chains: Towards
+              Performance Profile-based Network Service Management",
+              Fifth European Workshop on Software Defined Networks
+              (EWSDN) , 2016,
+              <http://ieeexplore.ieee.org/document/7956044/>.
+
+   [Peu-b]    M. Peuster, H. Karl, "Profile Your Chains, Not Functions:
+              Automated Network Service Profiling in DevOps
+              Environments", IEEE Conference on Network Function
+              Virtualization and Software Defined Networks (NFV-SDN) ,
+              2017, <http://ieeexplore.ieee.org/document/8169826/>.
 
    [Rosa-a]   R. V. Rosa, C. E. Rothenberg, R. Szabo, "VBaaS: VNF
               Benchmark-as-a-Service", Fourth European Workshop on
               Software Defined Networks , Sept 2015,
               <http://ieeexplore.ieee.org/document/7313620>.
-
-
-
-
-Rosa, et al.            Expires December 13, 2018              [Page 15]
-
-Internet-Draft                  VNFBench                       June 2018
-
 
    [Rosa-b]   R. Rosa, C. Bertoldo, C. Rothenberg, "Take your VNF to the
               Gym: A Testing Framework for Automated NFV Performance
@@ -854,7 +931,28 @@ Internet-Draft                  VNFBench                       June 2018
               <https://intrig.dca.fee.unicamp.br/wp-
               content/plugins/papercite/pdf/rosa2017taking.pdf>.
 
+   [tango]    "5GTANGO: Development and validation platform for global
+              industry-specific network services and apps",
+              <https://5gtango.eu>.
+
+   [tng-prf]  "5GTANGO Profiler Page",
+              <https://github.com/sonata-nfv/tng-sdk-profile>.
+
 Authors' Addresses
+
+
+
+
+
+
+
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 17]
+
+Internet-Draft                  VNFBench                       June 2018
+
 
    Raphael Vicente Rosa (editor)
    University of Campinas
@@ -886,18 +984,6 @@ Authors' Addresses
    URI:   http://go.upb.de/peuster
 
 
-
-
-
-
-
-
-
-Rosa, et al.            Expires December 13, 2018              [Page 16]
-
-Internet-Draft                  VNFBench                       June 2018
-
-
    Holger Karl
    Paderborn University
    Warburgerstr. 100
@@ -919,34 +1005,4 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Rosa, et al.            Expires December 13, 2018              [Page 17]
+Rosa, et al.            Expires December 13, 2018              [Page 18]
