@@ -76,12 +76,12 @@
     <keyword>Internet-Draft</keyword>
 
 	<abstract>
-    <t>This document describes a common methodology for the automation of benchmarking
-       Virtualized Network Functions (VNFs) in general-purpose hardware.
+    <t>This document describes a common methodology for automated benchmarking of
+       Virtualized Network Functions (VNFs) executed on general-purpose hardware.
        Specific cases of benchmarking methodologies for particular VNFs
-       can be derived from this document. An open source reference implementation
-    called Gym is reported as a running code embodiment of the proposed
-    methodology for VNFs. </t>
+       can be derived from this document. Two open source reference implementations
+    are reported as running code embodiment of the proposed, automated benchmarking 
+    methodology. </t>
 
   </abstract>
 
