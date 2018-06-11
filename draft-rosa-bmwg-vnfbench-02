@@ -71,29 +71,29 @@ Table of Contents
    4.  Considerations  . . . . . . . . . . . . . . . . . . . . . . .   4
    4.1.  VNF Testing Methods . . . . . . . . . . . . . . . . . . . .   4
    4.2.  Generic VNF Benchmarking Setup  . . . . . . . . . . . . . .   5
-   4.3.  Deployment Scenarios  . . . . . . . . . . . . . . . . . . .   6
+   4.3.  Deployment Scenarios  . . . . . . . . . . . . . . . . . . .   7
    4.4.  Influencing Aspects . . . . . . . . . . . . . . . . . . . .   7
    5.  Methodology . . . . . . . . . . . . . . . . . . . . . . . . .   8
-   5.1.  VNF Benchmarking Descriptor (VNF-BD)  . . . . . . . . . . .   8
+   5.1.  VNF Benchmarking Descriptor (VNF-BD)  . . . . . . . . . . .   9
    5.1.1.  Procedures Configuration  . . . . . . . . . . . . . . . .   9
    5.1.2.  Target Information  . . . . . . . . . . . . . . . . . . .   9
    5.1.3.  Deployment Scenario . . . . . . . . . . . . . . . . . . .   9
    5.2.  VNF Performance Profile (VNF-PP)  . . . . . . . . . . . . .  10
    5.2.1.  Execution Environment . . . . . . . . . . . . . . . . . .  10
    5.2.2.  Measurement Results . . . . . . . . . . . . . . . . . . .  11
-   5.3.  Automated Benchmarking Procedures . . . . . . . . . . . . .  11
-   5.4.  Particular Cases  . . . . . . . . . . . . . . . . . . . . .  12
-   6.  VNF Benchmark Report  . . . . . . . . . . . . . . . . . . . .  13
-   7.  Open Source Reference Implementations . . . . . . . . . . . .  13
+   5.3.  Automated Benchmarking Procedures . . . . . . . . . . . . .  12
+   5.4.  Particular Cases  . . . . . . . . . . . . . . . . . . . . .  13
+   6.  VNF Benchmark Report  . . . . . . . . . . . . . . . . . . . .  14
+   7.  Open Source Reference Implementations . . . . . . . . . . . .  14
    7.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  14
    7.2.  tng-prf . . . . . . . . . . . . . . . . . . . . . . . . . .  15
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
    10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  16
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
-   11.1.  Normative References . . . . . . . . . . . . . . . . . . .  16
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+   11.1.  Normative References . . . . . . . . . . . . . . . . . . .  17
    11.2.  Informative References . . . . . . . . . . . . . . . . . .  17
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
 1.  Introduction
 
@@ -122,7 +122,7 @@ Internet-Draft                  VNFBench                       June 2018
    guide for VNF benchmarking automation.  It addresses the state-of-
    the-art publications and the current developments in similar
    standardization efforts (e.g., [ETS14c] and [RFC8204]) towards
-   bechmarking VNFs.
+   bechmarking of VNFs.
 
    Automating the extraction of VNF performance metrics propitiates: (i)
    agile performance-focused DevOps methodologies for Continuous
@@ -174,15 +174,23 @@ Internet-Draft                  VNFBench                       June 2018
       necessary resources and connectivity.
 
    VNF:  Virtualized Network Function - a software-based network
-      function.
+      function.  A VNF can be either represented by a single entity or
+      be composed by a set of smaller, interconnected software
+      components, called VNF components (VNFCs) [ETS14d].  Those VNFs
+      are also called composed VNFs.
 
    VNFD:  Virtualised Network Function Descriptor - configuration
       template that describes a VNF in terms of its deployment and
       operational behaviour, and is used in the process of VNF on-
       boarding and managing the life cycle of a VNF instance.
 
+   VNFC:  Virtualized Network Function Component - a software component
+      that implements (parts of) the VNF functionality.  A VNF can
+      consist of a single VNFC or multiple, interconnected VNFCs
+      [ETS14d]
+
    VNF-FG:  Virtualized Network Function Forwarding Graph - an ordered
-      list of VNFs creating a service chain.
+      list of VNFs or VNFCs creating a service chain.
 
 3.  Scope
 
@@ -211,6 +219,13 @@ Internet-Draft                  VNFBench                       June 2018
       multiple reports, for example, with minimal latency or maximum
       throughput results.
 
+
+
+Rosa, et al.            Expires December 13, 2018               [Page 4]
+
+Internet-Draft                  VNFBench                       June 2018
+
+
    Verification:  Both parameters and performance metrics are provided
       and a stimulus verify if the given association is correct or not.
 
@@ -218,13 +233,6 @@ Internet-Draft                  VNFBench                       June 2018
       corresponding parameters obtained.  Note, multiple deployment
       interactions may be required, or if possible, underlying allocated
       resources need to be dynamically altered.
-
-
-
-Rosa, et al.            Expires December 13, 2018               [Page 4]
-
-Internet-Draft                  VNFBench                       June 2018
-
 
    Note: Verification and Dimensioning can be reduced to Benchmarking.
    Therefore, we detail Benchmarking in what follows.
@@ -247,9 +255,11 @@ Internet-Draft                  VNFBench                       June 2018
              |        |   |    System Under Test    |         |
              |        |   |                         |         |
              |        |   |    +-----------------+  |         |
-             |     +--+------- +                 |  |         |
-             |     |           |       VNF       |  |         |
+             |     +--+------- +       VNF       |  |         |
              |     |           |                 |  |         |
+             |     |           | +----+   +----+ |  |         |
+             |     |           | |VNFC|...|VNFC| |  |         |
+             |     |           | +----+   +----+ |  |         |
              |     |           +----.---------.--+  |         |
        +-----+---+ |  Monitor  |    :         :     |   +-----+----+
        | Agent   | |{listeners}|----^---------V--+  |   |  Agent   |
@@ -265,6 +275,13 @@ Internet-Draft                  VNFBench                       June 2018
 
                  Figure 1: Generic VNF Benchmarking Setup
 
+
+
+Rosa, et al.            Expires December 13, 2018               [Page 5]
+
+Internet-Draft                  VNFBench                       June 2018
+
+
    Agent --  executes active stimulus using probers, benchmarking tools,
       to benchmark and collect network and system performance metrics.
       While a single Agent is capable of performing localized benchmarks
@@ -273,15 +290,7 @@ Internet-Draft                  VNFBench                       June 2018
       end-to-end metrics (e.g., frame loss rate, latency).  In a
       deployment scenario, one Agent can create the benchmark stimuli
       and the other end be the VNF itself where, for example, one-way
-      latency is evaluated.  A prober defines a software/hardware-based
-
-
-
-Rosa, et al.            Expires December 13, 2018               [Page 5]
-
-Internet-Draft                  VNFBench                       June 2018
-
-
+      latency is evaluated.  A Prober defines a software/hardware-based
       tool able to generate traffic specific to a VNF (e.g., sipp) or
       generic to multiple VNFs (e.g., pktgen).  An Agent can be defined
       by a physical or virtual network function.
@@ -291,34 +300,44 @@ Internet-Draft                  VNFBench                       June 2018
       environment) to perform passive monitoring, using listeners, for
       metrics collection based on benchmark tests evaluated according to
       Agents` stimuli.  Different from the active approach of Agents
-      that can be seen as generic benchmarking VNFs, monitor observes
+      that can be seen as generic benchmarking VNFs, Monitors observe
       particular properties according to NFVI PoPs and VNFs
       capabilities.  A listener defines one or more interfaces for the
       extraction of particular metrics monitored in a target VNF and/or
-      execution environment.  Logically, a Monitor is defined by as a
+      execution environment.  Logically, a Monitor is defined as a
       virtual network function.
 
-   Manager --  in a VNF benchmarking deployment scenario, is responsible
-      for (i) the coordination and synchronization of activities of
-      Agents and Monitors, (ii) collecting and parsing all VNF
-      benchmarking results, and (iii) aggregating the inputs and parsed
-      benchmark outputs to construct a VNF performance profile, report
-      that correlates the VNF stimuli and the monitored metrics.  A
-      Manager executes the main configuration, operation and management
-      actions to deliver the VNF benchmarking results.  A Manager can be
-      defined by a physical or virtual network function.
+   Manager --  in a VNF benchmarking deployment scenario, a Manager is
+      responsible for (i) the coordination and synchronization of
+      activities of Agents and Monitors, (ii) collecting and parsing all
+      VNF benchmarking results, and (iii) aggregating the inputs and
+      parsed benchmark outputs to construct a VNF performance profile,
+      which is a report that correlates the VNF stimuli and the
+      monitored metrics.  A Manager executes the main configuration,
+      operation, and management actions to deliver the VNF benchmarking
+      results.  A Manager can be defined by a physical or virtual
+      network function an be split into multiple sub-components
+      separating functional aspects of the overall Manager component.
 
    Virtualized Network Function (VNF) --  consists of one or more
-      software components adequate for performing a network function
-      according to allocated virtual resources and satisfied
-      requirements in an execution environment.  A VNF can demand
-      particular configurations for benchmarking specifications,
-      demonstrating variable performance profiles based on available
-      virtual resources/parameters and configured enhancements targeting
-      specific technologies.
+      software components, so called VNF components (VNFC), adequate for
+      performing a network function according to allocated virtual
+      resources and satisfied requirements in an execution environment.
+      A VNF can demand particular configurations for benchmarking
+      specifications, demonstrating variable performance profiles based
+      on available virtual resources/parameters and configured
+      enhancements targeting specific technologies.
 
    Execution Environment --  defines a virtualized and controlled
       composition of capabilities necessary for the execution of a VNF.
+
+
+
+Rosa, et al.            Expires December 13, 2018               [Page 6]
+
+Internet-Draft                  VNFBench                       June 2018
+
+
       An execution environment stands as a general purpose level of
       virtualization with abstracted resources available for one or more
       VNFs.  It can also define specific technology habilitation,
@@ -330,13 +349,6 @@ Internet-Draft                  VNFBench                       June 2018
    A VNF benchmark deployment scenario establishes the physical and/or
    virtual instantiation of components defined in a VNF benchmarking
    setup.
-
-
-
-Rosa, et al.            Expires December 13, 2018               [Page 6]
-
-Internet-Draft                  VNFBench                       June 2018
-
 
    Based on a generic VNF benchmarking setup, the following
    considerations hold for deployment scenarios:
@@ -374,6 +386,14 @@ Internet-Draft                  VNFBench                       June 2018
 
    Execution Environment:  The availability of generic and specific
       capabilities satisfying VNF requirements define a skeleton of
+
+
+
+Rosa, et al.            Expires December 13, 2018               [Page 7]
+
+Internet-Draft                  VNFBench                       June 2018
+
+
       opportunities for the allocation of VNF resources.  In addition,
       particular cases can define multiple VNFs interacting in the same
       execution environment of a benchmarking setup.
@@ -386,14 +406,6 @@ Internet-Draft                  VNFBench                       June 2018
 
    Agent:  The toolset available for benchmarking stimulus for a VNF and
       its characteristics of packets format, disposition, and workload
-
-
-
-Rosa, et al.            Expires December 13, 2018               [Page 7]
-
-Internet-Draft                  VNFBench                       June 2018
-
-
       can interfere in a benchmarking setup.  VNFs can support specific
       traffic format as stimulus.
 
@@ -429,19 +441,7 @@ Internet-Draft                  VNFBench                       June 2018
    The content of each part of a VNF-BR is described in the following
    sections.
 
-5.1.  VNF Benchmarking Descriptor (VNF-BD)
 
-   "VNF Benchmarking Descriptor (VNF-BD) --"> a setup that specifies a
-   method of how to measure a VNF Performance Profile.  The
-   specification includes structural and functional instructions, and
-   variable parameters at different abstractions (e.g., topology of the
-   deployment scenario, benchmarking target metrics, parameters of
-   benchmarking components).  VNF-BD may be specific to a VNF or
-   applicable to several VNF types.  A VNF-BD can be used to elaborate a
-   VNF benchmark deployment scenario aiming the extraction of particular
-   VNF performance metrics.
-
-   The following items define the VNF-BD contents.
 
 
 
@@ -449,6 +449,20 @@ Rosa, et al.            Expires December 13, 2018               [Page 8]
 
 Internet-Draft                  VNFBench                       June 2018
 
+
+5.1.  VNF Benchmarking Descriptor (VNF-BD)
+
+   VNF Benchmarking Descriptor (VNF-BD) -- an artifact that specifies a
+   method of how to measure a VNF Performance Profile.  The
+   specification includes structural and functional instructions, and
+   variable parameters at different abstractions (e.g., topology of the
+   deployment scenario, benchmarking target metrics, parameters of
+   benchmarking components).  VNF-BD may be specific to a VNF or
+   applicable to several VNF types.  A VNF-BD can be used to elaborate a
+   VNF benchmark deployment scenario aiming on the extraction of
+   particular VNF performance metrics.
+
+   The following items define the VNF-BD contents.
 
 5.1.1.  Procedures Configuration
 
@@ -464,6 +478,10 @@ Internet-Draft                  VNFBench                       June 2018
    metrics to be extracted when running the benchmarking tests.
 
 5.1.3.  Deployment Scenario
+
+   This section of a VNF-BD contains all information needed to describe
+   the deployment of all involved components used during the
+   benchmarking test.
 
 5.1.3.1.  Topology
 
@@ -481,6 +499,13 @@ Internet-Draft                  VNFBench                       June 2018
    involve: min/max allocation of resources, specific enabling
    technologies (e.g., DPDK, SR-IOV, PCIE).
 
+
+
+Rosa, et al.            Expires December 13, 2018               [Page 9]
+
+Internet-Draft                  VNFBench                       June 2018
+
+
 5.1.3.3.  Parameters
 
    Involves any specific configuration of benchmarking components in a
@@ -488,7 +513,10 @@ Internet-Draft                  VNFBench                       June 2018
 
    VNF:   Defines any specific configuration that must be loaded into
       the VNF for the benchmarking experiments (e.g., routing table,
-      firewall rules, vIMS subscribers profile).
+      firewall rules, vIMS subscribers profile).  It may also contain
+      particular VNF resource configurations that should be tested
+      during the benchmarking process, e.g., test the VNF for
+      configurations with 2, 4, and 8 vCPUs associated.
 
    Agents:   Defines the configured toolset of available probers and
       related benchmarking/active metrics, available workloads, traffic
@@ -498,62 +526,34 @@ Internet-Draft                  VNFBench                       June 2018
    Monitors:   defines the configured toolset of available listeners and
       related monitoring/passive metrics, configuration of the
       interfaces with the monitoring target (VNF and/or execution
-
-
-
-Rosa, et al.            Expires December 13, 2018               [Page 9]
-
-Internet-Draft                  VNFBench                       June 2018
-
-
       environment), and configurations to enable hardware capabilities
       (if existent).
 
 5.2.  VNF Performance Profile (VNF-PP)
 
-   "VNF Performance Profile: (VNF-PP) --"> defines a mapping between VNF
-   allocated capabilities (e.g., cpu, memory) and the VNF performance
-   metrics (e.g., throughput, latency between in/out ports) obtained in
-   a benchmarking test elaborated based on a VNF-BD.  Logically, packet
-   processing metrics are presented in a specific format addressing
-   statistical significance where a correspondence among VNF parameters
-   and the delivery of a measured/qualified VNF performance exists.
+   VNF Performance Profile (VNF-PP) -- defines a mapping between VNF
+   allocated resources and assigned configurations (e.g., CPU, memory)
+   and the VNF performance metrics (e.g., throughput, latency between
+   in/out ports) obtained in a benchmarking test conducted using a VNF-
+   BD.  Logically, packet processing metrics are presented in a specific
+   format addressing statistical significance where a correspondence
+   among VNF parameters and the delivery of a measured/qualified VNF
+   performance exists.
 
    The following items define the VNF-PP contents.
 
 5.2.1.  Execution Environment
 
-   Fulfilling the deployment scenario requirements specified in the VNF-
-   BD, concerns the descriptions of each element deployed in an actual
-   benchmarking deployment scenario exercised to generate a VNF-PP.
+   Execution environment information is has to be included in every VNF-
+   PP and is required to describe the environment on which a benchmark
+   was actually executed.
 
-   Ideally, any person in possession of such annotations, (VNF-BD and
-   VNF-PP execution environment) and all the necessary/associated
-   skeleton of hardware and software components, should be able to
-   reproduce the same deployment scenario and VNF benchmarking tests to
-   obtain comparable/similar VNF-PP measurement results.
-
-   If not fixed by the VNF-DB execution environment requirements, for
-   each component in the VNF benchmarking setup, the following topics
-   must be detailed:
-
-   Hardware Specs:   Contains any information associated with the
-      underlying hardware capabilities offered and used by the component
-      during the benchmarking tests.  Examples of such specification
-      include allocated CPU architecture, connected NIC specs, allocated
-      memory DIMM, etc.  In addition any information concerning details
-      of resource isolation must also be described as a specification.
-
-   Software Specs:   Contains any information associated with the
-      software apparatus offered and used by the component during the
-      benchmarking tests.  Examples include versions of Operating
-      System, Kernel and hypervisor, container image versions, etc.
-
-   Optionally, a VNF-PP execution environment would contain references
-   to an orchestration description document (e.g., HEAT template) to
-   clarify technological aspects of the execution environment and any
-   specific parameters that it might contain for the VNF-PP.
-
+   Ideally, any person who has a VNF-BD and its complementing VNF-PP
+   with its execution environment information available, should be able
+   to reproduce the same deployment scenario and VNF benchmarking tests
+   to obtain comparable/similar VNF-PP measurement results.  Assuming
+   all the necessary/associated hardware and software components are
+   available to that person.
 
 
 
@@ -561,6 +561,28 @@ Rosa, et al.            Expires December 13, 2018              [Page 10]
 
 Internet-Draft                  VNFBench                       June 2018
 
+
+   If not already defined by the VNF-BD deployment scenario requirements
+   (Section 5.1.3), for each component in the VNF benchmarking setup,
+   the following topics must be detailed:
+
+   Hardware Specs:   Contains any information associated with the
+      underlying hardware capabilities offered and used by the component
+      during the benchmarking tests.  Examples of such specification
+      include allocated CPU architecture, connected NIC specs, allocated
+      memory DIMM, etc.  In addition, any information concerning details
+      of resource isolation must also be described in this part of the
+      VNF-PP.
+
+   Software Specs:   Contains any information associated with the
+      software apparatus offered and used during the benchmarking tests.
+      Examples include versions of operating systems, kernels,
+      hypervisors, container image versions, etc.
+
+   Optionally, a VNF-PP execution environment would contain references
+   to an orchestration description document (e.g., HEAT template) to
+   clarify technological aspects of the execution environment and any
+   specific parameters that it might contain for the VNF-PP.
 
 5.2.2.  Measurement Results
 
@@ -577,6 +599,27 @@ Internet-Draft                  VNFBench                       June 2018
       VNF execution, classified according to the virtualization level
       (e.g., baremetal, VM, container) and technology domain (e.g.,
       related to CPU, memory, disk) from where they were obtained.
+
+   Depending on the configuration of the benchmarking setup and the
+   planned use cases for the resulting VNF-PPs, measurement results can
+   be stored as raw data, e.g., time series data about CPU utilization
+   of the VNF during a throughput benchmark.  In the case of composed
+   VNFs that consist of multiple VNFCs, those resulting data should be
+   represented as vectors, capturing the behavior of each VNFC, if it
+   was made available by the used monitoring systems.  Alternatively,
+   more compact representation formats can be used, e.g., statistical
+   information about a series of latency measurements, including
+
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 11]
+
+Internet-Draft                  VNFBench                       June 2018
+
+
+   averages and standard deviations.  The exact output format to be used
+   is defined in the complementing VNF-BD (Section 5.1).
 
 5.3.  Automated Benchmarking Procedures
 
@@ -611,13 +654,6 @@ Internet-Draft                  VNFBench                       June 2018
    Trial:   Consists in a single process or iteration to obtain VNF
       benchmarking metrics as a singular measurement.
 
-
-
-Rosa, et al.            Expires December 13, 2018              [Page 11]
-
-Internet-Draft                  VNFBench                       June 2018
-
-
    Test:   Defines strict parameters for benchmarking components perform
       one or more trials.
 
@@ -628,6 +664,15 @@ Internet-Draft                  VNFBench                       June 2018
 
    The following sequence of events compose basic general procedures
    that must be performed for the execution of a VNF benchmarking test.
+
+
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 12]
+
+Internet-Draft                  VNFBench                       June 2018
+
 
    1.   The sketch of a VNF benchmarking setup must be defined to later
       be translated into a deployment scenario.  Such sketch must
@@ -665,15 +710,6 @@ Internet-Draft                  VNFBench                       June 2018
       type, frequency, virtualization level, among others, must be
       detailed in the VNF-BD.
 
-
-
-
-
-Rosa, et al.            Expires December 13, 2018              [Page 12]
-
-Internet-Draft                  VNFBench                       June 2018
-
-
    Representative Capacity:   An average value of workload must be
       specified as an Agent stimulus.  Considering a long-term analysis,
       the VNF must be configured to properly address a desired average
@@ -686,6 +722,13 @@ Internet-Draft                  VNFBench                       June 2018
       with elasticity, such as load balancing.  In this terms, a
       detailed characterization of a VNF must be specified and be
       contained in the VNF-PP and benchmarking report.
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 13]
+
+Internet-Draft                  VNFBench                       June 2018
+
 
    On Failures:   Similarly to the case before, benchmarking setups of
       VNF must also capture the dynamics involved in the VNF behavior.
@@ -719,17 +762,6 @@ Internet-Draft                  VNFBench                       June 2018
    There are two open source reference implementations that are build to
    automate benchmarking of Virtualized Network Functions (VNFs).
 
-
-
-
-
-
-
-Rosa, et al.            Expires December 13, 2018              [Page 13]
-
-Internet-Draft                  VNFBench                       June 2018
-
-
 7.1.  Gym
 
    The software, named Gym, is a framework for automated benchmarking of
@@ -746,6 +778,13 @@ Internet-Draft                  VNFBench                       June 2018
    original research ideas [Rosa-a], such output profiles might be used
    by orchestrator functions to perform VNF lifecycle tasks (e.g.,
    deployment, maintenance, tear-down).
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 14]
+
+Internet-Draft                  VNFBench                       June 2018
+
 
    The proposed guiding principles, elaborated in [Rosa-b], to design
    and build Gym can be compounded in multiple practical ways for
@@ -777,15 +816,6 @@ Internet-Draft                  VNFBench                       June 2018
    Gym stands as one open source reference implementation that realizes
    the VNF benchmarking methodologies presented in this document.  Gym
    is being released open source at [Gym].  The code repository includes
-
-
-
-
-Rosa, et al.            Expires December 13, 2018              [Page 14]
-
-Internet-Draft                  VNFBench                       June 2018
-
-
    also VNF Benchmarking Descriptor (VNF-BD) examples on the vIMS and
    OVS targets as described in [Rosa-b] and [Rosa-c].
 
@@ -804,6 +834,14 @@ Internet-Draft                  VNFBench                       June 2018
    human interaction.  This enables the integration of VNF benchmarking
    into continuous integration and continuous delivery (CI/CD) pipelines
    so that new VNF-PPs are generated on-the-fly for every new software
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 15]
+
+Internet-Draft                  VNFBench                       June 2018
+
+
    version of a VNF.  Those automatically generated VNF-PPs can then be
    bundled with the VNFs and serve as inputs for orchestration systems,
    fitting to the original research ideas presented in [Rosa-a] and
@@ -826,21 +864,14 @@ Internet-Draft                  VNFBench                       June 2018
    benchmarked in isolation, but also in combined setups in which up to
    three VNFs were chained one after each other.  These experiments were
    used to test tng-prf for scenarios in which composed VNFs, consisting
-   of multiple virtual deployment units (VDUs), have to be benchmarked.
-   The presented results highlight the need to benchmark composed VNFs
-   in end-to-end scenarios rather than only benchmark each individual
+   of multiple VNF components (VNFCs), have to be benchmarked.  The
+   presented results highlight the need to benchmark composed VNFs in
+   end-to-end scenarios rather than only benchmark each individual
    component in isolation, to produce meaningful VNF-PPs for the
    complete VNF.
 
    Tng-prf is actively developed and released as open source tool under
    Apache 2.0 license [tng-prf].
-
-
-
-Rosa, et al.            Expires December 13, 2018              [Page 15]
-
-Internet-Draft                  VNFBench                       June 2018
-
 
 8.  Security Considerations
 
@@ -856,6 +887,16 @@ Internet-Draft                  VNFBench                       June 2018
    Brazil.  Parts of this work have received funding from the European
    Union's Horizon 2020 research and innovation programme under grant
    agreement No.  H2020-ICT-2016-2 761493 (5GTANGO: https://5gtango.eu).
+
+
+
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 16]
+
+Internet-Draft                  VNFBench                       June 2018
+
 
 11.  References
 
@@ -875,6 +916,13 @@ Internet-Draft                  VNFBench                       June 2018
               <http://docbox.etsi.org/ISG/NFV/Open/DRAFTS/TST001_-_Pre-
               deployment_Validation/NFV-TST001v0015.zip>.
 
+   [ETS14d]   ETSI, "Network Functions Virtualisation (NFV); Virtual
+              Network Functions Architecture - ETSI GS NFV SWA001
+              V1.1.1", December 2014,
+              <https://docbox.etsi.org/ISG/NFV/Open/Publications_pdf/
+              Specs-Reports/NFV-SWA%20001v1.1.1%20-%20GS%20-%20Virtual%2
+              0Network%20Function%20Architecture.pdf>.
+
    [RFC1242]  S. Bradner, "Benchmarking Terminology for Network
               Interconnection Devices", July 1991,
               <https://www.rfc-editor.org/info/rfc1242>.
@@ -887,17 +935,6 @@ Internet-Draft                  VNFBench                       June 2018
               Switches in the Open Platform for NFV (OPNFV)", September
               2017, <https://www.rfc-editor.org/info/rfc8204>.
 
-
-
-
-
-
-
-Rosa, et al.            Expires December 13, 2018              [Page 16]
-
-Internet-Draft                  VNFBench                       June 2018
-
-
 11.2.  Informative References
 
    [Gym]      "Gym Home Page", <https://github.com/intrig-unicamp/gym>.
@@ -907,6 +944,15 @@ Internet-Draft                  VNFBench                       June 2018
               Fifth European Workshop on Software Defined Networks
               (EWSDN) , 2016,
               <http://ieeexplore.ieee.org/document/7956044/>.
+
+
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 17]
+
+Internet-Draft                  VNFBench                       June 2018
+
 
    [Peu-b]    M. Peuster, H. Karl, "Profile Your Chains, Not Functions:
               Automated Network Service Profiling in DevOps
@@ -940,20 +986,6 @@ Internet-Draft                  VNFBench                       June 2018
 
 Authors' Addresses
 
-
-
-
-
-
-
-
-
-
-Rosa, et al.            Expires December 13, 2018              [Page 17]
-
-Internet-Draft                  VNFBench                       June 2018
-
-
    Raphael Vicente Rosa (editor)
    University of Campinas
    Av. Albert Einstein, 400
@@ -962,6 +994,20 @@ Internet-Draft                  VNFBench                       June 2018
 
    Email: rvrosa@dca.fee.unicamp.br
    URI:   https://intrig.dca.fee.unicamp.br/raphaelvrosa/
+
+
+
+
+
+
+
+
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 18]
+
+Internet-Draft                  VNFBench                       June 2018
 
 
    Christian Esteve Rothenberg
@@ -1005,4 +1051,14 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018              [Page 18]
+
+
+
+
+
+
+
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 19]
