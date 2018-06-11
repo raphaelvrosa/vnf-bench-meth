@@ -844,6 +844,36 @@
       </front>
     </reference>
 
+    <reference anchor="Peu-a" target="http://ieeexplore.ieee.org/document/7956044/">
+      <front>
+        <title>Understand Your Chains: Towards Performance Profile-based Network Service Management</title>
+          <author>
+            <organization>M. Peuster, H. Karl</organization>
+          </author>
+          <date year="2016" />
+      </front>
+      <seriesInfo name="Fifth European Workshop on Software Defined Networks (EWSDN)" value="" />
+    </reference>
+
+    <reference anchor="Peu-b" target="http://ieeexplore.ieee.org/document/8169826/">
+      <front>
+        <title>Profile Your Chains, Not Functions: Automated Network Service Profiling in DevOps Environments</title>
+          <author>
+            <organization>M. Peuster, H. Karl</organization>
+          </author>
+          <date year="2017" />
+      </front>
+      <seriesInfo name="IEEE Conference on Network Function Virtualization and Software Defined Networks (NFV-SDN)" value="" />
+    </reference>
+
+    <reference anchor="tng-prf" target="https://github.com/sonata-nfv/tng-sdk-profile">
+      <front>
+        <title>5GTANGO Profiler Page</title>
+        <author/>
+        <date/>
+      </front>
+    </reference>
+
   </references>
 
 </back>
