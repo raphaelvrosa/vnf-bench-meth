@@ -41,17 +41,31 @@
     	</address>
     </author>
 
-    <author fullname="Manuel Peuster" initials="M. P." surname="Peuster">
-      <organization abbrev="UPB">University Paderborn</organization>
+     <author fullname="Manuel Peuster" initials="M. P." surname="Peuster">
+      <organization abbrev="UPB">Paderborn University</organization>
       <address>
+  		<postal>
+  			<street>Warburgerstr. 100</street>
+  			<city>Paderborn</city>
+  			<code>33098</code>
+  			<country>Germany</country>
+  		</postal>
     	<email>manuel.peuster@upb.de</email>
+    	<uri>http://go.upb.de/peuster</uri>
     	</address>
     </author>
 
     <author fullname="Holger Karl" initials="H. K." surname="Karl">
-      <organization abbrev="UPB">University Paderborn</organization>
+      <organization abbrev="UPB">Paderborn University</organization>
       <address>
+  		<postal>
+  			<street>Warburgerstr. 100</street>
+  			<city>Paderborn</city>
+  			<code>33098</code>
+  			<country>Germany</country>
+  		</postal>
     	<email>holger.karl@upb.de</email>
+    	<uri>https://cs.uni-paderborn.de/cn/</uri>
     	</address>
     </author>
 

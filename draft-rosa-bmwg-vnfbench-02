@@ -5,10 +5,10 @@
 BMWG                                                        R. Rosa, Ed.
 Internet-Draft                                             C. Rothenberg
 Intended status: Informational                                   UNICAMP
-Expires: December 1, 2018                                     M. Peuster
+Expires: December 13, 2018                                    M. Peuster
                                                                  H. Karl
                                                                      UPB
-                                                            May 30, 2018
+                                                           June 11, 2018
 
 
               Methodology for VNF Benchmarking Automation
@@ -31,14 +31,14 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 1, 2018.
+   This Internet-Draft will expire on December 13, 2018.
 
 Copyright Notice
 
@@ -47,15 +47,15 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (http://trustee.ietf.org/license-info) in effect on the date of
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
 
 
 
-Rosa, et al.            Expires December 1, 2018                [Page 1]
+Rosa, et al.            Expires December 13, 2018               [Page 1]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
    to this document.  Code Components extracted from this document must
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Rosa, et al.            Expires December 1, 2018                [Page 2]
+Rosa, et al.            Expires December 13, 2018               [Page 2]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
    parameters [ETS14a], intrinsic considerations for analysis when
@@ -165,9 +165,9 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018                [Page 3]
+Rosa, et al.            Expires December 13, 2018               [Page 3]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
    VNF:  Virtualized Network Function - a software-based network
@@ -221,9 +221,9 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018                [Page 4]
+Rosa, et al.            Expires December 13, 2018               [Page 4]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
 4.2.  Generic VNF Benchmarking Setup
@@ -277,9 +277,9 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018                [Page 5]
+Rosa, et al.            Expires December 13, 2018               [Page 5]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
    Monitor --  when possible, it is instantiated inside the target VNF
@@ -297,7 +297,7 @@ Internet-Draft                  VNFBench                        May 2018
    Manager --  in a VNF benchmarking deployment scenario, is responsible
       for (i) the coordination and synchronization of activities of
       Agents and Monitors, (ii) collecting and parsing all VNF
-      benchmarking results, and (iii) aggregating the inputs and parset
+      benchmarking results, and (iii) aggregating the inputs and parsed
       benchmark outputs to construct a VNF performance profile, report
       that correlates the VNF stimuli and the monitored metrics.  A
       Manager executes the main configuration, operation and management
@@ -310,14 +310,14 @@ Internet-Draft                  VNFBench                        May 2018
       requirements in an execution environment.  A VNF can demand
       particular configurations for benchmarking specifications,
       demonstrating variable performance profiles based on available
-      virtual resources/parameters and configured enhancements
-      targeting specific technologies.
+      virtual resources/parameters and configured enhancements targeting
+      specific technologies.
 
    Execution Environment --  defines a virtualized and controlled
       composition of capabilities necessary for the execution of a VNF.
       An execution environment stands as a general purpose level of
       virtualization with abstracted resources available for one or more
-      VNFs.  It can also define specific technology abilitation,
+      VNFs.  It can also define specific technology habilitation,
       incurring in viable settings for enhancing VNF performance
       profiles.
 
@@ -333,15 +333,15 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018                [Page 6]
+Rosa, et al.            Expires December 13, 2018               [Page 6]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
    o  Components can be composed in a single entity and defined as black
       or white boxes.  For instance, Manager and Agents could jointly
-      define a software entity to perform a VNF benchmark and present
-      results.
+      define one hardware/software entity to perform a VNF benchmark and
+      present results.
 
    o  Monitor is not a mandatory component and must be considered only
       when performed white box benchmarking approaches for a VNF and/or
@@ -389,9 +389,9 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018                [Page 7]
+Rosa, et al.            Expires December 13, 2018               [Page 7]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
    Monitor:  In a particular benchmarking setup where measurements of
@@ -416,12 +416,12 @@ Internet-Draft                  VNFBench                        May 2018
    VNF Benchmarking reports are comprised of two parts:
 
    VNF Benchmarking Descriptor (VNF-BD) --   contains all required
-      definitions to configure, execute and reproduce VNF benchmarking
-      experiments.
+      definitions and requirements to configure, execute and reproduce
+      VNF benchmarking experiments.
 
    VNF Performance Profile (VNF-PP) --   contains additional parameters
       concerning a benchmarking deployment scenario and measured metrics
-      resulting from its execution.
+      resulting from its execution, facilitating comparability.
 
    The content of each part of a VNF-BR is described in the following
    sections.
@@ -445,9 +445,9 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018                [Page 8]
+Rosa, et al.            Expires December 13, 2018               [Page 8]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
 5.1.1.  Procedures Configuration
@@ -474,16 +474,16 @@ Internet-Draft                  VNFBench                        May 2018
 
 5.1.3.2.  Requirements
 
-   Concerns the definition of execution environment requirements to
+   Involves the definition of execution environment requirements to
    execute the tests.  Therefore, they concern all required capabilities
    needed for the execution of the target VNF and the other components
    composing the benchmarking setup.  Examples of specifications
-   involve: min/max allocation of resources, specific technologies
-   (e.g., DPDK, SR-IOV, PCIE).
+   involve: min/max allocation of resources, specific enabling
+   technologies (e.g., DPDK, SR-IOV, PCIE).
 
 5.1.3.3.  Parameters
 
-   Involve any specific configuration of benchmarking components in a
+   Involves any specific configuration of benchmarking components in a
    setup described the the deployment scenario topology.
 
    VNF:   Defines any specific configuration that must be loaded into
@@ -501,9 +501,9 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018                [Page 9]
+Rosa, et al.            Expires December 13, 2018               [Page 9]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
       environment), and configurations to enable hardware capabilities
@@ -547,7 +547,7 @@ Internet-Draft                  VNFBench                        May 2018
    Software Specs:   Contains any information associated with the
       software apparatus offered and used by the component during the
       benchmarking tests.  Examples include versions of Operating
-      System, Kernel and hypervisor, container image versions.
+      System, Kernel and hypervisor, container image versions, etc.
 
    Optionally, a VNF-PP execution environment would contain references
    to an orchestration description document (e.g., HEAT template) to
@@ -557,9 +557,9 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018               [Page 10]
+Rosa, et al.            Expires December 13, 2018              [Page 10]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
 5.2.2.  Measurement Results
@@ -613,9 +613,9 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018               [Page 11]
+Rosa, et al.            Expires December 13, 2018              [Page 11]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
    Test:   Defines strict parameters for benchmarking components perform
@@ -669,9 +669,9 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018               [Page 12]
+Rosa, et al.            Expires December 13, 2018              [Page 12]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
    Representative Capacity:   An average value of workload must be
@@ -725,9 +725,9 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018               [Page 13]
+Rosa, et al.            Expires December 13, 2018              [Page 13]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
    Gym was built to receive high-level test descriptors and execute them
@@ -781,9 +781,9 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018               [Page 14]
+Rosa, et al.            Expires December 13, 2018              [Page 14]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
 9.  IANA Considerations
@@ -814,8 +814,8 @@ Internet-Draft                  VNFBench                        May 2018
               deployment_Validation/NFV-TST001v0015.zip>.
 
    [RFC1242]  S. Bradner, "Benchmarking Terminology for Network
-              Interconnection Devices", July 1991, <https://www.rfc-
-              editor.org/info/rfc1242>.
+              Interconnection Devices", July 1991,
+              <https://www.rfc-editor.org/info/rfc1242>.
 
    [RFC8172]  A. Morton, "Considerations for Benchmarking Virtual
               Network Functions and Their Infrastructure", July 2017,
@@ -837,9 +837,9 @@ Internet-Draft                  VNFBench                        May 2018
 
 
 
-Rosa, et al.            Expires December 1, 2018               [Page 15]
+Rosa, et al.            Expires December 13, 2018              [Page 15]
 
-Internet-Draft                  VNFBench                        May 2018
+Internet-Draft                  VNFBench                       June 2018
 
 
    [Rosa-b]   R. Rosa, C. Bertoldo, C. Rothenberg, "Take your VNF to the
@@ -877,15 +877,35 @@ Authors' Addresses
 
 
    Manuel Peuster
-   University Paderborn
+   Paderborn University
+   Warburgerstr. 100
+   Paderborn  33098
+   Germany
 
    Email: manuel.peuster@upb.de
+   URI:   http://go.upb.de/peuster
+
+
+
+
+
+
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 16]
+
+Internet-Draft                  VNFBench                       June 2018
 
 
    Holger Karl
-   University Paderborn
+   Paderborn University
+   Warburgerstr. 100
+   Paderborn  33098
+   Germany
 
    Email: holger.karl@upb.de
+   URI:   https://cs.uni-paderborn.de/cn/
 
 
 
@@ -893,4 +913,40 @@ Authors' Addresses
 
 
 
-Rosa, et al.            Expires December 1, 2018               [Page 16]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Rosa, et al.            Expires December 13, 2018              [Page 17]
