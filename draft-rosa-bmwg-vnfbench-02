@@ -5,10 +5,10 @@
 BMWG                                                        R. Rosa, Ed.
 Internet-Draft                                             C. Rothenberg
 Intended status: Informational                                   UNICAMP
-Expires: December 13, 2018                                    M. Peuster
+Expires: December 14, 2018                                    M. Peuster
                                                                  H. Karl
                                                                      UPB
-                                                           June 11, 2018
+                                                           June 12, 2018
 
 
               Methodology for VNF Benchmarking Automation
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 13, 2018.
+   This Internet-Draft will expire on December 14, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Rosa, et al.            Expires December 13, 2018               [Page 1]
+Rosa, et al.            Expires December 14, 2018               [Page 1]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -74,26 +74,26 @@ Table of Contents
    4.3.  Deployment Scenarios  . . . . . . . . . . . . . . . . . . .   7
    4.4.  Influencing Aspects . . . . . . . . . . . . . . . . . . . .   7
    5.  Methodology . . . . . . . . . . . . . . . . . . . . . . . . .   8
-   5.1.  VNF Benchmarking Descriptor (VNF-BD)  . . . . . . . . . . .   9
-   5.1.1.  Procedures Configuration  . . . . . . . . . . . . . . . .   9
-   5.1.2.  Target Information  . . . . . . . . . . . . . . . . . . .   9
-   5.1.3.  Deployment Scenario . . . . . . . . . . . . . . . . . . .   9
-   5.2.  VNF Performance Profile (VNF-PP)  . . . . . . . . . . . . .  10
-   5.2.1.  Execution Environment . . . . . . . . . . . . . . . . . .  10
-   5.2.2.  Measurement Results . . . . . . . . . . . . . . . . . . .  11
-   5.3.  Automated Benchmarking Procedures . . . . . . . . . . . . .  12
-   5.4.  Particular Cases  . . . . . . . . . . . . . . . . . . . . .  13
-   6.  VNF Benchmark Report  . . . . . . . . . . . . . . . . . . . .  14
-   7.  Open Source Reference Implementations . . . . . . . . . . . .  14
-   7.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  14
-   7.2.  tng-bench . . . . . . . . . . . . . . . . . . . . . . . . .  15
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
-   10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  17
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
-   11.1.  Normative References . . . . . . . . . . . . . . . . . . .  17
-   11.2.  Informative References . . . . . . . . . . . . . . . . . .  18
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+   5.1.  VNF Benchmarking Descriptor (VNF-BD)  . . . . . . . . . . .  10
+   5.1.1.  Procedures Configuration  . . . . . . . . . . . . . . . .  10
+   5.1.2.  Target Information  . . . . . . . . . . . . . . . . . . .  10
+   5.1.3.  Deployment Scenario . . . . . . . . . . . . . . . . . . .  10
+   5.2.  VNF Performance Profile (VNF-PP)  . . . . . . . . . . . . .  11
+   5.2.1.  Execution Environment . . . . . . . . . . . . . . . . . .  11
+   5.2.2.  Measurement Results . . . . . . . . . . . . . . . . . . .  12
+   5.3.  Automated Benchmarking Procedures . . . . . . . . . . . . .  13
+   5.4.  Particular Cases  . . . . . . . . . . . . . . . . . . . . .  14
+   5.5.  VNF Benchmarking Outputs  . . . . . . . . . . . . . . . . .  15
+   6.  Open Source Reference Implementations . . . . . . . . . . . .  15
+   6.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  15
+   6.2.  tng-bench . . . . . . . . . . . . . . . . . . . . . . . . .  16
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
+   9.  Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  18
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   10.1.  Normative References . . . . . . . . . . . . . . . . . . .  18
+   10.2.  Informative References . . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Rosa, et al.            Expires December 13, 2018               [Page 2]
+Rosa, et al.            Expires December 14, 2018               [Page 2]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -165,7 +165,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018               [Page 3]
+Rosa, et al.            Expires December 14, 2018               [Page 3]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -221,7 +221,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018               [Page 4]
+Rosa, et al.            Expires December 14, 2018               [Page 4]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -277,7 +277,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018               [Page 5]
+Rosa, et al.            Expires December 14, 2018               [Page 5]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -333,7 +333,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018               [Page 6]
+Rosa, et al.            Expires December 14, 2018               [Page 6]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -389,7 +389,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018               [Page 7]
+Rosa, et al.            Expires December 14, 2018               [Page 7]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -421,22 +421,76 @@ Internet-Draft                  VNFBench                       June 2018
 
 5.  Methodology
 
-   Portability as a intrinsic characteristic of VNFs, allow them to be
-   deployed in multiple environments, enabling, even parallel,
+   Portability as a intrinsic characteristic of VNFs and allows them to
+   be deployed in multiple environments, enabling, even parallel,
    benchmarking procedures in varied deployment scenarios.  A VNF
    benchmarking methodology must be described in a clear and objective
    manner in order to allow effective repeatability and comparability of
-   the test results defined by a VNF Benchmarking Report (VNF-BR).
+   the test results.  Those results, the outcome of a VNF benchmarking
+   process, are captured in a VNF Benchmarking Report (VNF-BR) as shown
+   in Figure 2.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Rosa, et al.            Expires December 14, 2018               [Page 8]
+
+Internet-Draft                  VNFBench                       June 2018
+
+
+                                             X
+                                            / \
+                                           /   \
+                                          /     \
+               +--------+                /       \
+               |        |               /         \
+               | VNF-BD |--(defines)-->| Benchmark |
+               |        |               \ Process /
+               +--------+                \       /
+                                          \     /
+                                           \   /
+                                            \ /
+                                             V
+                                             |
+                                        (generates)
+                                             |
+                                             v
+                                +-------------------------+
+                                |         VNF-BR          |
+                                | +--------+   +--------+ |
+                                | |        |   |        | |
+                                | | VNF-BD |   | VNF-PP | |
+                                | | {copy} |   |        | |
+                                | +--------+   +--------+ |
+                                +-------------------------+
+
+           Figure 2: VNF benchmarking process inputs and outputs
 
    VNF Benchmarking reports are comprised of two parts:
 
    VNF Benchmarking Descriptor (VNF-BD) --   contains all required
       definitions and requirements to configure, execute and reproduce
-      VNF benchmarking experiments.
+      VNF benchmarking experiments.  VNF-BDs are defined by the
+      developer of an benchmarking experiment and serve as input to the
+      benchmarking process, before being included in the generated VNF-
+      BR.
 
    VNF Performance Profile (VNF-PP) --   contains additional parameters
-      concerning a benchmarking deployment scenario and measured metrics
-      resulting from its execution, facilitating comparability.
+      concerning a benchmarking deployment scenario to facilitate
+      comparability of VNF-BRs and it contains all measured metrics
+      resulting from the execution of a benchmark.
 
    The content of each part of a VNF-BR is described in the following
    sections.
@@ -445,7 +499,9 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018               [Page 8]
+
+
+Rosa, et al.            Expires December 14, 2018               [Page 9]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -501,7 +557,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018               [Page 9]
+Rosa, et al.            Expires December 14, 2018              [Page 10]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -557,7 +613,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018              [Page 10]
+Rosa, et al.            Expires December 14, 2018              [Page 11]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -613,7 +669,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018              [Page 11]
+Rosa, et al.            Expires December 14, 2018              [Page 12]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -669,7 +725,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018              [Page 12]
+Rosa, et al.            Expires December 14, 2018              [Page 13]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -725,7 +781,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018              [Page 13]
+Rosa, et al.            Expires December 14, 2018              [Page 14]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -749,26 +805,26 @@ Internet-Draft                  VNFBench                       June 2018
       report must contain such analysis of performance variability,
       together with all the targeted VNF performance metrics.
 
-6.  VNF Benchmark Report
+5.5.  VNF Benchmarking Outputs
 
    On the extraction of VNF and execution environment performance
    metrics various trials must be performed for statistical significance
    of the obtained benchmarking results.  Each trial must be executed
    following a particular deployment scenario composed by a VNF-BD.
 
-   A VNF Benchmarking Report correlates structural and functional
-   parameters of VNF-BD with targeted/extracted VNF benchmarking metrics
-   of the obtained VNF-PP.
+   A VNF-BR correlates structural and functional parameters of VNF-BD
+   with targeted/extracted VNF benchmarking metrics of the obtained VNF-
+   PP.
 
-   A VNF performance profile must address the combined set of classified
-   items in the 3x3 Matrix Coverage defined in [RFC8172].
+   A resulting VNF performance profile must address the combined set of
+   classified items in the 3x3 Matrix Coverage defined in [RFC8172].
 
-7.  Open Source Reference Implementations
+6.  Open Source Reference Implementations
 
    There are two open source reference implementations that are build to
    automate benchmarking of Virtualized Network Functions (VNFs).
 
-7.1.  Gym
+6.1.  Gym
 
    The software, named Gym, is a framework for automated benchmarking of
    Virtualized Network Functions (VNFs).  It was coded following the
@@ -781,7 +837,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018              [Page 14]
+Rosa, et al.            Expires December 14, 2018              [Page 15]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -827,7 +883,7 @@ Internet-Draft                  VNFBench                       June 2018
    also VNF Benchmarking Descriptor (VNF-BD) examples on the vIMS and
    OVS targets as described in [Rosa-b] and [Rosa-c].
 
-7.2.  tng-bench
+6.2.  tng-bench
 
    Another software that focuses on implementing a framework to
    benchmark VNFs is the "5GTANGO VNF/NS Benchmarking Framework" also
@@ -837,7 +893,7 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018              [Page 15]
+Rosa, et al.            Expires December 14, 2018              [Page 16]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -882,7 +938,7 @@ Internet-Draft                  VNFBench                       June 2018
    Tng-bench is actively developed and released as open source tool
    under Apache 2.0 license [tng-bench].
 
-8.  Security Considerations
+7.  Security Considerations
 
    TBD
 
@@ -893,25 +949,25 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018              [Page 16]
+Rosa, et al.            Expires December 14, 2018              [Page 17]
 
 Internet-Draft                  VNFBench                       June 2018
 
 
-9.  IANA Considerations
+8.  IANA Considerations
 
    This document does not require any IANA actions.
 
-10.  Acknowledgement
+9.  Acknowledgement
 
    The authors would like to thank the support of Ericsson Research,
    Brazil.  Parts of this work have received funding from the European
    Union's Horizon 2020 research and innovation programme under grant
    agreement No.  H2020-ICT-2016-2 761493 (5GTANGO: https://5gtango.eu).
 
-11.  References
+10.  References
 
-11.1.  Normative References
+10.1.  Normative References
 
    [ETS14a]   ETSI, "Architectural Framework - ETSI GS NFV 002 V1.2.1",
               Dec 2014, <http://www.etsi.org/deliver/etsi\_gs/
@@ -949,12 +1005,12 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018              [Page 17]
+Rosa, et al.            Expires December 14, 2018              [Page 18]
 
 Internet-Draft                  VNFBench                       June 2018
 
 
-11.2.  Informative References
+10.2.  Informative References
 
    [Gym]      "Gym Home Page", <https://github.com/intrig-unicamp/gym>.
 
@@ -1005,7 +1061,7 @@ Authors' Addresses
 
 
 
-Rosa, et al.            Expires December 13, 2018              [Page 18]
+Rosa, et al.            Expires December 14, 2018              [Page 19]
 
 Internet-Draft                  VNFBench                       June 2018
 
@@ -1061,4 +1117,4 @@ Internet-Draft                  VNFBench                       June 2018
 
 
 
-Rosa, et al.            Expires December 13, 2018              [Page 19]
+Rosa, et al.            Expires December 14, 2018              [Page 20]
