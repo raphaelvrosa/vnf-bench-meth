@@ -372,26 +372,61 @@
 
 
 <section title="Methodology" anchor="methodology">
-  <t>Portability as a intrinsic characteristic of VNFs, allow
+  <t>Portability as a intrinsic characteristic of VNFs and allows
     them to be deployed in multiple environments,
     enabling, even parallel, benchmarking procedures in varied
     deployment scenarios.
     A VNF benchmarking methodology must be described
     in a clear and objective manner in order to allow
-    effective repeatability and comparability of the test results
-    defined by a VNF Benchmarking Report (VNF-BR).</t>
+    effective repeatability and comparability of the test results.
+    Those results, the outcome of a VNF benchmarking process, are
+    captured in a VNF Benchmarking Report (VNF-BR) as shown in <xref target="fig_02" />.</t>
+
+
+  <figure anchor="fig_02" align="center"
+      title="VNF benchmarking process inputs and outputs">
+      <artwork align="center"><![CDATA[
+                              X
+                             / \
+                            /   \
+                           /     \
++--------+                /       \
+|        |               /         \
+| VNF-BD |--(defines)-->| Benchmark |
+|        |               \ Process /
++--------+                \       /
+                           \     /
+                            \   /
+                             \ /
+                              V
+                              |
+                         (generates)
+                              |
+                              v
+                 +-------------------------+
+                 |         VNF-BR          |
+                 | +--------+   +--------+ |
+                 | |        |   |        | |
+                 | | VNF-BD |   | VNF-PP | |
+                 | | {copy} |   |        | |
+                 | +--------+   +--------+ |
+                 +-------------------------+
+  ]]></artwork>
+  </figure>
+  
 
     <t>VNF Benchmarking reports are comprised of two parts:</t>
 
       <t><list style="hanging">
         <t hangText="VNF Benchmarking Descriptor (VNF-BD) -- "> contains all required
         definitions and requirements to configure,
-        execute and reproduce VNF benchmarking experiments.</t>
+        execute and reproduce VNF benchmarking experiments. VNF-BDs are defined
+        by the developer of an benchmarking experiment and serve as input to
+        the benchmarking process, before being included in the generated VNF-BR.</t>
 
         <t hangText="VNF Performance Profile (VNF-PP) -- "> contains additional parameters
-        concerning a benchmarking deployment scenario
-        and measured metrics resulting from its execution,
-        facilitating comparability.</t>
+        concerning a benchmarking deployment scenario to facilitate comparability of
+        VNF-BRs and it contains all measured metrics resulting from the execution of a benchmark.</t>
       </list></t>
 
     <t>The content of each part of a VNF-BR is described in the following sections.</t>
@@ -667,24 +702,23 @@
         </list></t>
 
   </section>
-</section>
 
+  <section title="VNF Benchmarking Outputs" anchor="report">
 
-<section title="VNF Benchmark Report" anchor="report">
-
-  <t>On the extraction of VNF and execution environment performance metrics
+    <t>On the extraction of VNF and execution environment performance metrics
     various trials must be performed for statistical significance of the
     obtained benchmarking results.
     Each trial must be executed following a particular deployment scenario
     composed by a VNF-BD. </t>
 
-  <t>A VNF Benchmarking Report correlates structural and functional
+    <t>A VNF-BR correlates structural and functional
     parameters of VNF-BD with targeted/extracted VNF benchmarking metrics
     of the obtained VNF-PP.</t>
 
-  <t>A VNF performance profile must address the combined set of classified
-  items in the 3x3 Matrix Coverage defined in <xref target="RFC8172"/>.</t>
+    <t>A resulting VNF performance profile must address the combined set of classified
+    items in the 3x3 Matrix Coverage defined in <xref target="RFC8172"/>.</t>
 
+  </section>
 </section>
 
 
