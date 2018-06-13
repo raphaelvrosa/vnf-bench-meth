@@ -129,7 +129,7 @@
       <t><list style="hanging">
 	<t hangText="NFV:">Network Function Virtualization - The
 	principle of separating network functions from the
-	hardware they run on by  virtualizing hardware ??? .</t>
+	hardware they run using virtualization and/or container technologies.</t>
 
 	<t hangText="NFVI PoP:">NFV Infrastructure Point of
 	Presence - Any combination of virtualized compute,
@@ -198,10 +198,11 @@
 	methods for VNF evaluation:
 
 	<list style="hanging">
-	  <t hangText="Benchmarking:">Where parameters (e.g., cpu, memory, storage)
+	  <t hangText="Benchmarking:">Process in which
+          parameters (e.g., cpu, memory, storage)
 	  are provided and the corresponding
 	  performance metrics (e.g., latency, throughput) are obtained.
-	  Note that such benchmarking requests ???  might
+	  Note that such benchmarking experiments might
 	  create multiple reports, for example, with minimal latency or
 	  maximum throughput results.</t>
 
@@ -223,45 +224,46 @@
 
       <section title="Generic VNF Benchmarking Setup" anchor="setup">
 
-	<t>A generic VNF benchmarking setup is shown in <xref target="fig_01" />,
+        <t>A generic VNF benchmarking setup is shown in <xref target="fig_01" />,
 	and its components are explained below.
 	Note here that not all components are mandatory and VNF benchmarking
 	scenarios, further explained below, can dispose of ??? components in varied
 	settings.</t>
 
-	<figure anchor="fig_01" align="center"
-		title="Generic VNF Benchmarking Setup">
-	  <artwork align="center"><![CDATA[
 
-          +---------------+
-          |    Manager    |
+    <figure anchor="fig_01" align="center"
+      title="Generic VNF Benchmarking Setup">
+      <artwork align="center"><![CDATA[
+
+                        +---------------+
+                        |    Manager    |
           Control       | (Coordinator) |
           Interface     +---+-------+---+
-	  +--------+-----------+       +-------------------+
-	  |        |                                       |
-	  |        |   +-------------------------+         |
-	  |        |   |    System Under Test    |         |
-	  |        |   |                         |         |
-	  |        |   |    +-----------------+  |         |
-	  |     +--+------- +       VNF       |  |         |
-	  |     |           |                 |  |         |
-	  |     |           | +----+   +----+ |  |         |
-	  |     |           | |VNFC|...|VNFC| |  |         |
-	  |     |           | +----+   +----+ |  |         |
-	  |     |           +----.---------.--+  |         |
-	  +-----+---+ |  Monitor  |    :         :     |   +-----+----+
-	  | Agent   | |{listeners}|----^---------V--+  |   |  Agent   |
-	  |(Sender) | |           |    Execution    |  |   |(Receiver)|
-	  |         | |           |   Environment   |  |   |          |
-	  |{Probers}| +-----------|                 |  |   |{Probers} |
-	  +-----.---+        |    +----.---------.--+  |   +-----.----+
-	  :            +---------^---------V-----+         :
-	  V                      :         :               :
-	  :................>.....:         :............>..:
-	  Stimulus Traffic Flow
+       +--------+-----------+       +-------------------+
+       |        |                                       |
+       |        |   +-------------------------+         |
+       |        |   |    System Under Test    |         |
+       |        |   |                         |         |
+       |        |   |    +-----------------+  |         |
+       |     +--+------- +       VNF       |  |         |
+       |     |           |                 |  |         |
+       |     |           | +----+   +----+ |  |         |
+       |     |           | |VNFC|...|VNFC| |  |         |
+       |     |           | +----+   +----+ |  |         |
+       |     |           +----.---------.--+  |         |
+ +-----+---+ |  Monitor  |    :         :     |   +-----+----+
+ | Agent   | |{listeners}|----^---------V--+  |   |  Agent   |
+ |(Sender) | |           |    Execution    |  |   |(Receiver)|
+ |         | |           |   Environment   |  |   |          |
+ |{Probers}| +-----------|                 |  |   |{Probers} |
+ +-----.---+        |    +----.---------.--+  |   +-----.----+
+       :            +---------^---------V-----+         :
+       V                      :         :               :
+       :................>.....:         :............>..:
+       Stimulus Traffic Flow
 
-	  ]]></artwork>
-	</figure>
+  ]]></artwork>
+  </figure>
 
 
 	<t><list style="hanging">
@@ -345,12 +347,11 @@
 	<t>A VNF benchmark deployment scenario establishes the physical and/or virtual
 	instantiation of components defined in a VNF benchmarking setup.</t>
 
-	<t>Based on a generic VNF benchmarking scenario,??? the following considerations
-	hold for deployment scenarios: </t>
+	<t>The following considerations	hold for deployment scenarios: </t>
 
 	<t><list style="symbols">
           <t> Components can be composed into a single entity and
-          defined as black or white boxes.  For instance, Manager and
+          defined as black or white boxes. For instance, Manager and
           Agents could jointly define one hardware/software entity to
           perform a VNF benchmark and present results. </t>
 	  
@@ -363,9 +364,9 @@
           interfaces for the extraction of metrics.</t>
           <t> Agents can be deployed?? in varied topology setups, included the possibility
           of multiple input and output ports of a VNF being directly
-	  connected to       one Agent.</t>
+	  connected to one Agent.</t>
           <t> All benchmarking components defined in a deployment scenario must
-          synchronize their  clocks to an international ??? time reference.</t>
+          synchronize their clocks.</t><!-- MP: Sync. is enough dosen't matter to which time zone-->
 	</list></t>
       </section>
 
@@ -421,36 +422,38 @@
       captured in a VNF Benchmarking Report (VNF-BR) as shown in <xref target="fig_02" />.</t>
 
 
-      <figure anchor="fig_02" align="center"
-	      title="VNF benchmarking process inputs and outputs">
-	<artwork align="center"><![CDATA[
-        X
-        / \
-        /   \
-        /     \
-	+--------+                /       \
-	|        |               /         \
-	| VNF-BD |--(defines)-->| Benchmark |
-	|        |               \ Process /
-	+--------+                \       /
-        \     /
-        \   /
-        \ /
-        V
-        |
-        (generates)
-        |
-        v
-        +-------------------------+
-        |         VNF-BR          |
-        | +--------+   +--------+ |
-        | |        |   |        | |
-        | | VNF-BD |   | VNF-PP | |
-        | | {copy} |   |        | |
-        | +--------+   +--------+ |
-        +-------------------------+
-	]]></artwork>
-      </figure>
+
+  <figure anchor="fig_02" align="center"
+      title="VNF benchmarking process inputs and outputs">
+      <artwork align="center"><![CDATA[
+                              X
+                             / \
+                            /   \
+                           /     \
++--------+                /       \
+|        |               /         \
+| VNF-BD |--(defines)-->| Benchmark |
+|        |               \ Process /
++--------+                \       /
+                           \     /
+                            \   /
+                             \ /
+                              V
+                              |
+                         (generates)
+                              |
+                              v
+                 +-------------------------+
+                 |         VNF-BR          |
+                 | +--------+   +--------+ |
+                 | |        |   |        | |
+                 | | VNF-BD |   | VNF-PP | |
+                 | | {copy} |   |        | |
+                 | +--------+   +--------+ |
+                 +-------------------------+
+  ]]></artwork>
+  </figure>
+  
       
 
       <t>VNF Benchmarking reports  comprise  two parts:</t>
@@ -465,11 +468,10 @@
 
         <t hangText="VNF Performance Profile (VNF-PP) -- "> contains
         all measured metrics resulting from the execution of a
-        benchmark. Additionally, it might contain additional parameters concerning a
-        benchmarking deployment scenario to facilitate comparability
+        benchmark. Additionally, it might also contain additional recordings
+        of configuration parameters used during the execution of the
+        benchmarking scenario to facilitate comparability
         of VNF-BRs. </t>
-	<!-- HK: I dont get why these parameters are not part of
-	     theVNF-DB??? -->
       </list></t>
 
       <t>The content of each part of a VNF-BR is described in the following sections.</t>
@@ -533,16 +535,16 @@
             scenario topology.</t>
 
             <t><list style="hanging">
-              <t hangText="VNF: "> Defines any specific configuration
+              <t hangText="VNF Configurations: "> Defines any specific configuration
               that must be loaded into the VNF to execute the
               benchmarking experiments (e.g., routing table, firewall
-              rules, vIMS subscribers profile). It may also contain
+              rules, vIMS subscribers profile).</t>
+
+              <t hangText="VNF Resources: "> Contains
               particular VNF resource configurations that should be
               tested during the benchmarking process, e.g., test the
               VNF for configurations with 2, 4, and 8 vCPUs
               associated.</t>
-	      <!-- HK: That's parameters at two very different
-		   abstraction levels. Should that be mixed? --> 
 
 	      <t hangText="Agents: "> Defines the configured toolset
 	      of available probers and related benchmarking/active
@@ -565,9 +567,8 @@
       <section title="VNF Performance Profile (VNF-PP)" anchor="vnf-pp">
 
         <t> VNF Performance Profile (VNF-PP) -- defines a mapping
-        between resources  allocated to a VNF  and assigned configurations
-        (e.g., CPU, memory)
-	<!-- HK: whats the difference? --> 
+        between resources allocated to a VNF (e.g., CPU, memory)
+        as well as assigned configurations (e.g., routing table used by the VNF)
 	and the VNF performance metrics (e.g.,
         throughput, latency between in/out ports) obtained in a
         benchmarking test conducted using a VNF-BD.  Logically, packet
@@ -719,10 +720,10 @@
 
 	<t><list style="hanging">
           <t hangText="1. "> A VNF-BD must be defined to be later
-          translated into and executes as a deployment scenario. Such
+          translated into and executed as a deployment scenario. Such
           a description must contain all the structural and functional
           settings defined in <xref target="vnf-bd" />. At the end of
-          this step, the complete Method of benchmarking the target VNF
+          this step, the complete method of benchmarking the target VNF
           is defined.</t>
 	  <!-- HK: I don't understand what this translation thing
 	       would do here?  -->
