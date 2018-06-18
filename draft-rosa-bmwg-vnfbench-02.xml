@@ -195,9 +195,9 @@
 
   <section title="VNF Testing Methods" anchor="methods">
     <t>Following the ETSI's model in <xref target="ETS14c"/>, we distinguish three
-    methods for VNF evaluation:
+    methods for VNF evaluation:</t>
 
-    <list style="hanging">
+    <t><list style="hanging">
     <t hangText="Benchmarking:">Where parameters (e.g., cpu, memory, storage)
     are provided and the corresponding
     performance metrics (e.g., latency, throughput) are obtained.
@@ -586,7 +586,7 @@
               during the benchmarking tests.  Examples include versions
               of operating systems, kernels, hypervisors, container
               image versions, etc.</t>
-            </list>
+            </list></t>
 
             <t>Optionally, a VNF-PP execution environment would contain
             references to an orchestration description document (e.g.,
@@ -883,7 +883,20 @@ cases.</t>
 
 
 <section anchor="Security" title="Security Considerations">
-	<t>TBD</t>
+	<t>Benchmarking tests described in this document are limited to the
+   performance characterization of VNFs in a lab environment
+   with isolated network.</t>
+
+   <t>The benchmarking network topology will be an independent test setup
+   and MUST NOT be connected to devices that may forward the test
+   traffic into a production network, or misroute traffic to the test
+   management network.</t>
+
+   <t> Special capabilities SHOULD NOT exist in the VNF benchmarking deployment scenario specifically for
+   benchmarking purposes. Any implications for network security arising
+   from the VNF benchmarking deployment scenario SHOULD be identical in the lab and in production
+   networks.</t>
+
 </section>
 
 <section anchor="IANA" title="IANA Considerations">
