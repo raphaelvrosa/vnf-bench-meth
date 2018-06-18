@@ -101,7 +101,7 @@
   <t>Having no strict and clear execution boundaries,
     different from earlier self-contained black-box benchmarking methodologies described in BMWG,
     a VNF depends on underlying virtualized environment parameters <xref target='ETS14a' />,
-    intrinsic factors to be analyzed when one investivages VNF performance.
+    intrinsic factors to be analyzed when one investivages the performance of a VNF.
     This document stands as a ground methodology guide for VNF benchmarking automation.
     It addresses the state-of-the-art publications and the current developments
     in similar standardization efforts (e.g., <xref target='ETS14c' /> and <xref target='RFC8204' />)
@@ -328,7 +328,7 @@
           An execution environment stands as a general purpose level of virtualization
           with abstracted resources available for one or more VNFs.
           It can also define specific technology habilitation, incurring in viable
-          settings for enhancing VNF performance profiles. </t>
+          settings for enhancing the performance of VNFs. </t>
     </list></t>
   </section>
 
@@ -351,18 +351,18 @@
             of multiple input and output ports of a VNF being directly connected each in
             one Agent.</t>
           <t> All benchmarking components defined in a deployment scenario must
-            perform the synchronization of clocks to an international time standard
-            and a particular time zone.</t>
+            perform the synchronization of clocks.</t>
       </list></t>
   </section>
 
   <section title="Influencing Aspects" anchor="aspects">
     <t>In general, VNF benchmarks must capture relevant causes
-      of performance variability. Examples of VNF performance
-      influencing aspects can be observed in:</t>
+      of performance variability.
+      Concerning a deployment scenario,
+      influencing aspects on the performance of a VNF can be observed in:</t>
 
     <t><list style="hanging">
-      <t hangText="Deployment Scenario Topology:"> The orchestrated disposition of
+      <t hangText="Deployment Scenario Topology:"> The disposition of
         components can define particular interconnections
         among them composing a specific case/method of VNF benchmarking.</t>
       <t hangText="Execution Environment:"> The availability of generic and
@@ -374,8 +374,8 @@
         by a VNF sets possible traffic forwarding and processing operations it
         can perform on packets, added to its running requirements and specific
         configurations, which might affect and compose a benchmarking setup.</t>
-      <t hangText="Agent:"> The toolset available for benchmarking stimulus
-        for a VNF and its characteristics of packets format, disposition, and workload
+      <t hangText="Agent:"> The toolset available for the benchmarking stimulus
+        of a VNF and its characteristics of packets format and workload
         can interfere in a benchmarking setup. VNFs can support specific traffic
         format as stimulus.</t>
       <t hangText="Monitor:"> In a particular benchmarking setup where measurements
@@ -385,9 +385,12 @@
         environment.</t>
       <t hangText="Manager:"> The overall composition of VNF benchmarking
         procedures can determine arrangements of internal states inside a VNF,
-        which can interfere in observed benchmark metrics.</t>
+        which can interfere in observed benchmarking metrics.</t>
     </list></t>
   </section>
+
+  <t>The listed influencing aspects must be carefully analyzed while automating
+  a VNF benchmarking methodology.</t>
 
 </section>
 
@@ -453,7 +456,10 @@
         of VNF-BRs. </t>
       </list></t>
 
-    <t>The content of each part of a VNF-BR is described in the following sections.</t>
+      <t>A VNF-BR correlates structural and functional
+      parameters of VNF-BD with extracted VNF benchmarking metrics
+      of the obtained VNF-PP.
+      The content of each part of a VNF-BR is described in the following sections.</t>
 
     <section title="VNF Benchmarking Descriptor (VNF-BD)" anchor="vnf-bd">
       <t> VNF Benchmarking Descriptor (VNF-BD) -- an artifact that
@@ -551,7 +557,7 @@
       processing metrics are presented in a specific format
       addressing statistical significance (e.g., median, standard deviation, percentiles)
       where a correspondence
-      among VNF parameters and the delivery of a measured/qualified
+      among VNF parameters and the delivery of a measured
       VNF performance exists.</t>
 
         <t> The following items define the VNF-PP contents.</t>
@@ -588,7 +594,7 @@
               image versions, etc.</t>
             </list></t>
 
-            <t>Optionally, a VNF-PP execution environment would contain
+            <t>Optionally, a VNF-PP execution environment might contain
             references to an orchestration description document (e.g.,
             HEAT template) to clarify technological aspects of the
             execution environment and any specific parameters that it
@@ -627,6 +633,10 @@
           measurements, including averages and standard
           deviations. The exact output format to be used is defined in
           the complementing VNF-BD (<xref target="vnf-bd" />).</t>
+
+          <t>A VNF performance profile must address the combined set of classified
+          items in the 3x3 Matrix Coverage defined in <xref target="RFC8172"/>.</t>
+
         </section>
 
     </section>
@@ -670,7 +680,13 @@
                 iteration to obtain VNF benchmarking metrics as a singular
                 measurement.</t>
                 <t hangText="Test: "> Defines strict parameters for
-                benchmarking components to perform one or more trials.</t>
+                benchmarking components to perform one or more trials.
+                Multiple Trials must be performed for statistical significance
+              	of the obtained benchmarking results of a Test.  Each Trial must be
+              	executed following a particular deployment scenario composed
+              	by a VNF-BD. Proper measures must be taken to ensure statistic
+              	validity (e.g., independence across trials of generated load
+              	patterns).</t>
                 <t hangText="Method: "> Consists of a VNF-BD, including one
                 or more Tests to benchmark a VNF. A Method can explicitly
                 list ranges of parameter values for the configuration of
@@ -705,9 +721,10 @@
                 benchmarking test must be collected by the Manager. In an
                 automated or manual process, intended metrics, as described
                 in the VNF-BD, are extracted and combined to the final
-                VNF-PP.  The combination of used VNF-BD and generated VNF-BB
+                VNF-PP.  The combination of used VNF-BD and generated VNF-PP
                 make up the resulting VNF benchmark report (VNF-BR).</t>
       	</list></t>
+
     </section>
 
 
@@ -760,23 +777,6 @@ cases.</t>
 
     </section>
 
-  <section title="VNF Benchmarking Outputs" anchor="report">
-
-    <t>	Multiple trials must be performed for statistical significance
-    	of the obtained benchmarking results.  Each trial must be
-    	executed following a particular deployment scenario composed
-    	by a VNF-BD. Proper measures must be taken to ensure statistic
-    	validity (e.g., independence across trials of generated load
-    	patterns).</t>
-
-    <t>A VNF-BR correlates structural and functional
-    parameters of VNF-BD with extracted VNF benchmarking metrics
-    of the obtained VNF-PP.</t>
-
-    <t>A resulting VNF performance profile must address the combined set of classified
-    items in the 3x3 Matrix Coverage defined in <xref target="RFC8172"/>.</t>
-
-  </section>
 </section>
 
 
@@ -801,8 +801,8 @@ cases.</t>
     to perform VNF lifecycle tasks (e.g., deployment, maintenance, tear-down).</t>
 
     <t>The proposed guiding principles, elaborated in <xref target="Rosa-b"/>,
-    to design and build Gym can be compounded
-    in multiple practical ways for multiple VNF testing purposes:</t>
+    to design and build Gym can be composed
+    in multiple practical ways for different VNF testing purposes:</t>
 
     <t><list style="symbols">
       <t>Comparability: Output of tests shall be simple to understand and process,
