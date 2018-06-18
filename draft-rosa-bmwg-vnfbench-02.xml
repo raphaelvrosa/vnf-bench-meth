@@ -387,11 +387,11 @@
         procedures can determine arrangements of internal states inside a VNF,
         which can interfere in observed benchmarking metrics.</t>
     </list></t>
+
+    <t>The listed influencing aspects must be carefully analyzed while automating
+    a VNF benchmarking methodology.</t>
+
   </section>
-
-  <t>The listed influencing aspects must be carefully analyzed while automating
-  a VNF benchmarking methodology.</t>
-
 </section>
 
 
