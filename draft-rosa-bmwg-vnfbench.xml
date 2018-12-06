@@ -721,52 +721,44 @@
 
 
 <section title="Particular Cases" anchor="specific">
-<t>Configurations and procedures concerning particular cases
-of VNF benchmarks address testing methodologies proposed in
-<xref target="RFC8172"/>.  In addition to the general
-description previously defined, some details must be taken
-into consideration in the following VNF benchmarking
-cases.</t>
 
-      <t><list style="hanging">
-        <t hangText="Noisy Neighbor: "> An Agent can assume the role of a noisy
-        neighbor, generating a particular workload in synchrony with a benchmarking
-        procedure over a VNF. Adjustments of the noisy workload stimulus type,
-        frequency, virtualization level, among others, must be detailed in the
-        VNF-BD. </t>
+  <t>As described in <xref target="RFC8172"/>, VNF benchmarking might require to change and adapt existing benchmarking methodologies. More specifically, the following cases need to be considered.</t>
 
-        <t hangText="Representative Capacity: "> An average value of
-        workload must be specified as an Agent stimulus. Considering
-        a long-term analysis, the VNF must be configured to properly
-        address a desired average behavior of performance in
-        comparison with the value of the workload stimulus.</t>
+  <!-- UPB: Made each bullet to a subsection. Re-orderd according to RFC8172 -->
+  <section title="Capacity" anchor="specific_capacity">
+   <t>VNFs are usually deployed inside containers or VMs to build an abstraction layer between physical resources and the resources available to the VNF. According to <xref target="RFC8172"/>, it may be more representative to design experiments in a way that the VMs hosting the VNFs are operating at maximum of 50% utilization and split the workload among several VMs, to mitigate  side effects of overloaded VMs. Those cases are supported by the presented automation methodologies through VNF-BDs that enable direct control over the resource assignments and topology layouts used for a benchmarking experiment.</t>
+  </section>
 
-        <t hangText="Flexibility and Elasticity: "> Having the
-        possibility of a VNF be composed by multiple components
-        (VNFCs), internal events of the VNF might trigger changes in
+  <section title="Isolation" anchor="specific_isolation">
+   <t>One of the main challenges of NFV is to create isolation between VNFs. Benchmarking the quality of this isolation behavior can be achieved by Agents that take the role of a noisy neighbor, generating a particular workload in synchrony with a benchmarking
+   procedure over a VNF. Adjustments of the Agent's noisy workload,
+   frequency, virtualization level, among others, must be detailed in the
+   VNF-BD.</t>
+  </section>
+
+  <section title="Failure Handling" anchor="specific_failure">
+    <t>Hardware and software components will fail or have errors and thus trigger healing actions of the benchmarked VNFs (self-healing). Benchmarking procedures must also capture the dynamics of this VNF behavior, e.g., if a container or VM restarts because the VNF software crashed. This results in offline periods that must be captured in the benchmarking reports, introducing additional metrics, e.g., max. time-to-heal. The presented concept, with a flexible VNF-PP structure to record arbitrary metrics, enables automation of this case.</t>
+  </section>
+
+  <section title="Elasticity and Flexibility" anchor="specific_elas_flex">
+    <t>Having software based network functions and the possibility of a VNF to be composed by multiple components (VNFCs), internal events of the VNF might trigger changes in
         VNF behavior, e.g.,  activating functionalities associated with
-        elasticity such as load balancing. In this sense, a
-        detailed characterization of a VNF must be specified
-        (e.g. the VNFs scaling state) and be contained in the VNF-PP
-        and thus the VNF benchmarking report.</t>
+        elasticity such as automated scaling. These state changes and triggers (e.g. the VNF's scaling state) must be captured in the benchmarking results (VNF-PP) to provide a detailed characterization of the VNF's performance behavior in different states.</t>
+  </section>
 
-        <t hangText="On Failures: "> Similar to the case before, VNF
-        benchmarking setups must also capture the dynamics involved
-        in VNF behavior.  In case of failures, a VNF might restart
-        itself and possibly result in an offline period (e.g., self
-        healing). A VNF-PP and benchmarking report must capture such
-        variation of VNF states.</t>
+  <section title="Handling Configurations" anchor="specific_configs">
+    <!-- UPB: this one is new in this draft, it is also considered in RFC8172 -->
+    <t>As described in <xref target="RFC8172"/>, does the sheer number of test conditions and configuration combinations create a challenge for VNF benchmarking. As suggested, machine readable output formats, as they are presented in this document, will allow automated benchmarking procedures to optimize the tested configurations. Approaches for this are, e.g., machine learning-based configuration space sub-sampling methods, such as <xref target="Peu-c"/>.</t>
+  </section>
 
-        <t hangText="White Box VNF: "> A benchmarking setup must
-        define deployment scenarios to be compared with and without
-        monitor components into the VNF and/or the execution
-        environment, in order to analyze if the VNF performance is
-        affected.  The VNF-PP and benchmarking report must contain
-        such analysis of performance variability, together with all
-        the extracted VNF performance metrics. </t>
-      </list></t>
+  <section title="White Box VNF" anchor="specific_whitebox">
+    <!-- UPB: this is from draft-02. But not in the list in RFC8172 -->
+    <t>A benchmarking setup must be able to 
+        define scenarios with and without
+        monitoring components inside the VNFs and/or the hosting container or VM. If no monitoring solution is available from within the VNFs, the benchmark is following the black-box concept. If, in contrast, those additional sources of information from within the VNF are available, VNF-PPs must be able to handle these additional VNF performance metrics.</t>
+  </section>
 
-    </section>
+</section>
 
   <section title="Influencing Aspects" anchor="aspects">
     <t>In general, VNF benchmarks must capture relevant causes
@@ -1098,6 +1090,17 @@ cases.</t>
           <date year="2017" />
       </front>
       <seriesInfo name="IEEE Conference on Network Function Virtualization and Software Defined Networks (NFV-SDN)" value="" />
+    </reference>
+
+    <reference anchor="Peu-c" target="https://ris.uni-paderborn.de/record/6016">
+      <front>
+        <title>Understand your chains and keep your deadlines: Introducing time-constrained profiling for NFV</title>
+          <author>
+            <organization>M. Peuster, H. Karl</organization>
+          </author>
+          <date year="2018" />
+      </front>
+      <seriesInfo name="IEEE/IFIP 14th International Conference on Network and Service Management (CNSM)" value="" />
     </reference>
 
     <reference anchor="tango" target="https://5gtango.eu">

@@ -83,15 +83,21 @@ Table of Contents
    6.2.2.  Measurement Results . . . . . . . . . . . . . . . . . . .  13
    6.3.  Automated Benchmarking Procedures . . . . . . . . . . . . .  14
    6.4.  Particular Cases  . . . . . . . . . . . . . . . . . . . . .  14
-   6.5.  Influencing Aspects . . . . . . . . . . . . . . . . . . . .  15
-   7.  Open Source Reference Implementations . . . . . . . . . . . .  16
-   7.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  16
-   7.2.  tng-bench . . . . . . . . . . . . . . . . . . . . . . . . .  17
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
+   6.4.1.  Capacity  . . . . . . . . . . . . . . . . . . . . . . . .  15
+   6.4.2.  Isolation . . . . . . . . . . . . . . . . . . . . . . . .  15
+   6.4.3.  Failure Handling  . . . . . . . . . . . . . . . . . . . .  15
+   6.4.4.  Elasticity and Flexibility  . . . . . . . . . . . . . . .  15
+   6.4.5.  Handling Configurations . . . . . . . . . . . . . . . . .  16
+   6.4.6.  White Box VNF . . . . . . . . . . . . . . . . . . . . . .  16
+   6.5.  Influencing Aspects . . . . . . . . . . . . . . . . . . . .  16
+   7.  Open Source Reference Implementations . . . . . . . . . . . .  17
+   7.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  17
+   7.2.  tng-bench . . . . . . . . . . . . . . . . . . . . . . . . .  18
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  19
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  19
    10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  19
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   11.1.  Normative References . . . . . . . . . . . . . . . . . . .  19
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
+   11.1.  Normative References . . . . . . . . . . . . . . . . . . .  20
    11.2.  Informative References . . . . . . . . . . . . . . . . . .  20
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
 
@@ -100,12 +106,6 @@ Table of Contents
    The Benchmarking Methodology Working Group (BMWG) already presented
    considerations for benchmarking of VNFs and their infrastructure in
    [RFC8172].  Similar to the motivation given in [RFC8172], the
-   following aspects motivate the need for VNF benchmarking: (i) pre-
-   deployment infrastructure dimensioning to realize associated VNF
-   performance profiles; (ii) comparison factor with physical network
-   functions; (iii) and output results for analytical VNF development.
-
-
 
 
 
@@ -113,6 +113,11 @@ Rosa, et al.              Expires June 9, 2019                  [Page 2]
 
 Internet-Draft                  VNFBench                   December 2018
 
+
+   following aspects motivate the need for VNF benchmarking: (i) pre-
+   deployment infrastructure dimensioning to realize associated VNF
+   performance profiles; (ii) comparison factor with physical network
+   functions; (iii) and output results for analytical VNF development.
 
    Even if many methodologies already described by the BMWG, e.g., self-
    contained black-box benchmarking, can be applied to VNF benchmarking
@@ -156,12 +161,7 @@ Internet-Draft                  VNFBench                   December 2018
    Institute (ETSI) NFV document [ETS14b].  Some of these terms, and
    others commonly used in this document, are defined below.
 
-   NFV:  Network Function Virtualization - The principle of separating
-      network functions from the hardware they run on by using virtual
-      hardware abstraction.
 
-   NFVI PoP:  NFV Infrastructure Point of Presence - Any combination of
-      virtualized compute, storage and network resources.
 
 
 
@@ -169,6 +169,13 @@ Rosa, et al.              Expires June 9, 2019                  [Page 3]
 
 Internet-Draft                  VNFBench                   December 2018
 
+
+   NFV:  Network Function Virtualization - The principle of separating
+      network functions from the hardware they run on by using virtual
+      hardware abstraction.
+
+   NFVI PoP:  NFV Infrastructure Point of Presence - Any combination of
+      virtualized compute, storage and network resources.
 
    NFVI:  NFV Infrastructure - Collection of NFVI PoPs under one
       orchestrator.
@@ -210,13 +217,6 @@ Internet-Draft                  VNFBench                   December 2018
 
    This document assumes VNFs as black boxes when defining their
    benchmarking methodologies.  White box approaches are assumed and
-   analysed as a particular case under the proper considerations of
-   internal VNF instrumentation, later discussed in this document.
-
-   In what follows, this document outlines a basis methodology for VNF
-   benchmarking, specifically addressing its automation.
-
-
 
 
 
@@ -225,6 +225,12 @@ Rosa, et al.              Expires June 9, 2019                  [Page 4]
 
 Internet-Draft                  VNFBench                   December 2018
 
+
+   analysed as a particular case under the proper considerations of
+   internal VNF instrumentation, later discussed in this document.
+
+   In what follows, this document outlines a basis methodology for VNF
+   benchmarking, specifically addressing its automation.
 
 4.  Considerations
 
@@ -267,12 +273,6 @@ Internet-Draft                  VNFBench                   December 2018
 
    Management/Configuration:   benchmark components and VNF are
       configured to execute the experiment/test (e.g., populate routing
-      table, load pcap source files in agent) -> Realizes VNF-BD
-      settings.
-
-   Execution:   Tests/experiments are executed according to
-      configuration and orchestrated components -> Runs the VNF
-      benchmarking cases.
 
 
 
@@ -281,6 +281,13 @@ Rosa, et al.              Expires June 9, 2019                  [Page 5]
 
 Internet-Draft                  VNFBench                   December 2018
 
+
+      table, load pcap source files in agent) -> Realizes VNF-BD
+      settings.
+
+   Execution:   Tests/experiments are executed according to
+      configuration and orchestrated components -> Runs the VNF
+      benchmarking cases.
 
    Output:   There might be generic VNF footprint metrics (e.g., CPU,
       memory) and specific VNF traffic processing metrics (e.g.,
@@ -314,13 +321,6 @@ Internet-Draft                  VNFBench                   December 2018
    components are explained below.  Note here, not all components are
    mandatory, and VNF benchmarking scenarios, further explained, can
    dispose its components in varied settings.
-
-
-
-
-
-
-
 
 
 
@@ -773,11 +773,11 @@ Internet-Draft                  VNFBench                   December 2018
 
 6.4.  Particular Cases
 
-   Configurations and procedures concerning particular cases of VNF
-   benchmarks address testing methodologies proposed in [RFC8172].  In
-   addition to the general description previously defined, some details
-   must be taken into consideration in the following VNF benchmarking
-   cases.
+   As described in [RFC8172], VNF benchmarking might require to change
+   and adapt existing benchmarking methodologies.  More specifically,
+   the following cases need to be considered.
+
+
 
 
 
@@ -786,38 +786,81 @@ Rosa, et al.              Expires June 9, 2019                 [Page 14]
 Internet-Draft                  VNFBench                   December 2018
 
 
-   Noisy Neighbor:   An Agent can assume the role of a noisy neighbor,
-      generating a particular workload in synchrony with a benchmarking
-      procedure over a VNF.  Adjustments of the noisy workload stimulus
-      type, frequency, virtualization level, among others, must be
-      detailed in the VNF-BD.
+6.4.1.  Capacity
 
-   Representative Capacity:   An average value of workload must be
-      specified as an Agent stimulus.  Considering a long-term analysis,
-      the VNF must be configured to properly address a desired average
-      behavior of performance in comparison with the value of the
-      workload stimulus.
+   VNFs are usually deployed inside containers or VMs to build an
+   abstraction layer between physical resources and the resources
+   available to the VNF.  According to [RFC8172], it may be more
+   representative to design experiments in a way that the VMs hosting
+   the VNFs are operating at maximum of 50% utilization and split the
+   workload among several VMs, to mitigate side effects of overloaded
+   VMs.  Those cases are supported by the presented automation
+   methodologies through VNF-BDs that enable direct control over the
+   resource assignments and topology layouts used for a benchmarking
+   experiment.
 
-   Flexibility and Elasticity:   Having the possibility of a VNF be
-      composed by multiple components (VNFCs), internal events of the
-      VNF might trigger changes in VNF behavior, e.g., activating
-      functionalities associated with elasticity such as load balancing.
-      In this sense, a detailed characterization of a VNF must be
-      specified (e.g. the VNFs scaling state) and be contained in the
-      VNF-PP and thus the VNF benchmarking report.
+6.4.2.  Isolation
 
-   On Failures:   Similar to the case before, VNF benchmarking setups
-      must also capture the dynamics involved in VNF behavior.  In case
-      of failures, a VNF might restart itself and possibly result in an
-      offline period (e.g., self healing).  A VNF-PP and benchmarking
-      report must capture such variation of VNF states.
+   One of the main challenges of NFV is to create isolation between
+   VNFs.  Benchmarking the quality of this isolation behavior can be
+   achieved by Agents that take the role of a noisy neighbor, generating
+   a particular workload in synchrony with a benchmarking procedure over
+   a VNF.  Adjustments of the Agent's noisy workload, frequency,
+   virtualization level, among others, must be detailed in the VNF-BD.
 
-   White Box VNF:   A benchmarking setup must define deployment
-      scenarios to be compared with and without monitor components into
-      the VNF and/or the execution environment, in order to analyze if
-      the VNF performance is affected.  The VNF-PP and benchmarking
-      report must contain such analysis of performance variability,
-      together with all the extracted VNF performance metrics.
+6.4.3.  Failure Handling
+
+   Hardware and software components will fail or have errors and thus
+   trigger healing actions of the benchmarked VNFs (self-healing).
+   Benchmarking procedures must also capture the dynamics of this VNF
+   behavior, e.g., if a container or VM restarts because the VNF
+   software crashed.  This results in offline periods that must be
+   captured in the benchmarking reports, introducing additional metrics,
+   e.g., max. time-to-heal.  The presented concept, with a flexible VNF-
+   PP structure to record arbitrary metrics, enables automation of this
+   case.
+
+6.4.4.  Elasticity and Flexibility
+
+   Having software based network functions and the possibility of a VNF
+   to be composed by multiple components (VNFCs), internal events of the
+   VNF might trigger changes in VNF behavior, e.g., activating
+   functionalities associated with elasticity such as automated scaling.
+   These state changes and triggers (e.g. the VNF's scaling state) must
+   be captured in the benchmarking results (VNF-PP) to provide a
+   detailed characterization of the VNF's performance behavior in
+   different states.
+
+
+
+
+
+
+
+Rosa, et al.              Expires June 9, 2019                 [Page 15]
+
+Internet-Draft                  VNFBench                   December 2018
+
+
+6.4.5.  Handling Configurations
+
+   As described in [RFC8172], does the sheer number of test conditions
+   and configuration combinations create a challenge for VNF
+   benchmarking.  As suggested, machine readable output formats, as they
+   are presented in this document, will allow automated benchmarking
+   procedures to optimize the tested configurations.  Approaches for
+   this are, e.g., machine learning-based configuration space sub-
+   sampling methods, such as [Peu-c].
+
+6.4.6.  White Box VNF
+
+   A benchmarking setup must be able to define scenarios with and
+   without monitoring components inside the VNFs and/or the hosting
+   container or VM.  If no monitoring solution is available from within
+   the VNFs, the benchmark is following the black-box concept.  If, in
+   contrast, those additional sources of information from within the VNF
+   are available, VNF-PPs must be able to handle these additional VNF
+   performance metrics.
 
 6.5.  Influencing Aspects
 
@@ -835,13 +878,6 @@ Internet-Draft                  VNFBench                   December 2018
       particular cases can define multiple VNFs interacting in the same
       execution environment of a benchmarking setup.
 
-
-
-Rosa, et al.              Expires June 9, 2019                 [Page 15]
-
-Internet-Draft                  VNFBench                   December 2018
-
-
    VNF:  A detailed description of functionalities performed by a VNF
       sets possible traffic forwarding and processing operations it can
       perform on packets, added to its running requirements and specific
@@ -852,6 +888,15 @@ Internet-Draft                  VNFBench                   December 2018
       and its characteristics of packets format and workload can
       interfere in a benchmarking setup.  VNFs can support specific
       traffic format as stimulus.
+
+
+
+
+
+Rosa, et al.              Expires June 9, 2019                 [Page 16]
+
+Internet-Draft                  VNFBench                   December 2018
+
 
    Monitor:  In a particular benchmarking setup where measurements of
       VNF and/or execution environment metrics are available for
@@ -888,16 +933,6 @@ Internet-Draft                  VNFBench                   December 2018
    by orchestrator functions to perform VNF lifecycle tasks (e.g.,
    deployment, maintenance, tear-down).
 
-
-
-
-
-
-Rosa, et al.              Expires June 9, 2019                 [Page 16]
-
-Internet-Draft                  VNFBench                   December 2018
-
-
    The proposed guiding principles, elaborated in [Rosa-b], to design
    and build Gym can be composed in multiple practical ways for
    different VNF testing purposes:
@@ -909,6 +944,15 @@ Internet-Draft                  VNFBench                   December 2018
    o  Repeatability: Test setup shall be comprehensively defined through
       a flexible design model that can be interpreted and executed by
       the testing platform repeatedly but supporting customization.
+
+
+
+
+
+Rosa, et al.              Expires June 9, 2019                 [Page 17]
+
+Internet-Draft                  VNFBench                   December 2018
+
 
    o  Configurability: Open interfaces and extensible messaging models
       shall be available between components for flexible composition of
@@ -946,14 +990,6 @@ Internet-Draft                  VNFBench                   December 2018
    without further human interaction.  This enables the integration of
    VNF benchmarking into continuous integration and continuous delivery
    (CI/CD) pipelines so that new VNF-PPs are generated on-the-fly for
-
-
-
-Rosa, et al.              Expires June 9, 2019                 [Page 17]
-
-Internet-Draft                  VNFBench                   December 2018
-
-
    every new software version of a VNF.  Those automatically generated
    VNF-PPs can then be bundled with the VNFs and serve as inputs for
    orchestration systems, fitting to the original research ideas
@@ -966,6 +1002,14 @@ Internet-Draft                  VNFBench                   December 2018
    BDs is presented which not only allows to specify generic, abstract
    VNF benchmarking experiments, it also allows to describe sets of
    parameter configurations to be tested during the benchmarking
+
+
+
+Rosa, et al.              Expires June 9, 2019                 [Page 18]
+
+Internet-Draft                  VNFBench                   December 2018
+
+
    process, allowing the system to automatically execute complex
    parameter studies on the SUT, e.g., testing a VNF's performance under
    different CPU, memory, or software configurations.
@@ -1002,14 +1046,6 @@ Internet-Draft                  VNFBench                   December 2018
    deployment scenario SHOULD be identical in the lab and in production
    networks.
 
-
-
-
-Rosa, et al.              Expires June 9, 2019                 [Page 18]
-
-Internet-Draft                  VNFBench                   December 2018
-
-
 9.  IANA Considerations
 
    This document does not require any IANA actions.
@@ -1020,6 +1056,15 @@ Internet-Draft                  VNFBench                   December 2018
    Brazil.  Parts of this work have received funding from the European
    Union's Horizon 2020 research and innovation programme under grant
    agreement No.  H2020-ICT-2016-2 761493 (5GTANGO: https://5gtango.eu).
+
+
+
+
+
+Rosa, et al.              Expires June 9, 2019                 [Page 19]
+
+Internet-Draft                  VNFBench                   December 2018
+
 
 11.  References
 
@@ -1059,13 +1104,6 @@ Internet-Draft                  VNFBench                   December 2018
               Network Functions and Their Infrastructure", July 2017,
               <https://www.rfc-editor.org/info/rfc8172>.
 
-
-
-Rosa, et al.              Expires June 9, 2019                 [Page 19]
-
-Internet-Draft                  VNFBench                   December 2018
-
-
    [RFC8204]  M. Tahhan, B. O'Mahony, A. Morton, "Benchmarking Virtual
               Switches in the Open Platform for NFV (OPNFV)", September
               2017, <https://www.rfc-editor.org/info/rfc8204>.
@@ -1073,6 +1111,16 @@ Internet-Draft                  VNFBench                   December 2018
 11.2.  Informative References
 
    [Gym]      "Gym Home Page", <https://github.com/intrig-unicamp/gym>.
+
+
+
+
+
+
+Rosa, et al.              Expires June 9, 2019                 [Page 20]
+
+Internet-Draft                  VNFBench                   December 2018
+
 
    [Peu-a]    M. Peuster, H. Karl, "Understand Your Chains: Towards
               Performance Profile-based Network Service Management",
@@ -1085,6 +1133,12 @@ Internet-Draft                  VNFBench                   December 2018
               Environments", IEEE Conference on Network Function
               Virtualization and Software Defined Networks (NFV-SDN) ,
               2017, <http://ieeexplore.ieee.org/document/8169826/>.
+
+   [Peu-c]    M. Peuster, H. Karl, "Understand your chains and keep your
+              deadlines: Introducing time-constrained profiling for
+              NFV", IEEE/IFIP 14th International Conference on Network
+              and Service Management (CNSM) , 2018,
+              <https://ris.uni-paderborn.de/record/6016>.
 
    [Rosa-a]   R. V. Rosa, C. E. Rothenberg, R. Szabo, "VBaaS: VNF
               Benchmark-as-a-Service", Fourth European Workshop on
@@ -1111,18 +1165,18 @@ Internet-Draft                  VNFBench                   December 2018
               "5GTANGO VNF/NS Benchmarking Framework",
               <https://github.com/sonata-nfv/tng-sdk-benchmark>.
 
+Authors' Addresses
 
 
 
 
 
 
-Rosa, et al.              Expires June 9, 2019                 [Page 20]
+
+Rosa, et al.              Expires June 9, 2019                 [Page 21]
 
 Internet-Draft                  VNFBench                   December 2018
 
-
-Authors' Addresses
 
    Raphael Vicente Rosa (editor)
    University of Campinas
@@ -1173,4 +1227,6 @@ Authors' Addresses
 
 
 
-Rosa, et al.              Expires June 9, 2019                 [Page 21]
+
+
+Rosa, et al.              Expires June 9, 2019                 [Page 22]
