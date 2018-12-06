@@ -7,7 +7,7 @@
 <?rfc inline="yes"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" []>
 
-<rfc category="info" ipr="trust200902" docName="draft-rosa-bmwg-vnfbench-02">
+<rfc category="info" ipr="trust200902" docName="draft-rosa-bmwg-vnfbench-03">
   <front>
     <title abbrev="VNFBench">Methodology for VNF Benchmarking Automation</title>
 
@@ -88,33 +88,50 @@
 </front>
 
 
-<middle>
-<section title="Introduction" anchor="intro">
-  <t>Benchmarking Methodology Working Group (BMWG) initiated efforts,
-    approaching considerations in <xref target='RFC8172' />,
-    to develop methodologies for benchmarking VNFs.
-    Similarly described in <xref target='RFC8172' />, VNF benchmark
-    motivating aspects define: (i) pre-deployment infrastructure dimensioning to realize
-    associated VNF performance profiles; (ii) comparison factor with physical
-    network functions; (iii) and output results for analytical VNF development.</t>
+<middle> <section title="Introduction" anchor="intro">
 
-  <t>Having no strict and clear execution boundaries,
-    different from earlier self-contained black-box benchmarking methodologies described in BMWG,
-    a VNF depends on underlying virtualized environment parameters <xref target='ETS14a' />,
-    intrinsic factors to be analyzed when one investivages the performance of a VNF.
-    This document stands as a ground methodology guide for VNF benchmarking automation.
-    It addresses the state-of-the-art publications and the current developments
-    in similar standardization efforts (e.g., <xref target='ETS14c' /> and <xref target='RFC8204' />)
-    towards bechmarking VNFs.</t>
+  <t>The Benchmarking
+  Methodology Working Group (BMWG) already presented considerations for
+  benchmarking of VNFs and their infrastructure in <xref target='RFC8172' />.
+  Similar to the motivation given in <xref target='RFC8172' />, the following
+  aspects motivate the need for VNF benchmarking: (i) pre-deployment
+  infrastructure dimensioning to realize associated VNF performance profiles;
+  (ii) comparison factor with physical network functions; (iii) and output
+  results for analytical VNF development.</t>
 
-  <t>Automating the extraction of VNF performance metrics propitiates:
-  (i) the development of agile performance-focused DevOps
-  methodologies for Continuous Integration and Delivery (CI/CD)
-  of VNFs; (ii) the creation of on-demand VNF test descriptors for upcoming execution
-  environments; (iii) the path for precise-analytics of extensively
-  automated catalogues of VNF performance profiles;
-  (iv) and run-time profiling mechanisms to assist VNF lifecycle
-  orchestration/management workflows.</t>
+    <t>Even if many methodologies already described by the BMWG, e.g., self-
+    contained black-box benchmarking, can be applied to VNF benchmarking
+    scenarios, further considerations have to be made. This is, on the one hand,
+    because VNFs, which are software components, do not have strict and clear
+    execution boundaries and depend on underlying virtualization environment
+    parameters as well as management and orchestration decisions <xref
+    target='ETS14a' />. On the other hand, can and should the flexible,
+    software-based nature of VNFs be exploited to fully automate the entire
+    benchmarking procedure end-to-end. This is an inherent need to align VNF
+    benchmarking with the agile methods enabled by the concept of network
+    function virtualization (NFV) <xref target='ETS14e' /> More specifically it
+    allows: (i) the development of agile performance-focused DevOps
+    methodologies for Continuous Integration and Delivery (CI/CD) of VNFs; (ii)
+    the creation of on-demand VNF test descriptors for upcoming execution
+    environments; (iii) the path for precise-analytics of extensively automated
+    catalogues of VNF performance profiles; (iv) and run-time mechanisms to
+    assist VNF lifecycle orchestration/management workflows, e.g., automated
+    resource dimensioning based on benchmarking insights.</t>
+
+    <t>This document describes the basic methodologies and guidelines to fully
+    automate VNF benchmarking procedures, without limiting the automated process
+    to a specific benchmark or infrastructure. After presenting initial
+    considerations, the document first describes a generic architectural
+    framework to setup automated benchmarking experiments. Second, the
+    automation methodology is discussed, with a particular focus on experiment
+    and procedure description approaches to support reproducibility of the
+    automated benchmarks, a key challenge in VNF benchmarking. Finally, two
+    independent, open-source reference implementations are presented. The
+    document addresses state-of-the-art work on VNF benchmarking from scientific
+    publications and current developments in other standardization bodies (e.g.,
+    <xref target='ETS14c' /> and <xref target='RFC8204' />) wherever
+    possible.</t>
+
 </section>
 
 <section title="Terminology" anchor="terms">
@@ -1002,6 +1019,16 @@ cases.</t>
             <organization>ETSI</organization>
           </author>
           <date month="December" year="2014" />
+      </front>
+    </reference>
+
+    <reference anchor="ETS14e" target="https://docbox.etsi.org/isg/nfv/open/drafts/TST006_CICD_and_Devops_report">
+      <front>
+        <title>Report on CI/CD and Devops - ETSI GS NFV TST006 V0.0.9</title>
+          <author>
+            <organization>ETSI</organization>
+          </author>
+          <date month="April" year="2018" />
       </front>
     </reference>
 
