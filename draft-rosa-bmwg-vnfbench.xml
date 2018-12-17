@@ -7,7 +7,7 @@
 <?rfc inline="yes"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" []>
 
-<rfc category="info" ipr="trust200902" docName="draft-rosa-bmwg-vnfbench-02">
+<rfc category="info" ipr="trust200902" docName="draft-rosa-bmwg-vnfbench-03">
   <front>
     <title abbrev="VNFBench">Methodology for VNF Benchmarking Automation</title>
 
@@ -88,33 +88,50 @@
 </front>
 
 
-<middle>
-<section title="Introduction" anchor="intro">
-  <t>Benchmarking Methodology Working Group (BMWG) initiated efforts,
-    approaching considerations in <xref target='RFC8172' />,
-    to develop methodologies for benchmarking VNFs.
-    Similarly described in <xref target='RFC8172' />, VNF benchmark
-    motivating aspects define: (i) pre-deployment infrastructure dimensioning to realize
-    associated VNF performance profiles; (ii) comparison factor with physical
-    network functions; (iii) and output results for analytical VNF development.</t>
+<middle> <section title="Introduction" anchor="intro">
 
-  <t>Having no strict and clear execution boundaries,
-    different from earlier self-contained black-box benchmarking methodologies described in BMWG,
-    a VNF depends on underlying virtualized environment parameters <xref target='ETS14a' />,
-    intrinsic factors to be analyzed when one investivages the performance of a VNF.
-    This document stands as a ground methodology guide for VNF benchmarking automation.
-    It addresses the state-of-the-art publications and the current developments
-    in similar standardization efforts (e.g., <xref target='ETS14c' /> and <xref target='RFC8204' />)
-    towards bechmarking VNFs.</t>
+  <t>The Benchmarking
+  Methodology Working Group (BMWG) already presented considerations for
+  benchmarking of VNFs and their infrastructure in <xref target='RFC8172' />.
+  Similar to the motivation given in <xref target='RFC8172' />, the following
+  aspects motivate the need for VNF benchmarking: (i) pre-deployment
+  infrastructure dimensioning to realize associated VNF performance profiles;
+  (ii) comparison factor with physical network functions; (iii) and output
+  results for analytical VNF development.</t>
 
-  <t>Automating the extraction of VNF performance metrics propitiates:
-  (i) the development of agile performance-focused DevOps
-  methodologies for Continuous Integration and Delivery (CI/CD)
-  of VNFs; (ii) the creation of on-demand VNF test descriptors for upcoming execution
-  environments; (iii) the path for precise-analytics of extensively
-  automated catalogues of VNF performance profiles;
-  (iv) and run-time profiling mechanisms to assist VNF lifecycle
-  orchestration/management workflows.</t>
+    <t>Even if many methodologies already described by the BMWG, e.g., self-
+    contained black-box benchmarking, can be applied to VNF benchmarking
+    scenarios, further considerations have to be made. This is, on the one hand,
+    because VNFs, which are software components, do not have strict and clear
+    execution boundaries and depend on underlying virtualization environment
+    parameters as well as management and orchestration decisions <xref
+    target='ETS14a' />. On the other hand, can and should the flexible,
+    software-based nature of VNFs be exploited to fully automate the entire
+    benchmarking procedure end-to-end. This is an inherent need to align VNF
+    benchmarking with the agile methods enabled by the concept of network
+    function virtualization (NFV) <xref target='ETS14e' /> More specifically it
+    allows: (i) the development of agile performance-focused DevOps
+    methodologies for Continuous Integration and Delivery (CI/CD) of VNFs; (ii)
+    the creation of on-demand VNF test descriptors for upcoming execution
+    environments; (iii) the path for precise-analytics of extensively automated
+    catalogues of VNF performance profiles; (iv) and run-time mechanisms to
+    assist VNF lifecycle orchestration/management workflows, e.g., automated
+    resource dimensioning based on benchmarking insights.</t>
+
+    <t>This document describes the basic methodologies and guidelines to fully
+    automate VNF benchmarking procedures, without limiting the automated process
+    to a specific benchmark or infrastructure. After presenting initial
+    considerations, the document first describes a generic architectural
+    framework to setup automated benchmarking experiments. Second, the
+    automation methodology is discussed, with a particular focus on experiment
+    and procedure description approaches to support reproducibility of the
+    automated benchmarks, a key challenge in VNF benchmarking. Finally, two
+    independent, open-source reference implementations are presented. The
+    document addresses state-of-the-art work on VNF benchmarking from scientific
+    publications and current developments in other standardization bodies (e.g.,
+    <xref target='ETS14c' /> and <xref target='RFC8204' />) wherever
+    possible.</t>
+
 </section>
 
 <section title="Terminology" anchor="terms">
@@ -704,52 +721,69 @@
 
 
 <section title="Particular Cases" anchor="specific">
-<t>Configurations and procedures concerning particular cases
-of VNF benchmarks address testing methodologies proposed in
-<xref target="RFC8172"/>.  In addition to the general
-description previously defined, some details must be taken
-into consideration in the following VNF benchmarking
-cases.</t>
 
-      <t><list style="hanging">
-        <t hangText="Noisy Neighbor: "> An Agent can assume the role of a noisy
-        neighbor, generating a particular workload in synchrony with a benchmarking
-        procedure over a VNF. Adjustments of the noisy workload stimulus type,
-        frequency, virtualization level, among others, must be detailed in the
-        VNF-BD. </t>
+  <t>As described in <xref target="RFC8172"/>, VNF benchmarking might require to
+  change and adapt existing benchmarking methodologies. More specifically, the
+  following cases need to be considered.</t>
 
-        <t hangText="Representative Capacity: "> An average value of
-        workload must be specified as an Agent stimulus. Considering
-        a long-term analysis, the VNF must be configured to properly
-        address a desired average behavior of performance in
-        comparison with the value of the workload stimulus.</t>
+  <!-- UPB: Made each bullet to a subsection. Re-orderd according to RFC8172 -->
+  <section title="Capacity" anchor="specific_capacity">  <t>VNFs are usually
+  deployed inside containers or VMs to build an abstraction layer between
+  physical resources and the resources available to the VNF. According to <xref
+  target="RFC8172"/>, it may be more representative to design experiments in a
+  way that the VMs hosting the VNFs are operating at maximum of 50% utilization
+  and split the workload among several VMs, to mitigateside effects of
+  overloaded VMs. Those cases are supported by the presented automation
+  methodologies through VNF-BDs that enable direct control over the resource
+  assignments and topology layouts used for a benchmarking experiment.</t>
+  </section>
 
-        <t hangText="Flexibility and Elasticity: "> Having the
-        possibility of a VNF be composed by multiple components
-        (VNFCs), internal events of the VNF might trigger changes in
-        VNF behavior, e.g.,  activating functionalities associated with
-        elasticity such as load balancing. In this sense, a
-        detailed characterization of a VNF must be specified
-        (e.g. the VNFs scaling state) and be contained in the VNF-PP
-        and thus the VNF benchmarking report.</t>
+  <section title="Isolation" anchor="specific_isolation">  <t>One of the main
+  challenges of NFV is to create isolation between VNFs. Benchmarking the
+  quality of this isolation behavior can be achieved by Agents that take the
+  role of a noisy neighbor, generating a particular workload in synchrony with a
+  benchmarking  procedure over a VNF. Adjustments of the Agent's noisy workload,
+  frequency, virtualization level, among others, must be detailed in the  VNF-
+  BD.</t> </section>
 
-        <t hangText="On Failures: "> Similar to the case before, VNF
-        benchmarking setups must also capture the dynamics involved
-        in VNF behavior.  In case of failures, a VNF might restart
-        itself and possibly result in an offline period (e.g., self
-        healing). A VNF-PP and benchmarking report must capture such
-        variation of VNF states.</t>
+  <section title="Failure Handling" anchor="specific_failure"> <t>Hardware and
+  software components will fail or have errors and thus trigger healing actions
+  of the benchmarked VNFs (self-healing). Benchmarking procedures must also
+  capture the dynamics of this VNF behavior, e.g., if a container or VM restarts
+  because the VNF software crashed. This results in offline periods that must be
+  captured in the benchmarking reports, introducing additional metrics, e.g.,
+  max. time-to-heal. The presented concept, with a flexible VNF-PP structure to
+  record arbitrary metrics, enables automation of this case.</t> </section>
 
-        <t hangText="White Box VNF: "> A benchmarking setup must
-        define deployment scenarios to be compared with and without
-        monitor components into the VNF and/or the execution
-        environment, in order to analyze if the VNF performance is
-        affected.  The VNF-PP and benchmarking report must contain
-        such analysis of performance variability, together with all
-        the extracted VNF performance metrics. </t>
-      </list></t>
+  <section title="Elasticity and Flexibility" anchor="specific_elas_flex">
+  <t>Having software based network functions and the possibility of a VNF to be
+  composed by multiple components (VNFCs), internal events of the VNF might
+  trigger changes in VNF behavior, e.g.,activating functionalities associated
+  with elasticity such as automated scaling. These state changes and triggers
+  (e.g. the VNF's scaling state) must be captured in the benchmarking results
+  (VNF-PP) to provide a detailed characterization of the VNF's performance
+  behavior in different states.</t> </section>
 
-    </section>
+  <section title="Handling Configurations" anchor="specific_configs"> <!-- UPB:
+  this one is new in this draft, it is also considered in RFC8172 --> <t>As
+  described in <xref target="RFC8172"/>, does the sheer number of test
+  conditions and configuration combinations create a challenge for VNF
+  benchmarking. As suggested, machine readable output formats, as they are
+  presented in this document, will allow automated benchmarking procedures to
+  optimize the tested configurations. Approaches for this are, e.g., machine
+  learning-based configuration space sub-sampling methods, such as <xref
+  target="Peu-c"/>.</t> </section>
+
+  <section title="White Box VNF" anchor="specific_whitebox"> <!-- UPB: this is
+  from draft-02. But not in the list in RFC8172 --> <t>A benchmarking setup must
+  be able to  define scenarios with and without monitoring components inside the
+  VNFs and/or the hosting container or VM. If no monitoring solution is
+  available from within the VNFs, the benchmark is following the black-box
+  concept. If, in contrast, those additional sources of information from within
+  the VNF are available, VNF-PPs must be able to handle these additional VNF
+  performance metrics.</t> </section>
+
+</section>
 
   <section title="Influencing Aspects" anchor="aspects">
     <t>In general, VNF benchmarks must capture relevant causes
@@ -852,42 +886,45 @@ cases.</t>
 
     <t>Another software that focuses on implementing a framework to benchmark
     VNFs is the "5GTANGO VNF/NS Benchmarking Framework" also called "tng-bench"
-    (previously "son-profile") and was is as
-    part of the two European Union H2020 projects SONATA NFV and 5GTANGO <xref target="tango"/>.
-    Its initial ideas were presented in <xref target="Peu-a"/>
-    and the system design of the end-to-end prototype
-    was presented in <xref target="Peu-b"/>.</t>
+    (previously "son-profile") and was developed as  part of the two European
+    Union H2020 projects SONATA NFV and 5GTANGO <xref target="tango"/>. Its
+    initial ideas were presented in <xref target="Peu-a"/> and the system design
+    of the end-to-end prototype was presented in <xref target="Peu-b"/>.</t>
 
-    <t>Tng-bench's aims to act as a framework for the end-to-end automation of
-    VNF benchmarking processes. Its goal is to automate the benchmarking process
-    in such a way that VNF-PPs can be generated without further human interaction.
+    <t>Tng-bench aims to be a framework for the end-to-end automation of VNF
+    benchmarking processes. Its goal is to automate the benchmarking process in
+    such a way that VNF-PPs can be generated without further human interaction.
     This enables the integration of VNF benchmarking into continuous integration
-    and continuous delivery (CI/CD) pipelines so that new VNF-PPs are generated on-the-fly for
-    every new software version of a VNF. Those automatically generated VNF-PPs
-    can then be bundled with the VNFs and serve as inputs for orchestration systems,
-    fitting to the original research ideas presented in <xref target="Rosa-a"/> and
-    <xref target="Peu-a"/>.</t>
+    and continuous delivery (CI/CD) pipelines so that new VNF-PPs are generated
+    on-the-fly for every new software version of a VNF. Those automatically
+    generated VNF-PPs can then be bundled with the VNFs and serve as inputs for
+    orchestration systems, fitting to the original research ideas presented in
+    <xref target="Rosa-a"/> and <xref target="Peu-a"/>.</t>
 
-    <t>Following the same high-level VNF testing purposes as Gym, namely: Comparability,
-    repeatability, configurability, and interoperability, tng-bench specifically aims to
-    explore description approaches for VNF benchmarking experiments. In <xref target="Peu-b"/>
-    a prototype specification VNF-BDs is presented which not only allows to specify generic,
-    abstract VNF benchmarking experiments, it also allows to describe sets of parameter
-    configurations to be tested during the benchmarking process, allowing the system
-    to automatically execute complex parameter studies on the SUT, e.g., testing a VNF's performance
-    under different CPU, memory, or software configurations.</t>
+    <t>Following the same high-level VNF testing purposes as Gym, namely:
+    Comparability, repeatability, configurability, and interoperability, tng-
+    bench specifically aims to explore description approaches for VNF
+    benchmarking experiments. In <xref target="Peu-b"/> a prototype
+    specification for VNF-BDs is presented which not only allows to specify
+    generic, abstract VNF benchmarking experiments, it also allows to describe
+    sets of parameter configurations to be tested during the benchmarking
+    process, allowing the system to automatically execute complex parameter
+    studies on the SUT, e.g., testing a VNF's performance under different CPU,
+    memory, or software configurations.</t>
 
-    <t>Tng-bench was used to perform a set of initial benchmarking experiments using different VNFs,
-    like a Squid proxy, an Nginx load balancer, and a Socat TCP relay in <xref target="Peu-b"/>.
-    Those VNFs have not only been benchmarked in isolation, but also in combined setups in which
-    up to three VNFs were chained one after each other. These experiments were used to test
-    tng-bench for scenarios in which composed VNFs, consisting of multiple VNF components (VNFCs),
-    have to be benchmarked. The presented results highlight the need to benchmark composed VNFs in
-    end-to-end scenarios rather than only benchmark each individual component in isolation, to produce
-    meaningful VNF-PPs for the complete VNF.</t>
+    <t>Tng-bench was used to perform a set of initial benchmarking experiments
+    using different VNFs, like a Squid proxy, an Nginx load balancer, and a
+    Socat TCP relay in <xref target="Peu-b"/>. Those VNFs have not only been
+    benchmarked in isolation, but also in combined setups in which up to three
+    VNFs were chained one after each other. These experiments were used to test
+    tng-bench for scenarios in which composed VNFs, consisting of multiple VNF
+    components (VNFCs), have to be benchmarked. The presented results highlight
+    the need to benchmark composed VNFs in end-to-end scenarios rather than only
+    benchmark each individual component in isolation, to produce meaningful VNF-
+    PPs for the complete VNF.</t>
 
-    <t>Tng-bench is actively developed and released as open source tool
-    under Apache 2.0 license <xref target="tng-bench"/>.</t>
+    <t>Tng-bench is actively developed and released as open source tool under
+    Apache 2.0 license <xref target="tng-bench"/>.</t>
 
   </section>
 
@@ -1005,6 +1042,16 @@ cases.</t>
       </front>
     </reference>
 
+    <reference anchor="ETS14e" target="https://docbox.etsi.org/isg/nfv/open/drafts/TST006_CICD_and_Devops_report">
+      <front>
+        <title>Report on CI/CD and Devops - ETSI GS NFV TST006 V0.0.9</title>
+          <author>
+            <organization>ETSI</organization>
+          </author>
+          <date month="April" year="2018" />
+      </front>
+    </reference>
+
   </references>
 
 
@@ -1071,6 +1118,17 @@ cases.</t>
           <date year="2017" />
       </front>
       <seriesInfo name="IEEE Conference on Network Function Virtualization and Software Defined Networks (NFV-SDN)" value="" />
+    </reference>
+
+    <reference anchor="Peu-c" target="https://ris.uni-paderborn.de/record/6016">
+      <front>
+        <title>Understand your chains and keep your deadlines: Introducing time-constrained profiling for NFV</title>
+          <author>
+            <organization>M. Peuster, H. Karl</organization>
+          </author>
+          <date year="2018" />
+      </front>
+      <seriesInfo name="IEEE/IFIP 14th International Conference on Network and Service Management (CNSM)" value="" />
     </reference>
 
     <reference anchor="tango" target="https://5gtango.eu">
