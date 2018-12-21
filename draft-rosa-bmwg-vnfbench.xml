@@ -118,7 +118,7 @@
     assist VNF lifecycle orchestration/management workflows, e.g., automated
     resource dimensioning based on benchmarking insights.</t>
 
-    <t>This document describes the basic methodologies and guidelines to fully
+    <t>This document describes basic methodologies and guidelines to fully
     automate VNF benchmarking procedures, without limiting the automated process
     to a specific benchmark or infrastructure. After presenting initial
     considerations, the document first describes a generic architectural
@@ -143,21 +143,37 @@
     and others commonly used in this document, are defined below.</t>
 
   <t><list style="hanging">
-  <t hangText="NFV:">Network Function Virtualization - The
+  <t hangText="NFV:">Network Function Virtualization - the
     principle of separating network functions from the
     hardware they run on by using virtual hardware
     abstraction.</t>
 
-  <t hangText="NFVI PoP:">NFV Infrastructure Point of
-    Presence - Any combination of virtualized compute,
-    storage and network resources.</t>
+   <t hangText="VNF:">Virtualized Network Function - a
+  software-based network function. A VNF can be either represented
+  by a single entity or be composed by a set of smaller, interconnected software components,
+  called VNF components (VNFCs) <xref target='ETS14d' />. Those VNFs are also called
+  composed VNFs.</t>
 
-  <t hangText="NFVI:">NFV Infrastructure - Collection of
+  <t hangText="NS:">Network Service - a
+  collection of interconnected VNFs forming a end-to-end service.
+  The interconnection is often done using chaining of functions
+  based on a VNF-FG.</t>
+
+  <t hangText="VNF-FG:">Virtualized Network Function
+    Forwarding Graph - an ordered list of VNFs or VNFCs creating a
+    service chain.</t>
+
+  <t hangText="NFVI:">NFV Infrastructure - collection of
     NFVI PoPs under one orchestrator.</t>
+
+  <t hangText="NFVI PoP:">NFV Infrastructure Point of
+    Presence - any combination of virtualized compute,
+    storage, and network resources.</t>
+
 
   <t hangText="VIM:">Virtualized Infrastructure Manager - functional
     block that is responsible for controlling and managing the
-    NFVI compute, storage and network resources, usually within
+    NFVI compute, storage, and network resources, usually within
     one operator's Infrastructure Domain (e.g. NFVI-PoP).</t>
 
   <t hangText="VNFM:">Virtualized Network Function Manager - functional
@@ -165,17 +181,10 @@
     VNF life-cycle.</t>
 
   <t hangText="NFVO:">NFV Orchestrator - functional
-    block that manages the Network Service (NS) life-cycle
-    and coordinates the management of NS life-cycle,
-    VNF life-cycle (supported by the VNFM) and NFVI
+    block coordinates the management of network service (NS) life-cycles,
+    VNF life-cycles (supported by the VNFM) and NFVI
     resources (supported by the VIM) to ensure an optimized
     allocation of the necessary resources and connectivity. </t>
-
-  <t hangText="VNF:">Virtualized Network Function - a
-  software-based network function. A VNF can be either represented
-  by a single entity or be composed by a set of smaller, interconnected software components,
-  called VNF components (VNFCs) <xref target='ETS14d' />. Those VNFs are also called
-  composed VNFs.</t>
 
   <t hangText="VNFD:">Virtualised Network Function Descriptor -
     configuration template that describes a VNF in terms of its
@@ -186,10 +195,7 @@
   <t hangText="VNFC:">Virtualized Network Function Component - a software
   component that implements (parts of) the VNF functionality. A VNF
   can consist of a single VNFC or multiple, interconnected VNFCs <xref target='ETS14d' /></t>
-
-  <t hangText="VNF-FG:">Virtualized Network Function
-    Forwarding Graph - an ordered list of VNFs or VNFCs creating a
-    service chain.</t>
+  
   </list></t>
 
 </section>
@@ -200,7 +206,7 @@
   and analysed as a particular case under the proper considerations of internal
   VNF instrumentation, later discussed in this document.</t>
 
-  <t>In what follows, this document outlines a basis methodology for VNF
+  <t>This document outlines a methodology for VNF
   benchmarking, specifically addressing its automation.</t>
 </section>
 
@@ -211,50 +217,50 @@
   considerations are well explored in <xref target="ETS14c"/>.</t>
 
   <section title="VNF Testing Methods" anchor="methods">
-    <t>Following the ETSI's model in <xref target="ETS14c"/>, we distinguish three
+    <t>Following ETSI's model in <xref target="ETS14c"/>, we distinguish three
     methods for VNF evaluation:</t>
 
     <t><list style="hanging">
-    <t hangText="Benchmarking:">Where parameters (e.g., cpu, memory, storage)
+    <t hangText="Benchmarking:">Where parameters (e.g., CPU, memory, storage)
     are provided and the corresponding
     performance metrics (e.g., latency, throughput) are obtained.
-    Note, such request might
+    Note, such evaluations might
     create multiple reports, for example, with minimal latency or
     maximum throughput results.</t>
 
     <t hangText="Verification:">Both parameters
     and performance metrics are provided and
-    a stimulus verify if the given association is correct or not.</t>
+    a stimulus verifies if the given association is correct or not.</t>
 
-    <t hangText="Dimensioning:">Where performance metrics
+    <t hangText="Dimensioning:">Performance metrics
     are provided and the corresponding parameters obtained.
-    Note, multiple deployment
-    interactions may be required, or if possible, underlying allocated
-    resources need to be dynamically altered.</t>
+    Note, multiple deployments may be required, or if possible,
+    underlying allocated resources need to be dynamically altered.</t>
     </list></t>
 
     <t>Note: Verification and Dimensioning can be reduced to
-    Benchmarking. Therefore, we detail Benchmarking in what follows.</t>
+    Benchmarking. Therefore, we focus on Benchmarking in the rest of
+    the document.</t>
   </section>
 
 
 
 <section title="Automated Benchmarking Procedures" anchor="consider_procedures">
 
-  <t>VNF benchmarking offers the possibility of defining
-	distinct aspects/steps that may or may not be automated:</t>
+  <t>A VNF benchmarking procedure contains multiple 
+   aspects/steps that may or may not be automated:</t>
 
   <t><list style="hanging">
-    <t hangText="Orchestration: "> placement (assignment/allocation
+    <t hangText="Orchestration: "> Placement (assignment/allocation
       of resources) and interconnection (physical/virtual) of network
       function(s) and benchmark components (e.g., OpenStack/Kubernetes
       templates, NFV description solutions, like OSM, SONATA, ONAP) ->
       Defines deployment scenario. </t>
 
-    <t hangText="Management/Configuration: "> benchmark components and
-      VNF are configured to execute the experiment/test (e.g., populate
-      routing table, load pcap source files in agent) ->
-      Realizes VNF-BD settings. </t>
+    <t hangText="Management/Configuration: "> Benchmark components and
+      VNFs are configured to execute the experiment/test (e.g., populate
+      routing table, load PCAP source files in agent) ->
+      Applies Benchmarking settings and configurations. </t>
 
     <t hangText="Execution: "> Tests/experiments are executed
       according to configuration and orchestrated components
@@ -265,7 +271,7 @@
        (e.g., transactions or throughput). Output processing must be
        taken into account (e.g., if sampling is applied or not) in a
        generic (statistics) or specific (clustering) ways
-        -> Generates VNF-PP. </t>
+        -> Generates the final benchmarking report. </t>
   </list></t>
 
   	<t> For the purposes of dissecting the execution procedures,
@@ -273,13 +279,13 @@
 
   	<t><list style="hanging">
             <t hangText="Trial: "> is a single process or
-            iteration to obtain VNF benchmarking metrics as a singular
-            measurement.</t>
-            <t hangText="Test: "> Defines strict parameters for
-            benchmarking components to perform one or more trials.
-            Multiple Trials must be performed for statistical significance
-          	of the obtained benchmarking results of a Test.  Each Trial must be
-          	executed following a particular deployment scenario composed
+            iteration to obtain VNF benchmarking metrics from
+            measurement. A Benchmarking Test should always run
+        	multiple Trails to get statistical confidence about
+        	the obtained measurements.</t>
+            <t hangText="Test: "> Defines parameters, e.g., configurations, resource
+            assignment, for benchmarked components to perform one or multiple trials.
+            Each Trial must be executed following a particular deployment scenario composed
           	by a VNF-BD. Proper measures must be taken to ensure statistic
           	validity (e.g., independence across trials of generated load
           	patterns).</t>
