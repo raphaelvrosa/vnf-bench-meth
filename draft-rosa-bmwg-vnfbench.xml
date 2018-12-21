@@ -308,7 +308,7 @@
 
   <t>A generic VNF benchmarking setup is shown in <xref target="fig_01" />,
     and its components are explained below.
-    Note here, not all components are mandatory, and VNF benchmarking
+    Note: Not all components are mandatory, and VNF benchmarking
     scenarios, further explained, can dispose its components in varied
     settings.</t>
 
@@ -487,12 +487,12 @@
   </figure>
 
 
-  <t>VNF Benchmarking reports  comprise  two parts:</t>
+  <t>VNF Benchmarking reports consist of two parts:</t>
 
       <t><list style="hanging">
         <t hangText="VNF Benchmarking Descriptor (VNF-BD) -- "> contains all required
         definitions and requirements to configure,
-        execute and reproduce VNF benchmarking experiments. VNF-BDs are defined
+        execute, and reproduce VNF benchmarking experiments. VNF-BDs are defined
         by the developer of a benchmarking experiment and serve as input to
         the benchmarking process, before being included in the generated VNF-BR.</t>
 
