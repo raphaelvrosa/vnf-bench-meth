@@ -458,31 +458,27 @@
   <figure anchor="fig_02" align="center"
       title="VNF benchmarking process inputs and outputs">
       <artwork align="center"><![CDATA[
-                              X
-                             / \
-                            /   \
-                           /     \
-+--------+                /       \
-|        |               /         \
-| VNF-BD |--(defines)-->| Benchmark |
-|        |               \ Process /
-+--------+                \       /
-                           \     /
-                            \   /
-                             \ /
-                              V
-                              |
-                         (generates)
-                              |
-                              v
-                 +-------------------------+
-                 |         VNF-BR          |
-                 | +--------+   +--------+ |
-                 | |        |   |        | |
-                 | | VNF-BD |   | VNF-PP | |
-                 | | {copy} |   |        | |
-                 | +--------+   +--------+ |
-                 +-------------------------+
+                         
+                         
+                         ______________
++--------+              |              |
+|        |              |  Automated   |
+| VNF-BD |--(defines)-->| Benchmarking |
+|        |              |   Process    |
++--------+              |______________|                                
+                               V
+                               |
+                          (generates)
+                               |
+                               v
+                  +-------------------------+
+                  |         VNF-BR          |
+                  | +--------+   +--------+ |
+                  | |        |   |        | |
+                  | | VNF-BD |   | VNF-PP | |
+                  | | {copy} |   |        | |
+                  | +--------+   +--------+ |
+                  +-------------------------+
   ]]></artwork>
   </figure>
 
