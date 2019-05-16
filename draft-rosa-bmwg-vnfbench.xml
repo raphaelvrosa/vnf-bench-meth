@@ -70,7 +70,7 @@
     </author>
 
 
-    <date year="2018" />
+    <date year="2019" />
     <area>IETF</area>
     <workgroup>BMWG</workgroup>
     <keyword>Internet-Draft</keyword>
@@ -78,7 +78,7 @@
 	<abstract>
     <t>This document describes a common methodology for the automated benchmarking of
        Virtualized Network Functions (VNFs) executed on general-purpose hardware.
-       Specific cases of benchmarking methodologies for particular VNFs
+       Specific cases of automated benchmarking methodologies for particular VNFs
        can be derived from this document. Two open source reference implementations
     are reported as running code embodiments of the proposed, automated benchmarking
     methodology. </t>
@@ -94,43 +94,44 @@
   Methodology Working Group (BMWG) already presented considerations for
   benchmarking of VNFs and their infrastructure in <xref target='RFC8172' />.
   Similar to the motivation given in <xref target='RFC8172' />, the following
-  aspects motivate the need for VNF benchmarking: (i) pre-deployment
+  aspects justify the need for VNF benchmarking: (i) pre-deployment
   infrastructure dimensioning to realize associated VNF performance profiles;
   (ii) comparison factor with physical network functions; (iii) and output
   results for analytical VNF development.</t>
 
-    <t>Even if many methodologies already described by the BMWG, e.g., self-
-    contained black-box benchmarking, can be applied to VNF benchmarking
-    scenarios, further considerations have to be made. This is, on the one hand,
-    because VNFs, which are software components, do not have strict and clear
-    execution boundaries and depend on underlying virtualization environment
-    parameters as well as management and orchestration decisions <xref
-    target='ETS14a' />. On the other hand, can and should the flexible,
-    software-based nature of VNFs be exploited to fully automate the entire
-    benchmarking procedure end-to-end. This is an inherent need to align VNF
-    benchmarking with the agile methods enabled by the concept of network
-    function virtualization (NFV) <xref target='ETS14e' /> More specifically it
-    allows: (i) the development of agile performance-focused DevOps
-    methodologies for Continuous Integration and Delivery (CI/CD) of VNFs; (ii)
-    the creation of on-demand VNF test descriptors for upcoming execution
-    environments; (iii) the path for precise-analytics of extensively automated
-    catalogues of VNF performance profiles; (iv) and run-time mechanisms to
-    assist VNF lifecycle orchestration/management workflows, e.g., automated
-    resource dimensioning based on benchmarking insights.</t>
+  <t>Even if many methodologies already described by the BMWG, e.g., self-
+  contained black-box benchmarking, can be applied to VNF benchmarking
+  scenarios, further considerations have to be made. This is, on the one hand,
+  because VNFs, which are software components, do not have strict and clear
+  execution boundaries and depend on underlying virtualization environment
+  parameters as well as management and orchestration decisions <xref
+  target='ETS14a' />. On the other hand, can and should the flexible,
+  software-based nature of VNFs be exploited to fully automate the entire
+  benchmarking procedure end-to-end. This is an inherent need to align VNF
+  benchmarking with the agile methods enabled by the concept of Network
+  Functions Virtualization (NFV) <xref target='ETS14e' /> More specifically it
+  allows: (i) the development of agile performance-focused DevOps
+  methodologies for Continuous Integration and Delivery (CI/CD) of VNFs; (ii)
+  the creation of on-demand VNF test descriptors for upcoming execution
+  environments; (iii) the path for precise-analytics of extensively automated
+  catalogues of VNF performance profiles; (iv) and run-time mechanisms to
+  assist VNF lifecycle orchestration/management workflows, e.g., automated
+  resource dimensioning based on benchmarking insights.</t>
 
-    <t>This document describes basic methodologies and guidelines to fully
-    automate VNF benchmarking procedures, without limiting the automated process
-    to a specific benchmark or infrastructure. After presenting initial
-    considerations, the document first describes a generic architectural
-    framework to setup automated benchmarking experiments. Second, the
-    automation methodology is discussed, with a particular focus on experiment
-    and procedure description approaches to support reproducibility of the
-    automated benchmarks, a key challenge in VNF benchmarking. Finally, two
-    independent, open-source reference implementations are presented. The
-    document addresses state-of-the-art work on VNF benchmarking from scientific
-    publications and current developments in other standardization bodies (e.g.,
-    <xref target='ETS14c' /> and <xref target='RFC8204' />) wherever
-    possible.</t>
+  <t>This document describes basic methodologies and guidelines to fully
+  automate VNF benchmarking procedures, without limiting the automated process
+  to a specific benchmark or infrastructure. After presenting initial
+  considerations, the document first describes a generic architectural
+  framework to setup automated benchmarking experiments. Second, the
+  automation methodology is discussed, with a particular focus on experiment
+  and procedure description approaches to support reproducibility of the
+  automated benchmarks, a key challenge in VNF benchmarking. 
+  Accordingly, a set of YANG models is presented and explained. 
+  Finally, two independent, open-source reference implementations are presented.
+  The document addresses state-of-the-art work on VNF benchmarking from scientific
+  publications and current developments in other standardization bodies (e.g.,
+  <xref target='ETS14c' /> and <xref target='RFC8204' />) wherever
+  possible.</t>
 
 </section>
 
@@ -246,59 +247,99 @@
 
 <section title="Benchmarking Procedures" anchor="consider_procedures">
 
-  <t>VNF benchmarking procedures contain multiple
-   aspects that may or may not be automated:</t>
+  <t> For the purposes of dissecting the automated benchmarking procedures,
+  consider the following definitions: </t>
 
   <t><list style="hanging">
-    <t hangText="Orchestration: "> Placement (assignment/allocation
-      of resources) and interconnection (physical/virtual) of network
-      function(s) and benchmark components (e.g., OpenStack/Kubernetes
-      templates, NFV description solutions, like OSM/ONAP). </t>
-
-    <t hangText="Configuration: "> Benchmark components and
-      VNFs are configured to execute the test settings (e.g., populate
-      routing table, load PCAP source files in source of stimulus). </t>
-
-    <t hangText="Execution: "> Experiments run repeatedly
-      according to configuration and orchestrated components
-      for each VNF benchmarking test case. </t>
-
-    <t hangText="Output: "> There might be generic VNF footprint metrics
-       (e.g., CPU and memory consumption) and specific VNF traffic processing metrics
-       (e.g., transactions or throughput), which can be parsed and processed
-       in generic or specific ways (e.g., by statistics or machine learning algorithms). </t>
+        <t hangText="Trial: "> is a single process or iteration to obtain VNF 
+          performance metrics from benchmarking measurements. A Test should always
+          run multiple Trials to get statistical confidence about the obtained 
+          measurements.</t>
+        <t hangText="Test: "> Defines unique structural and functional parameters 
+          (e.g., configurations, resource assignment) for benchmarked components
+          to perform one or multiple Trials.
+          Each Test must be executed following a particular benchmarking scenario
+          composed by a Method. Proper measures must be taken to ensure statistical
+          validity (e.g., independence across Trials of generated load
+          patterns).</t>
+        <t hangText="Method: "> Consists of one or more Tests to benchmark a VNF.
+          A Method can explicitly list ranges of parameter values for the configuration of
+          a benchmarking scenario and its components. Each value of such a range is to be
+          realized in a Test. I.e., Methods can define parameter studies.</t>
   </list></t>
 
-	<t> For the purposes of dissecting the automated execution procedures,
-	consider the following definitions: </t>
+  <t>In general, automated VNF benchmarking Tests 
+  must capture relevant causes of performance variability.
+  To dissect a benchmarking Test, different stages of benchmarking procedures
+  are defined by generic operations that may or may not be automated,
+  categorized in the sections that follow.
+  In each one of them, influencing aspects on the performance of a VNF
+  must be carefully analyzed while automating
+  a VNF benchmarking methodology, as explained in sequence.</t>
 
-	<t><list style="hanging">
-        <t hangText="Trial: "> is a single process or
-        iteration to obtain VNF benchmarking metrics from
-        measurement. A Benchmarking Test should always run
-    	multiple Trails to get statistical confidence about
-    	the obtained measurements.</t>
-        <t hangText="Test: "> Defines parameters, e.g., configurations, resource
-        assignment, for benchmarked components to perform one or multiple trials.
-        Each Trial must be executed following a particular deployment scenario composed
-      	by a Method. Proper measures must be taken to ensure statistic
-      	validity (e.g., independence across trials of generated load
-      	patterns).</t>
-        <t hangText="Method: "> Consists of one
-        or more Tests to benchmark a VNF. A Method can explicitly
-        list ranges of parameter values for the configuration of
-        benchmarking components. Each value of such a range is to be
-        realized in a Test. I.e., Methods can define parameter
-        studies.</t>
-	</list></t>
+  <section title="Orchestration" anchor="orchestration">
+    <t> The placement (i.e., assignment and allocation of resources) and the
+    interconnection, physical and/or virtual, of network function(s) and 
+    benchmarking components can be realized by orchestration platforms 
+    (e.g., OpenStack, Kubernetes, Open Source MANO).
+    In automated manners, the realization of a benchmarking testbed/scenario 
+    through those means usually rely on network service templates 
+    (e.g., TOSCA, Heat, YANG). 
+    Such descriptors have to capture all relevant details of the execution 
+    environment to allow the benchmarking framework to correctly instantiate
+    the SUT as well as helper functions, like agents/monitors, required for a Test.</t>
   </section>
+
+  <section title="Configuration" anchor="configuration">
+    <t> The configuration of benchmarking components and
+    VNFs (e.g., populate routing table, load PCAP source files in 
+    source of stimulus) to execute the Test settings can be realized by 
+    programming interfaces in an automated way.
+    In the scope of NFV, there might exist VNFM interfaces to control
+    a VNF during a benchmarking Test.
+    Likewise, a VIM or a NFVO can establish the proper configuration of
+    an execution environment to realize all the capabilities enabling
+    the benchmarking Test descriptor.
+    Each configuration registry, its deployment timestamp and target, 
+    must all be contained in the benchmarking report.</t>
+  </section>
+
+  <section title="Execution" anchor="execution">
+    <t> The execution of benchmarking Tests can occur repeatedly
+    according to configuration and orchestrated components
+    for each VNF benchmarking Test.
+    During a Test execution, particular behaviors of a VNF can be automatically triggered,
+    e.g., auto-scaling of its internal components.
+    Those must be captured in the detailed procedures of the VNF execution and its
+    performance report.
+    I.e., the execution of a Trial can determine arrangements of internal states inside a VNF,
+    which can interfere in observed benchmarking metrics.
+    In a particular benchmarking Tests where measurements
+    of VNF and/or execution environment metrics are available for extraction,
+    Tests should be run to verify if the monitoring of the VNF and/or execution environment
+    can impact the performance measurements.</t>
+  </section>
+
+  <section title="Report" anchor="report">
+    <t> The report of a VNF benchmarking might contain generic VNF footprint metrics
+    (e.g., CPU and memory consumption) and specific VNF traffic processing metrics
+    (e.g., transactions or throughput), which can be stored and processed
+    in generic or specific ways (e.g., by statistics or machine learning algorithms).
+    If automated procedures are applied over the generation of a benchmarking report, 
+    those must be detailed in the report itself, jointly with their input raw measurements 
+    and output processed data.
+    I.e., any algorithm used in the generation of report processed measurements must be disclosed
+    in the report.</t>
+  </section>
+
+ </section>
 </section>
 
 
 <section title="A Generic VNF Benchmarking Architectural Framework" anchor="setup">
   <t>A generic VNF benchmarking architectural framework, shown in <xref target="fig_01" />,
-    establishes the disposal of essential components and control interfaces, explained below, 
-	that enable the automation of VNF benchmarking methodologies.</t>
+  establishes the disposal of essential components and control interfaces, explained below, 
+  that enable the automation of VNF benchmarking methodologies.</t>
 
     <figure anchor="fig_01" align="center"
       title="Generic VNF Benchmarking Setup">
@@ -346,22 +387,20 @@
           and collection of end-to-end metrics (e.g., frame loss rate, latency)
           measured from stimulus traffic flowing through a VNF.
           An Agent can be defined by a physical or virtual network function. 
-  		  In addition, Agent must expose to Manager its available Probers
-  		  and execution environment capabilities.</t>
+    		  In addition, an Agent must expose to Manager its available Probers
+    		  and execution environment capabilities.</t>
+          
           <t><list style="hanging">
-              <t hangText="Prober --"> defines an abstraction layer for a software or hardware 
-              	tool able to generate stimulus traffic to a VNF or perform stress tests on execution environments. 
+              <t hangText="Prober --"> defines an abstraction layer for a software 
+                or hardware tool able to generate stimulus traffic to a VNF or 
+                perform stress tests on execution environments. 
                 Probers might be specific or generic to an execution environment or 
-                a VNF.
-                For an Agent, a Prober must provide programmable interfaces 
-                for its life cycle management workflows,
-                e.g., configuration of operational parameters,
-                execution of stilumus, parsing of extracted metrics,
-                and debugging options.
+                a VNF. For an Agent, a Prober must provide programmable interfaces 
+                for its life cycle management workflows, e.g., configuration of operational parameters,
+                execution of stilumus, parsing of extracted metrics, and debugging options.
                 Specific Probers might be developed to abstract and to realize
-                the description of particular benchmarking methodologies.</t>
+                the description of particular VNF benchmarking methodologies.</t>
           </list></t>
-
 
         <t hangText="Monitor --"> when possible is instantiated inside the
           System Under Test, VNF and/or NFVI PoP (e.g., as a plug-in process in a virtualized environment),
@@ -370,9 +409,10 @@
           Monitors observe particular properties according to NFVI PoPs and VNFs capabilities,
           i.e., exposed passive monitoring interfaces.
           Multiple Listeners can be executed at once in synchrony with a Prober' stimulus on a SUT.
-          A Monitor can be defined as a virtual network function.
+          A Monitor can be defined as a virtualized network function.
           In addition, Monitor must expose to Manager its available Listeners
-  		  and execution environment capabilities.</t>
+    		  and execution environment capabilities.</t>
+
           <t><list style="hanging">
               <t hangText="Listener --"> defines one or more software interfaces for the extraction of particular
               metrics monitored in a target VNF and/or execution environment.
@@ -388,12 +428,12 @@
         <t hangText="Manager --"> performs 
           (i) the discovery of available Agents/Monitors and their respective features 
           (i.e., available Probers/Listeners and execution environment capabilities),
-          (ii) the coordination and synchronization of activities of Agents and Monitors to perform a benchmark test,
-          (iii) the collection, processing and aggregation of all VNF benchmarking results
+          (ii) the coordination and synchronization of activities of Agents and Monitors to perform a benchmarking Test,
+          (iii) the collection, processing and aggregation of all VNF benchmarking measurements
           that correlates the VNF stimuli and the, possible, SUT monitored metrics.
           A Manager executes the main configuration, operation, and management actions
-          to deliver the VNF benchmarking results.
-          A Manager can be defined as a physical or virtual network function. </t>
+          to deliver the VNF benchmarking report.
+          A Manager can be defined as a physical or virtualized network function. </t>
 
         <t hangText="Virtualized Network Function (VNF) --"> consists of one or more
           software components, so called VNF components (VNFC), adequate for performing a network function according
@@ -413,33 +453,29 @@
 
   <section title="Deployment Scenarios" anchor="scenarios">
     <t>A deployment scenario realizes the instantiation of physical and/or virtual
-      of components of a Generic VNF Benchmarking Architectural Framework 
-      needed to habilitate the execution of an automated VNF benchmarking methodology.</t>
-
-      <t>The following considerations hold for deployment scenarios: </t>
+      components of a Generic VNF Benchmarking Architectural Framework 
+      needed to habilitate the execution of an automated VNF benchmarking methodology.
+      The following considerations hold for deployment scenarios: </t>
 
       <t><list style="symbols">
-
-		  <t>Not all components are mandatory, possible to be disposed in varied
-		    settings.</t>
-          <t> Components can be composed in a single entity and be defined as black or white boxes.
-            For instance, Manager and Agents could jointly define one hardware/software entity to
-            perform a VNF benchmark and present results. </t>
-          <t> Monitor is not a mandatory component and must be considered only when
-            performed white box benchmarking approaches for a VNF and/or its execution environment.</t>
-          <t> Monitor can be defined by multiple instances of software components,
-            each addressing a VNF or execution environment and their respective open
-            interfaces for the extraction of metrics.</t>
-          <t> Agents can be disposed in varied topology setups, included the possibility
-            of multiple input and output ports of a VNF being directly connected each in
-            one Agent.</t>
-          <t> All benchmarking components defined in a deployment scenario must
-            perform the synchronization of clocks.</t>
+        <t>Not all components are mandatory, possible to be disposed in varied
+   	      settings.</t>
+        <t> Components can be composed in a single entity and be defined as black or white boxes.
+          For instance, Manager and Agents could jointly define one hardware/software entity to
+          perform a VNF benchmarking Test and present measurement results. </t>
+        <t> Monitor is not a mandatory component and must be considered only when
+          performed white box benchmarking approaches for a VNF and/or its execution environment.</t>
+        <t> Monitor can be defined by multiple instances of software components,
+          each addressing a VNF or execution environment and their respective open
+          interfaces for the extraction of metrics.</t>
+        <t> Agents can be disposed in varied topology setups, included the possibility
+          of multiple input and output ports of a VNF being directly connected each in
+          one Agent.</t>
+        <t> All benchmarking components defined in a deployment scenario must
+          perform the synchronization of clocks.</t>
       </list></t>
   </section>
-
 </section>
-
 
 
 <section title="Methodology" anchor="methodology">
@@ -448,12 +484,22 @@
   them to be deployed in multiple environments. This
   enables various benchmarking setups in varied
   deployment scenarios.
-  A VNF benchmarking methodology must be described
-  in a clear and objective manner in order to allow
-  effective repeatability and comparability of the test results.
-  Those results, the outcome of a VNF benchmarking process, must be
-  captured in a VNF Benchmarking Report (VNF-BR), as shown in <xref target="fig_02" />.</t>
+  A VNF benchmarking methodology must be described in a clear and 
+  objective manner in order to allow some important guiding principles:</t>
 
+  <t><list style="symbols">
+    <t>Comparability: Output of Tests shall be simple to understand and process,
+    in a human-readable format, coherent, and easily reusable (e.g., inputs
+    for analytic applications).</t>
+    <t>Repeatability: A Test setup shall be comprehensively defined through a
+    flexible design model that can be interpreted and executed by the testing
+    platform repeatedly but supporting customization.</t>
+    <t>Configurability: Open interfaces and extensible messaging models shall
+    be available between benchmarking components for flexible composition of 
+    Test descriptors and platform configurations.</t>
+    <t>Interoperability: Tests shall be ported to different environments
+    using lightweight components.</t>
+  </list></t>
 
   <figure anchor="fig_02" align="center"
       title="VNF benchmarking process inputs and outputs">
@@ -464,7 +510,7 @@
 +--------+              |              |
 |        |              |  Automated   |
 | VNF-BD |--(defines)-->| Benchmarking |
-|        |              |   Process    |
+|        |              | Methodology  |
 +--------+              |______________|                                
                                V
                                |
@@ -482,141 +528,140 @@
   ]]></artwork>
   </figure>
 
+  <t> As shown in <xref target="fig_02" />, the outcome of an automated VNF 
+  benchmarking methodology, must be captured in a VNF Benchmarking Report (VNF-BR),
+  consisting of two parts:</t>
 
-  <t>A VNF Benchmarking Report consist of two parts:</t>
+  <t><list style="hanging">
+    <t hangText="VNF Benchmarking Descriptor (VNF-BD) -- "> contains all required
+    definitions and requirements to deploy, configure,
+    execute, and reproduce VNF benchmarking tests. VNF-BDs are defined
+    by the developer of a benchmarking methodology and serve as input to
+    the benchmarking process, before being included in the generated VNF-BR.</t>
 
-      <t><list style="hanging">
-        <t hangText="VNF Benchmarking Descriptor (VNF-BD) -- "> contains all required
-        definitions and requirements to deploy, configure,
-        execute, and reproduce VNF benchmarking tests. VNF-BDs are defined
-        by the developer of a benchmarking methodology and serve as input to
-        the benchmarking process, before being included in the generated VNF-BR.</t>
+    <t hangText="VNF Performance Profile (VNF-PP) -- "> contains
+    all measured metrics resulting from the execution of a
+    benchmarking. Additionally, it might also contain additional recordings
+    of configuration parameters used during the execution of the
+    benchmarking scenario to facilitate comparability of VNF-BRs. </t>
+  </list></t>
 
-        <t hangText="VNF Performance Profile (VNF-PP) -- "> contains
-        all measured metrics resulting from the execution of a
-        benchmarking. Additionally, it might also contain additional recordings
-        of configuration parameters used during the execution of the
-        benchmarking scenario to facilitate comparability of VNF-BRs. </t>
-      </list></t>
+  <t>A VNF-BR correlates structural and functional
+  parameters of VNF-BD with extracted VNF benchmarking metrics
+  of the obtained VNF-PP.
+  The content of each part of a VNF-BR is described in the following sections.</t>
 
-      <t>A VNF-BR correlates structural and functional
-      parameters of VNF-BD with extracted VNF benchmarking metrics
-      of the obtained VNF-PP.
-      The content of each part of a VNF-BR is described in the following sections.</t>
+  <section title="VNF Benchmarking Descriptor (VNF-BD)" anchor="vnf-bd">
+    <t> VNF Benchmarking Descriptor (VNF-BD) -- an artifact that
+    specifies a Method of how to measure a VNF Performance
+    Profile. The specification includes structural and functional
+    instructions and variable parameters at different
+    abstraction levels (e.g., topology of the deployment scenario,
+    benchmarking target metrics, parameters of benchmarking
+    components).  VNF-BD may be specific to a VNF or applicable to
+    several VNF types. A VNF-BD can be used to elaborate a VNF
+    benchmark deployment scenario aiming at the extraction of
+    particular VNF performance metrics.</t>
 
-    <section title="VNF Benchmarking Descriptor (VNF-BD)" anchor="vnf-bd">
-      <t> VNF Benchmarking Descriptor (VNF-BD) -- an artifact that
-      specifies a method of how to measure a VNF Performance
-      Profile.  The specification includes structural and functional
-      instructions and variable parameters at different
-      abstraction levels (e.g., topology of the deployment scenario,
-      benchmarking target metrics, parameters of benchmarking
-      components).  VNF-BD may be specific to a VNF or applicable to
-      several VNF types. A VNF-BD can be used to elaborate a VNF
-      benchmark deployment scenario aiming at the extraction of
-      particular VNF performance metrics.</t>
+    <t> The following items define the VNF-BD contents.</t>
 
-      <t> The following items define the VNF-BD contents.</t>
+      <section title="Descriptor Headers" anchor="overall-desc">
+          <t>The definition of parameters concerning the
+          descriptor file, e.g., its version, identidier, 
+          name, author and description.</t>
+      </section>
 
-        <section title="Descriptor Headers" anchor="overall-desc">
-            <t>The definition of parameters concerning the
-            descriptor file, e.g., its version, identidier, 
-            name, author and description.</t>
+      <section title="Experiments" anchor="overall-exps">
+          <t>The specification of the number executions of
+            each Trial, Test and Method. A Method consists in
+            the proper execution of the VNF-BD.</t>
+      </section>
+
+      <section title="Environment" anchor="overall-env">
+          <t>The details referring to the name, description, and
+            information associated with the plugin needed for the 
+            orchestration of the specified VNF-BD scenario.
+            A plugin refers to a specific interface that receives the
+            VNF-BD scenario information and converts it to the 
+            template needed for an orchestration platform.
+            In this case, the means to the Manager component interface
+            such plugin must be provided, as well as its outcome orchestration
+            status information (e.g., management interfaces of deployed components).</t>
+      </section>
+
+      <section title="Target Information" anchor="target-info">
+        <t>General information addressing the target VNF(s) the VNF-BD is applicable,
+        	with references to any specific characteristics, i.e., the VNF type,
+          model, version/release, author, vendor, architectural components, among
+          any other particular features.</t>
+      </section>
+
+      <section title="Scenario" anchor="scenario">
+        <t>This section contains all information needed
+        to describe the deployment of all involved functional components mandatory
+        for the execution of the benchmarking Tests addressed by the VNF-BD.</t>
+
+        <section title="Nodes" anchor="scenario-nodes">
+          <t>Information about each component in a benchmarking setup (see <xref target="setup" />).
+          It contains the identification, name, image, role, connection-points and resource requirements
+          (i.e., allocation of cpu, memory, disk).
+          Besides, in case of each node detaining the agent or monitor role, its incumbent 
+          probers/listeners must be specified detailing the experimental parameters to execute
+          the benchmarking Tests, as the cases detailed below.</t>
+
+          <t><list style="hanging">              
+              <t hangText="Agents: "> Defines the configured toolset
+              of probers and related benchmarking/active
+              metrics, available workloads, traffic formats/traces,
+              and configurations to enable hardware capabilities (if
+              existent).
+              In addition, it defines metrics from each prober to be extracted
+              when running the benchmarking Tests.</t>
+
+              <t hangText="Monitors: "> defines the configured toolset
+              of listeners and related monitoring/passive
+              metrics, configuration of the interfaces with the
+              monitoring target (VNF and/or execution environment),
+              and configurations to enable specific hardware
+              capabilities (if existent).
+              A monitor detains a specific set of fields detailing its habitat, 
+              containing its setting (e.g., process, tap, etc), location (internal or external)
+              and target (e.g., execution environment, VNF, etc). So its listerners
+              will be oriented to run on this habitat.
+              In addition, it defines metrics from each listener to be extracted
+              when running the benchmarking Tests.</t>
+          </list></t>
+
+          <t>The type is the most important field of a node. If defined as an internal one, it will be 
+          specified as depicted above. However, if specified as external, the field might refer
+          to an outside file, detailing a particular network service template to be parsed by the
+          orchestration plugin.</t>
+
+          <t>Lifecycle defines another node field. It lists all the workflows that must be
+            realized for a node. Main workflows include: create, start, stop, delete. Particular
+            workflows can be specified containing the required parameters and implementation.</t>
         </section>
 
-        <section title="Target Information" anchor="target-info">
-          <t>General information addressing the target VNF(s) the VNF-BD is applicable,
-          	with references to any specific characteristics, i.e., the VNF type,
-            model, version/release, author, vendor, architectural components, among
-            any other particular features.</t>
+        <section title="Links" anchor="scenario-links">
+          <t>Information about the data plane links interconnecting the components 
+            of a benchmarking setup. Links refer to two or more connection-points of a
+            node. A link might refer to be part of a network. Depending on the link type, 
+            the network might be implemented as a layer 2 mesh, or as directional-oriented 
+            traffic forwarding flow entries.
+            Links also detain resource requirements, specifying the minimum bandwidth, latency, 
+            and frame loss rate for the execution of benchmarking Tests.</t>
         </section>
 
-        <section title="Deployment Scenario" anchor="scenario">
-          <t>This section contains all information needed
-          to describe the deployment of all involved functional components mandatory
-          for the execution of the benchmarking tests addressed by the VNF-BD.</t>
+        <section title="Policies" anchor="scenario-pols">
+          <t> Involves the definition of execution environment policies
+            to run the Tests.
+            Policies might specify the (anti-)affinity placement rules for each
+            component in the topology, min/max allocation of resources,
+            and specific enabling technologies (e.g., DPDK, SR-IOV, PCIE) needed
+            for each component.</t>
+        </section>     
+      </section>
 
-          <section title="Topology" anchor="scenario-topo">
-            <t>Information about the experiment topology, concerning the
-            disposition of the components in a benchmarking setup (see <xref target="setup" />).
-            It must define the type of each component and how they are interconnected
-            (i.e., interface, link and network characteristics).
-            Acceptable topology descriptors might include references to external
-            configuration files particular of orchestration technologies (e.g., TOSCA, YANG).</t>
-          </section>
-
-          <section title="Requirements" anchor="scenario-reqs">
-            <t> Involves the definition of execution environment requirements
-              for the tests. Therefore, they concern
-              all required capabilities needed for the execution of the target VNF
-              and the other components composing the benchmarking setup.
-              Examples of requirements include the allocation of CPUs, memory and disk
-              for each component in the deployment scenario.
-              </t>
-          </section>
-
-          <section title="Policies" anchor="scenario-pols">
-            <t> Involves the definition of execution environment policies
-              to run the tests.
-              Policies might specify the (anti)-affinity placement rules for each
-              component in the topology, min/max allocation of resources,
-              specific enabling technologies (e.g., DPDK, SR-IOV, PCIE) needed
-              for each component.</t>
-          </section>     
-        </section>
-
-
-	    <section title="Settings" anchor="vnfbd-settings">
-	        <t> Involves any specific configuration of benchmarking
-	        components in a setup described the the deployment
-	        scenario topology.</t>
-
-	        <section title="Components" anchor="components-config">
-
-    		<t>Specifies the details of each component in the described
-			topology in the deployment scenario. For instante, it contains
-			the role of each component and its particular parameters, as the
-			cases detailed below:</t>
-
-	            <t><list style="hanging">
-		          <t hangText="VNF Configurations: "> Defines any specific configuration
-		          that must be loaded into the VNF to execute the
-		          benchmarking experiments (e.g., routing table, firewall
-		          rules, subscribers profile).</t>
-
-		          <t hangText="Agents: "> Defines the configured toolset
-		  	      of probers and related benchmarking/active
-		  	      metrics, available workloads, traffic formats/traces,
-		  	      and configurations to enable hardware capabilities (if
-		  	      existent).
-		          In addition, it defines metrics from each prober to be extracted
-		          when running the benchmarking tests.</t>
-
-		  	      <t hangText="Monitors: "> defines the configured toolset
-		  	      of listeners and related monitoring/passive
-		  	      metrics, configuration of the interfaces with the
-		  	      monitoring target (VNF and/or execution environment),
-		  	      and configurations to enable specific hardware
-		  	      capabilities (if existent).
-			  	  In addition, it defines metrics from each listener to be extracted
-		          when running the benchmarking tests.</t>
-		        </list></t>
-			</section>
-
-	        <section title="Environment" anchor="env-config">
-	            <t>The definition of parameters concerning the
-	            execution environment of the VNF-BD, for instance, containing
-	            name, description, plugin/driver, and parameters to realize the
-	            interface with an orchestration component responsible to instantiate
-	            each VNF-BD deployment scenario.</t>
-	        </section>
-
-	        <section title="Procedures Configuration" anchor="procedures-config">
-	            <t>The definition of parameters concerning the
-	            execution of the benchmarking procedures, for instance, containing
-	            the number of repetitions for each trial, test, and the whole VNF-BD (method).</t>
-	        </section>
-        </section>
     </section>
 
     <section title="VNF Performance Profile (VNF-PP)" anchor="vnf-pp">
@@ -626,7 +671,7 @@
       as well as assigned configurations (e.g., routing table used by the VNF)
       and the VNF performance metrics (e.g.,
       throughput, latency, CPU, memory) obtained in a
-      benchmarking test conducted using a VNF-BD.  Logically, packet
+      benchmarking Test conducted using a VNF-BD.  Logically, packet
       processing metrics are presented in a specific format
       addressing statistical significance (e.g., median, standard deviation, percentiles)
       where a correspondence
@@ -637,12 +682,12 @@
 
         <section title="Execution Environment" anchor="exec-env">
           <t>Execution environment information is has to be included in every VNF-PP
-          and is required to describe the environment on which a benchmark test was
+          and is required to describe the environment on which a benchmark Test was
           actually executed.</t>
 
             <t>Ideally, any person who has a VNF-BD and its complementing VNF-PP
             with its execution environment information available, must be able to
-            reproduce the same deployment scenario and VNF benchmarking tests to
+            reproduce the same deployment scenario and VNF benchmarking Tests to
             obtain identical VNF-PP measurement results.</t>
 
             <t>If not already defined by the VNF-BD deployment scenario
@@ -654,7 +699,7 @@
               <t hangText="Hardware Specs: "> Contains any information
               associated with the underlying hardware capabilities
               offered and used by the component during the benchmarking
-              tests. Examples of such specification include allocated
+              Tests. Examples of such specification include allocated
               CPU architecture, connected NIC specs, allocated memory
               DIMM, etc.  In addition, any information concerning
               details of resource isolation must also be described in
@@ -662,7 +707,7 @@
 
               <t hangText="Software Specs: "> Contains any information
               associated with the software apparatus offered and used
-              during the benchmarking tests.  Examples include versions
+              during the benchmarking Tests.  Examples include versions
               of operating systems, kernels, hypervisors, container
               image versions, etc.</t>
             </list></t>
@@ -712,122 +757,121 @@
           	to address the combined set of classified
             items in the 3x3 Matrix Coverage defined in <xref target="RFC8172"/>.</t>
         </section>
-
     </section>
 
 
     <section title="Procedures" anchor="procedures">
 
-    	<t> The methodology for VNF Benchmarking Automation encompasses
+   	<t> The methodology for VNF Benchmarking Automation encompasses
 		the process defined in <xref target="fig_02" />, i.e., the procedures
 		that translate a VNF-BD into a VNF-PP composing a VNF-BR by the means
 		of the components specified in <xref target="fig_01" />.
 		This section details the sequence of events that realize such process.</t>
 
 		<section title="Pre-Execution" anchor="pre-exec">
-			<t>Before the execution of benchmark tests, some procedures must be
-				performed:</t>
-	        
-	        <t><list style="hanging">
-	                <t hangText="1. "> A VNF-BD must be defined to be later
-	                instantiated into a deployment scenario and executed its tests. Such
-	                a description must contain all the structural and functional
-	                settings defined in <xref target="vnf-bd" />. At the end of
-	                this step, the complete method of benchmarking the target VNF
-	                is defined.</t>
+			<t>Before the execution of benchmarking Tests, some procedures must be
+				performed:</t>        
 
-	                <t hangText="2. "> The environment needed for a VNF-BD must be
-                	defined to realize its deployment scenario, in an automated or manual method.
-                	This step might count on the instantiation of orchestration platforms
-                	and the composition of specific topology descriptors needed by those platforms
-                	to realize the VNF-BD deployment scenario. At the end of
-	                this step, the whole environment needed to instantiate the 
-	                components of a VNF-BD deployment scenario is defined.</t>
+      <t><list style="hanging">
+        <t hangText="1. "> A VNF-BD must be defined to be later
+        instantiated into a deployment scenario and have executed its Tests. Such
+        a description must contain all the structural and functional
+        settings defined in <xref target="vnf-bd" />. At the end of
+        this step, the complete Method of benchmarking the target VNF
+        is defined.</t>
 
-	                <t hangText="3. "> The VNF target image must be prepared to be 
-                	benchmarked, having all its capabilities fully described. 
-                	In addition all the probers and listeners defined in the VNF-BD
-                	must be implemented to realize the benchmark tests. At the end of
-	                this step, the complete set of components of the benchmarking VNF-BD
-	                deployment scenario is defined.</t>
-	      	</list></t>
+        <t hangText="2. "> The VNF target image must be prepared to be 
+        benchmarked, having all its capabilities fully described. 
+        In addition all the probers and listeners defined in the VNF-BD
+        must be implemented to realize the benchmark Tests. At the end of
+        this step, the complete set of components of the benchmarking VNF-BD
+        deployment scenario is defined.</t>
+
+        <t hangText="3. "> The environment needed for a VNF-BD must be
+      	defined to realize its deployment scenario, in an automated or manual method.
+      	This step might count on the instantiation of orchestration platforms
+      	and the composition of specific topology descriptors needed by those platforms
+      	to realize the VNF-BD deployment scenario. At the end of
+        this step, the whole environment needed to instantiate the 
+        components of a VNF-BD deployment scenario is defined.</t>
+    	</list></t>
 		</section>
 
 		<section title="Automated Execution" anchor="automated-exec">
 			<t> Satisfied all the pre-execution procedures, the automated execution
-				of the tests specified by the VNF-BD follow:</t>
+				of the Tests specified by the VNF-BD follow:</t>
 	        
-	        <t><list style="hanging">
-        		<t hangText="1. "> Upon the parsing of a VNF-BD, the Manager must
-        			detect the VNF-BD variable input field (e.g., list of resources values)
-        			and compose the all the permutations of parameters.
-        			For each permutation, the Manager must elaborate a VNF-BD instance.
-        			Each VNF-BD instance defines a test, and it will have its deployment
-        			scenario instantiated accordingly.
-        			I.e., the Manager must interface an orchestration platform to realize 
-        			the automated instantiation of each deployment scenario defined by a VNF-BD 
-        			instance (i.e., a test).
-        			The Manager must iterate through all the VNF-BD instances to finish the
-        			whole set of tests defined by all the permutations of the VNF-BD input fields.</t>
+      <t><list style="hanging">
+    		<t hangText="1. "> Upon the parsing of a VNF-BD, the Manager must
+    			detect the VNF-BD variable input field (e.g., list of resources values)
+    			and compose the all the permutations of parameters.
+    			For each permutation, the Manager must elaborate a VNF-BD instance.
+    			Each VNF-BD instance defines a Test, and it will have its deployment
+    			scenario instantiated accordingly.
+    			I.e., the Manager must interface an orchestration platform to realize 
+    			the automated instantiation of each deployment scenario defined by a VNF-BD 
+    			instance (i.e., a Test).
+    			The Manager must iterate through all the VNF-BD instances to finish the
+    			whole set of Tests defined by all the permutations of the VNF-BD input fields.</t>
 
-                <t hangText="2. "> Given a VNF-BD instance, the Manager, using the VNF-BD
-                	environment settings, must interface an orchestrator platform requesting
-                	the deployment of a scenario to realize a test. To perform such step, 
-                	The Manager might interface a plugin/driver responsible to properly 
-                	parse the deployment scenario specifications into the orchestration 
-                	platform interface format.</t>
+        <t hangText="2. "> Given a VNF-BD instance, the Manager, using the VNF-BD
+        	environment settings, must interface an orchestrator platform requesting
+        	the deployment of a scenario to realize a Test. To perform such step, 
+        	The Manager might interface a plugin/driver responsible to properly 
+        	parse the deployment scenario specifications into the orchestration 
+        	platform interface format.</t>
 
-                <t hangText="3. "> An orchestration platform must deploy the scenario requested
-                	by the Manager, assuring the requirements and policies specified on it.
-                	In addition, the orchestration platform must acknowledge the deployed scenario to
-                	the Manager specifying the management interfaces of the VNF and the other
-                	components in the running instances for the benchmarking test.</t>
-	                
+        <t hangText="3. "> An orchestration platform must deploy the scenario requested
+        	by the Manager, assuring the requirements and policies specified on it.
+        	In addition, the orchestration platform must acknowledge the deployed scenario to
+        	the Manager specifying the management interfaces of the VNF and the other
+        	components in the running instances for the benchmarking Test.</t>
+          
 				<t hangText="4. "> Agent(s) and Monitor(s) (if
-	                existing) and the target VNF must be configured by the Manager
-	                according to the components settings defined in the VNF-BD instance.
-	                After this step, the whole VNF-BD test will be ready to be performed.</t>
+          existing) and the target VNF must be configured by the Manager
+          according to the components settings defined in the VNF-BD instance.
+          After this step, the whole VNF-BD Test will be ready to be executed.</t>
 
-                <t hangText="5. "> Manager must interface Agent(s) and Monitor(s) (if
-	                existing) via control interfaces to required the execution of the
-	                benchmark stimuli (and monitoring, if existing) and retrieve expected metrics
-	                captured during or  at the end of each Trial. 
-	                I.e., for a single test, according to the VNF-BD execution settings, 
-	                the Manager must guarantee that one or more
-	                trials realize the required measurements to characterize the
-	                performance behavior of a VNF.</t>
+        <t hangText="5. "> Manager must interface Agent(s) and Monitor(s) (if
+          existing) via management interfaces to require the execution of the
+          benchmarking probers (and listeners, if existing), and retrieve expected metrics
+          captured during or at the end of each Trial. 
+          I.e., for a single Test, according to the VNF-BD execution settings, 
+          the Manager must guarantee that one or more
+          Trials realize the required measurements to characterize the
+          performance behavior of a VNF.</t>
 
-                <t hangText="6. "> Output measurements from each obtained
-	                benchmarking test, and its possible trials, must be collected
-	                by the Manager, until all tests be finished.
-	                In the execution settings of the parsed VNF-BD, the Manager
-	                must check the method repetition, and perform the whole VNF-BD 
-	                tests (i.e., since step 1), until all methods are finished.</t>
+        <t hangText="6. "> Output measurements from each obtained
+          benchmarking Test, and its possible Trials, must be collected
+          by the Manager, until all the Tests are finished.
+          In the execution settings of the parsed VNF-BD, the Manager
+          must check the Method repetition, and perform the whole set of VNF-BD 
+          Tests (i.e., since step 1), until all methods specified are finished.</t>
 
-            	<t hangText="7. "> Collected all measurements from the VNF-BD (trials, tests and methods)
-            		execution, the intended metrics, as described in the VNF-BD, must be parsed, extracted 
-            		and combined to create the corresponding VNF-PP. 
-            		The combination of used VNF-BD and generated VNF-PP
-	                make up the resulting VNF benchmark report (VNF-BR).</t>
-	      	</list></t>
-
-		</section>
-
-		<section title="Post-Execution" anchor="post-exec">
-			<t> After the process of a VNF-BD, generated the associated VNF-BR,
-			some procedures must be guaranteed:</t>
-
-	        <t><list style="hanging">
-                <t hangText="1. "> Perform a statistical analysis of the output VNF-BR.</t>
-                <t hangText="2. "> Perform a machine learning based analysis of the output VNF-BR.</t>
-                <t hangText="3. "> Research the analysis outputs to the detect any possible
-                	cause-effect factors and/or intrinsic correlations in the VNF-BR (e.g., outliers).</t>
-                <t hangText="4. "> Review the input VNF-BD and modify it to realize the proper
-                	extraction of the target VNF metrics based on the performed research
-                	Iterate in the previous steps until composing a stable and representative VNF-BR.</t>
-	      	</list></t>
-		</section>
+      	<t hangText="7. "> Collected all measurements from the VNF-BD (Trials, Tests and Methods)
+      		execution, the intended metrics, as described in the VNF-BD, must be parsed, extracted 
+      		and combined to create the corresponding VNF-PP. 
+      		The combination of used VNF-BD and generated VNF-PP
+          compose the resulting VNF benchmark report (VNF-BR).</t>
+  	  </list></t>
     </section>
+
+	  <section title="Post-Execution" anchor="post-exec">
+			<t> After the process of a VNF-BD, generated the associated VNF-BR,
+			some procedures can be guaranteed:</t>
+
+      <t><list style="hanging">
+        <t hangText="1. "> Perform a statistical analysis of the output VNF-BR.</t>
+        <t hangText="2. "> Perform a machine learning based analysis of the output VNF-BR.</t>
+        <t hangText="3. "> Research the analysis outputs to the detect any possible
+        	cause-effect factors and/or intrinsic correlations in the VNF-BR (e.g., outliers).</t>
+        <t hangText="4. "> Review the input VNF-BD and modify it to realize the proper
+        	extraction of the target VNF metrics based on the performed research
+        	Iterate in the previous steps until composing a stable and representative VNF-BR.</t>
+    	</list></t>
+		</section>
+
+  </section>
 
 
 	<section title="Particular Cases" anchor="specific">
@@ -897,46 +941,27 @@
 </section>
 
 
-<section title="Relevant Influencing Aspects" anchor="aspects">
-	<t>In general, automated VNF benchmarking tests as herein described
-	must capture relevant causes of performance variability.
-  	Concerning a deployment scenario, influencing aspects on the
-  	performance of a VNF can be observed in:</t>
-
-	<t><list style="hanging">
-	  <t hangText="Deployment Scenario Topology:"> The disposition of
-	    components can define particular interconnections
-	    among them composing a specific case/method of VNF benchmarking.</t>
-	  <t hangText="Execution Environment:"> The availability of generic and
-	    specific capabilities satisfying VNF requirements define a skeleton
-	    of opportunities for the allocation of VNF resources.
-	    In addition, particular cases can define multiple VNFs interacting
-	    in the same execution environment of a benchmarking setup.</t>
-	  <t hangText="VNF:"> A detailed description of functionalities performed
-	    by a VNF sets possible traffic forwarding and processing operations it
-	    can perform on packets, added to its running requirements and specific
-	    configurations, which might affect and compose a benchmarking setup.</t>
-	  <t hangText="Agent:"> The toolset available for the benchmarking stimulus
-	    of a VNF and its characteristics of packets format and workload
-	    can interfere in a benchmarking setup. VNFs can support specific traffic
-	    format as stimulus.</t>
-	  <t hangText="Monitor:"> In a particular benchmarking setup where measurements
-	    of VNF and/or execution environment metrics are available for extraction,
-	    an important analysis consist in verifying if the Monitor components
-	    can impact performance metrics of the VNF and the underlying execution
-	    environment.</t>
-	  <t hangText="Manager:"> The overall composition of VNF benchmarking
-	    procedures can determine arrangements of internal states inside a VNF,
-	    which can interfere in observed benchmarking metrics.</t>
-	</list></t>
-
-	<t>The listed influencing aspects must be carefully analyzed while automating
-	a VNF benchmarking methodology.</t>
-</section>
-
 
 <section title="Open Source Reference Implementations" anchor="opensource">
-  <t>There are two open source reference implementations that are build to
+  <t> Currently, technical motivating factors in favor of the automation
+  of VNF benchmarking methodologies comprise:
+  (i) the facility to run high-fidelity and commodity traffic generators 
+  by software; 
+  (ii) the existent means to construct synthetic traffic workloads purely
+  by software (e.g., handcrafted pcap files);  
+  (iii) the increasing availability of datasets containing actual sources 
+  of production traffic able to be reproduced in benchmarking tests;
+  (iv) the existence of a myriad of automating tools and open interfaces
+  to programmatically manage VNFs;
+  (v) the varied set of orchestration platforms enabling the allocation of
+  resources and instantition of VNFs through automated machineries based 
+  on well-defined templates;
+  (vi) the ability to utilize a large tool set of software components to
+  compose pipelines that mathematically analyze benchmarking metrics in 
+  automated ways.</t>
+
+  <t>In simple terms, network softwarization enables automation. 
+  There are two open source reference implementations that are build to
   automate benchmarking of Virtualized Network Functions (VNFs).</t>
 
   <section title="Gym" anchor="opensource_gym">
@@ -954,24 +979,6 @@
     ideas <xref target="Rosa-a"/>, such output profiles might be used by orchestrator functions
     to perform VNF lifecycle tasks (e.g., deployment, maintenance, tear-down).</t>
 
-    <t>The proposed guiding principles, elaborated in <xref target="Rosa-b"/>,
-    to design and build Gym can be composed
-    in multiple practical ways for different VNF testing purposes:</t>
-
-    <t><list style="symbols">
-      <t>Comparability: Output of tests shall be simple to understand and process,
-      in a human-read able format, coherent, and easily reusable (e.g., inputs
-      for analytic applications).</t>
-      <t>Repeatability: Test setup shall be comprehensively defined through a
-      flexible design model that can be interpreted and executed by the testing
-      platform repeatedly but supporting customization.</t>
-      <t>Configurability: Open interfaces and extensible messaging models shall
-      be available between components for flexible composition of test descriptors
-      and platform configurations.</t>
-      <t>Interoperability: Tests shall be ported to different environments
-      using lightweight components.</t>
-    </list></t>
-
     <t>In <xref target="Rosa-b"/> Gym was utilized to benchmark a decomposed
     IP Multimedia Subsystem VNF. And in <xref target="Rosa-c"/>, a virtual switch
     (Open vSwitch - OVS) was the target VNF of Gym for the analysis of VNF benchmarking automation.
@@ -988,6 +995,10 @@
     examples on the vIMS and OVS targets as described
     in <xref target="Rosa-b"/> and <xref target="Rosa-c"/>.
     </t>
+
+    <t>Gym is released as open source tool under
+    Apache 2.0 license <xref target="gym"/>.</t>
+
   </section>
 
   <section title="tng-bench" anchor="opensource_tng_profile">
@@ -1254,6 +1265,15 @@
         <date/>
       </front>
     </reference>
+
+    <reference anchor="gym" target="https://github.com/intrig-unicamp/gym">
+      <front>
+        <title>Gym Benchmarking Framework</title>
+        <author/>
+        <date/>
+      </front>
+    </reference>
+
 
   </references>
 
