@@ -243,9 +243,10 @@
   To dissect a VNF benchmarking Test, in the sections that follow
   different benchmarking phases are categorized defining generic
   operations that may be automated.
-  When automating a VNF benchmarking methodology, in each one of the
-  phases explained in sequence, all the influencing aspects on the performance of a VNF
-  must be carefully analyzed and comprehensively reported.</t>
+  When automating a VNF benchmarking methodology, 
+  all the influencing aspects on the performance
+  of a VNF must be carefully analyzed and comprehensively reported,
+  in each phase of the overall benchmarking process.</t>
 
   <section title="Phase I: Deployment" anchor="orchestration">
     <t> The placement (i.e., assignment and allocation of resources) and the

@@ -5,10 +5,10 @@
 BMWG                                                        R. Rosa, Ed.
 Internet-Draft                                             C. Rothenberg
 Intended status: Informational                                   UNICAMP
-Expires: November 22, 2019                                    M. Peuster
+Expires: November 23, 2019                                    M. Peuster
                                                                  H. Karl
                                                                      UPB
-                                                            May 21, 2019
+                                                            May 22, 2019
 
 
               Methodology for VNF Benchmarking Automation
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 22, 2019.
+   This Internet-Draft will expire on November 23, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Rosa, et al.            Expires November 22, 2019               [Page 1]
+Rosa, et al.            Expires November 23, 2019               [Page 1]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Rosa, et al.            Expires November 22, 2019               [Page 2]
+Rosa, et al.            Expires November 23, 2019               [Page 2]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -165,7 +165,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019               [Page 3]
+Rosa, et al.            Expires November 23, 2019               [Page 3]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -221,7 +221,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019               [Page 4]
+Rosa, et al.            Expires November 23, 2019               [Page 4]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -277,16 +277,17 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019               [Page 5]
+Rosa, et al.            Expires November 23, 2019               [Page 5]
 
 Internet-Draft                  VNFBench                        May 2019
 
 
    Test, in the sections that follow different benchmarking phases are
    categorized defining generic operations that may be automated.  When
-   automating a VNF benchmarking methodology, in each one of the phases
-   explained in sequence, all the influencing aspects on the performance
-   of a VNF must be carefully analyzed and comprehensively reported.
+   automating a VNF benchmarking methodology, all the influencing
+   aspects on the performance of a VNF must be carefully analyzed and
+   comprehensively reported, in each phase of the overall benchmarking
+   process.
 
 4.2.1.  Phase I: Deployment
 
@@ -332,8 +333,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-
-Rosa, et al.            Expires November 22, 2019               [Page 6]
+Rosa, et al.            Expires November 23, 2019               [Page 6]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -389,7 +389,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019               [Page 7]
+Rosa, et al.            Expires November 23, 2019               [Page 7]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -445,7 +445,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019               [Page 8]
+Rosa, et al.            Expires November 23, 2019               [Page 8]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -501,7 +501,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019               [Page 9]
+Rosa, et al.            Expires November 23, 2019               [Page 9]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -557,7 +557,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 10]
+Rosa, et al.            Expires November 23, 2019              [Page 10]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -613,7 +613,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 11]
+Rosa, et al.            Expires November 23, 2019              [Page 11]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -669,7 +669,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 12]
+Rosa, et al.            Expires November 23, 2019              [Page 12]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -725,7 +725,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 13]
+Rosa, et al.            Expires November 23, 2019              [Page 13]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -781,7 +781,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 14]
+Rosa, et al.            Expires November 23, 2019              [Page 14]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -837,7 +837,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 15]
+Rosa, et al.            Expires November 23, 2019              [Page 15]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -893,7 +893,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 16]
+Rosa, et al.            Expires November 23, 2019              [Page 16]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -949,7 +949,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 17]
+Rosa, et al.            Expires November 23, 2019              [Page 17]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 18]
+Rosa, et al.            Expires November 23, 2019              [Page 18]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 19]
+Rosa, et al.            Expires November 23, 2019              [Page 19]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 20]
+Rosa, et al.            Expires November 23, 2019              [Page 20]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 21]
+Rosa, et al.            Expires November 23, 2019              [Page 21]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -1229,7 +1229,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 22]
+Rosa, et al.            Expires November 23, 2019              [Page 22]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 23]
+Rosa, et al.            Expires November 23, 2019              [Page 23]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -1341,7 +1341,7 @@ Authors' Addresses
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 24]
+Rosa, et al.            Expires November 23, 2019              [Page 24]
 
 Internet-Draft                  VNFBench                        May 2019
 
@@ -1397,4 +1397,4 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 22, 2019              [Page 25]
+Rosa, et al.            Expires November 23, 2019              [Page 25]
