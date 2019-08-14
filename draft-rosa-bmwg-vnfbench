@@ -92,7 +92,7 @@ Table of Contents
    6.3.1.  Pre-Execution . . . . . . . . . . . . . . . . . . . . . .  16
    6.3.2.  Automated Execution . . . . . . . . . . . . . . . . . . .  17
    6.3.3.  Post-Execution  . . . . . . . . . . . . . . . . . . . . .  18
-   6.4.  Particular Cases  . . . . . . . . . . . . . . . . . . . . .  18
+   6.4.  Particular Cases  . . . . . . . . . . . . . . . . . . . . .  19
    6.4.1.  Capacity  . . . . . . . . . . . . . . . . . . . . . . . .  19
    6.4.2.  Isolation . . . . . . . . . . . . . . . . . . . . . . . .  19
    6.4.3.  Failure Handling  . . . . . . . . . . . . . . . . . . . .  19
@@ -100,11 +100,11 @@ Table of Contents
    6.4.5.  Handling Configurations . . . . . . . . . . . . . . . . .  20
    6.4.6.  White Box VNF . . . . . . . . . . . . . . . . . . . . . .  20
    7.  Open Source Reference Implementations . . . . . . . . . . . .  20
-   7.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  20
+   7.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  21
    7.2.  tng-bench . . . . . . . . . . . . . . . . . . . . . . . . .  21
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  22
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  22
-   10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  22
+   10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  23
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  23
 
 
@@ -115,8 +115,8 @@ Internet-Draft                  VNFBench                     August 2019
 
 
    11.1.  Normative References . . . . . . . . . . . . . . . . . . .  23
-   11.2.  Informative References . . . . . . . . . . . . . . . . . .  23
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  24
+   11.2.  Informative References . . . . . . . . . . . . . . . . . .  24
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  25
 
 1.  Introduction
 
@@ -701,9 +701,11 @@ Internet-Draft                  VNFBench                     August 2019
    A SUT is always considered to be the full set of VNFCs comprised by
    the VNF.  Thus all VNFCs of a VNF are always benchmarked together
    because all of them are needed to implement the full set of the VNF's
-   functionalities.  Benchmarking single VNFCs in isolation could be
-   considered as a particular case, i.e., whitebox scenario which is out
-   of scope of this draft.
+   functionalities.  This is aligned with the results presented in
+   [Peu-b] that show that VNF compositions should be benchmarked as a
+   whole.  Benchmarking single VNFCs in isolation could be considered as
+   a particular case, i.e., whitebox scenario which is out of scope of
+   this draft.
 
    The lifecycle specification of a node lists all the workflows that
    must be realized on it during a Test.  For instance, main workflows
@@ -720,8 +722,6 @@ Internet-Draft                  VNFBench                     August 2019
    network.  Depending on the link type, the network might be
    implemented as a layer 2 mesh, or as directional-oriented traffic
    forwarding flow entries.  Links also detain resource requirements,
-   specifying the minimum bandwidth, latency, and frame loss rate for
-   the execution of benchmarking Tests.
 
 
 
@@ -729,6 +729,9 @@ Rosa, et al.            Expires February 15, 2020              [Page 13]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+   specifying the minimum bandwidth, latency, and frame loss rate for
+   the execution of benchmarking Tests.
 
 6.1.5.3.  Policies
 
@@ -775,9 +778,6 @@ Internet-Draft                  VNFBench                     August 2019
    performance metrics (e.g., throughput, latency, CPU, memory) obtained
    in a benchmarking Test conducted using a VNF-BD.  Logically, packet
    processing metrics are presented in a specific format addressing
-   statistical significance (e.g., median, standard deviation,
-   percentiles) where a correspondence among VNF parameters and the
-   delivery of a measured VNF performance exists.
 
 
 
@@ -785,6 +785,10 @@ Rosa, et al.            Expires February 15, 2020              [Page 14]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+   statistical significance (e.g., median, standard deviation,
+   percentiles) where a correspondence among VNF parameters and the
+   delivery of a measured VNF performance exists.
 
    The following items define the VNF-PP contents.
 
@@ -829,11 +833,7 @@ Internet-Draft                  VNFBench                     August 2019
    Measurement results concern the extracted metrics, output of
    benchmarking procedures, classified into:
 
-   VNF Processing/Active Metrics:   Concerns metrics explicitly defined
-      by or extracted from direct interactions of Agents with a VNF.
-      Those can be defined as generic metric related to network packet
-      processing (e.g., throughput, latency) or metrics specific to a
-      particular VNF (e.g., HTTP confirmed transactions, DNS replies).
+
 
 
 
@@ -841,6 +841,12 @@ Rosa, et al.            Expires February 15, 2020              [Page 15]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+   VNF Processing/Active Metrics:   Concerns metrics explicitly defined
+      by or extracted from direct interactions of Agents with a VNF.
+      Those can be defined as generic metric related to network packet
+      processing (e.g., throughput, latency) or metrics specific to a
+      particular VNF (e.g., HTTP confirmed transactions, DNS replies).
 
    VNF Monitored/Passive Metrics:   Concerns the Monitors' metrics
       captured from a VNF execution, classified according to the
@@ -883,12 +889,6 @@ Internet-Draft                  VNFBench                     August 2019
       settings defined in Section 6.1.  At the end of this step, the
       complete Method of benchmarking the target VNF is defined.
 
-   2.   The VNF target image must be prepared to be benchmarked, having
-      all its capabilities fully described.  In addition all the probers
-      and listeners defined in the VNF-BD must be implemented to realize
-      the benchmark Tests.  At the end of this step, the complete set of
-      components of the benchmarking VNF-BD deployment scenario is
-      defined.
 
 
 
@@ -897,6 +897,13 @@ Rosa, et al.            Expires February 15, 2020              [Page 16]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+   2.   The VNF target image must be prepared to be benchmarked, having
+      all its capabilities fully described.  In addition all the probers
+      and listeners defined in the VNF-BD must be implemented to realize
+      the benchmark Tests.  At the end of this step, the complete set of
+      components of the benchmarking VNF-BD deployment scenario is
+      defined.
 
    3.   The environment needed for a VNF-BD must be defined to realize
       its deployment scenario, in an automated or manual method.  This
@@ -940,19 +947,17 @@ Internet-Draft                  VNFBench                     August 2019
       interfaces of the VNF and the other components in the running
       instances for the benchmarking Test.
 
-   4.   Agent(s) and Monitor(s) (if existing) and the target VNF must be
-      configured by the Manager according to the components settings
-      defined in the VNF-BD instance.  After this step, the whole VNF-BD
-      Test will be ready to be executed.
-
-
-
 
 
 Rosa, et al.            Expires February 15, 2020              [Page 17]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+   4.   Agent(s) and Monitor(s) (if existing) and the target VNF must be
+      configured by the Manager according to the components settings
+      defined in the VNF-BD instance.  After this step, the whole VNF-BD
+      Test will be ready to be executed.
 
    5.   Manager must interface Agent(s) and Monitor(s) (if existing) via
       management interfaces to require the execution of the benchmarking
@@ -996,11 +1001,6 @@ Internet-Draft                  VNFBench                     August 2019
       research.  Iterate in the previous steps until composing a stable
       and representative VNF-BR.
 
-6.4.  Particular Cases
-
-   As described in [RFC8172], VNF benchmarking might require to change
-   and adapt existing benchmarking methodologies.  More specifically,
-   the following cases need to be considered.
 
 
 
@@ -1009,6 +1009,12 @@ Rosa, et al.            Expires February 15, 2020              [Page 18]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+6.4.  Particular Cases
+
+   As described in [RFC8172], VNF benchmarking might require to change
+   and adapt existing benchmarking methodologies.  More specifically,
+   the following cases need to be considered.
 
 6.4.1.  Capacity
 
@@ -1052,12 +1058,6 @@ Internet-Draft                  VNFBench                     August 2019
    functionalities associated with elasticity such as automated scaling.
    These state changes and triggers (e.g. the VNF's scaling state) must
    be captured in the benchmarking results (VNF-PP) to provide a
-   detailed characterization of the VNF's performance behavior in
-   different states.
-
-
-
-
 
 
 
@@ -1065,6 +1065,9 @@ Rosa, et al.            Expires February 15, 2020              [Page 19]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+   detailed characterization of the VNF's performance behavior in
+   different states.
 
 6.4.5.  Handling Configurations
 
@@ -1107,12 +1110,9 @@ Internet-Draft                  VNFBench                     August 2019
    are two open source reference implementations that are build to
    automate benchmarking of Virtualized Network Functions (VNFs).
 
-7.1.  Gym
 
-   The software, named Gym, is a framework for automated benchmarking of
-   Virtualized Network Functions (VNFs).  It was coded following the
-   initial ideas presented in a 2015 scientific paper entitled "VBaaS:
-   VNF Benchmark-as-a-Service" [Rosa-a].  Later, the evolved design and
+
+
 
 
 
@@ -1122,6 +1122,12 @@ Rosa, et al.            Expires February 15, 2020              [Page 20]
 Internet-Draft                  VNFBench                     August 2019
 
 
+7.1.  Gym
+
+   The software, named Gym, is a framework for automated benchmarking of
+   Virtualized Network Functions (VNFs).  It was coded following the
+   initial ideas presented in a 2015 scientific paper entitled "VBaaS:
+   VNF Benchmark-as-a-Service" [Rosa-a].  Later, the evolved design and
    prototyping ideas were presented at IETF/IRTF meetings seeking impact
    into NFVRG and BMWG.
 
@@ -1165,12 +1171,6 @@ Internet-Draft                  VNFBench                     August 2019
    fitting to the original research ideas presented in [Rosa-a] and
    [Peu-a].
 
-   Following the same high-level VNF testing purposes as Gym, namely:
-   Comparability, repeatability, configurability, and interoperability,
-   tng- bench specifically aims to explore description approaches for
-   VNF benchmarking experiments.  In [Peu-b] a prototype specification
-   for VNF-BDs is presented which not only allows to specify generic,
-
 
 
 Rosa, et al.            Expires February 15, 2020              [Page 21]
@@ -1178,6 +1178,11 @@ Rosa, et al.            Expires February 15, 2020              [Page 21]
 Internet-Draft                  VNFBench                     August 2019
 
 
+   Following the same high-level VNF testing purposes as Gym, namely:
+   Comparability, repeatability, configurability, and interoperability,
+   tng- bench specifically aims to explore description approaches for
+   VNF benchmarking experiments.  In [Peu-b] a prototype specification
+   for VNF-BDs is presented which not only allows to specify generic,
    abstract VNF benchmarking experiments, it also allows to describe
    sets of parameter configurations to be tested during the benchmarking
    process, allowing the system to automatically execute complex
@@ -1220,12 +1225,7 @@ Internet-Draft                  VNFBench                     August 2019
 
    This document does not require any IANA actions.
 
-10.  Acknowledgement
 
-   The authors would like to thank the support of Ericsson Research,
-   Brazil.  Parts of this work have received funding from the European
-   Union's Horizon 2020 research and innovation programme under grant
-   agreement No.  H2020-ICT-2016-2 761493 (5GTANGO: https://5gtango.eu).
 
 
 
@@ -1233,6 +1233,13 @@ Rosa, et al.            Expires February 15, 2020              [Page 22]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+10.  Acknowledgement
+
+   The authors would like to thank the support of Ericsson Research,
+   Brazil.  Parts of this work have received funding from the European
+   Union's Horizon 2020 research and innovation programme under grant
+   agreement No.  H2020-ICT-2016-2 761493 (5GTANGO: https://5gtango.eu).
 
 11.  References
 
@@ -1276,19 +1283,17 @@ Internet-Draft                  VNFBench                     August 2019
               Switches in the Open Platform for NFV (OPNFV)", September
               2017, <https://www.rfc-editor.org/info/rfc8204>.
 
-11.2.  Informative References
-
-   [gym]      "Gym Framework Source Code",
-              <https://github.com/intrig-unicamp/gym>.
-
-
-
 
 
 Rosa, et al.            Expires February 15, 2020              [Page 23]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+11.2.  Informative References
+
+   [gym]      "Gym Framework Source Code",
+              <https://github.com/intrig-unicamp/gym>.
 
    [Peu-a]    M. Peuster, H. Karl, "Understand Your Chains: Towards
               Performance Profile-based Network Service Management",
@@ -1333,11 +1338,6 @@ Internet-Draft                  VNFBench                     August 2019
               "5GTANGO VNF/NS Benchmarking Framework",
               <https://github.com/sonata-nfv/tng-sdk-benchmark>.
 
-Authors' Addresses
-
-
-
-
 
 
 
@@ -1345,6 +1345,8 @@ Rosa, et al.            Expires February 15, 2020              [Page 24]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+Authors' Addresses
 
    Raphael Vicente Rosa (editor)
    University of Campinas
@@ -1384,8 +1386,6 @@ Internet-Draft                  VNFBench                     August 2019
 
    Email: holger.karl@upb.de
    URI:   https://cs.uni-paderborn.de/cn/
-
-
 
 
 

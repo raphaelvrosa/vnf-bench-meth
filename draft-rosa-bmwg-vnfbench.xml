@@ -575,7 +575,7 @@
 
           <t>A SUT is always considered to be the full set of VNFCs comprised by the 
             VNF. Thus all VNFCs of a VNF are always benchmarked together because all of them are 
-            needed to implement the full set of the VNF's functionalities. Benchmarking 
+            needed to implement the full set of the VNF's functionalities. This is aligned with the results presented in <xref target="Peu-b"/> that show that VNF compositions should be benchmarked as a whole. Benchmarking 
             single VNFCs in isolation could be considered as a particular case, i.e., whitebox scenario which is out of scope of this draft.</t>
 
           <t>The lifecycle specification of a node lists all the workflows that must be
