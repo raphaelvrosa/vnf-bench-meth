@@ -550,13 +550,17 @@
       <section title="Environment" anchor="overall-env">
           <t>The details referring to the name, description, and
             information associated with the interfaces needed for the 
-            orchestration, if necessary, of the specified VNF-BD scenario.
+            management and orchestration (MANO), if necessary, of the specified VNF-BD scenario.
             I.e., it refers to a specific interface that receives the
             VNF-BD scenario information and converts it to the 
             template needed for an orchestration platform.
-            In this case, the means to the Manager component interface
+            In this case, the means to the manager component interface
             such orchestration platform must be provided, as well as its outcome orchestration
             status information (e.g., management interfaces of deployed components).</t>
+
+          <t>Further details about the concrete execution environment is, however,
+            provided by the VNF-PP to keep the VNF-BD technology agnostic (see <xref target="exec-env" />).</t>
+
       </section>
 
       <section title="Scenario" anchor="scenario">
@@ -677,7 +681,8 @@
               associated with the software apparatus offered and used
               during the benchmarking Tests.  Examples include versions
               of operating systems, kernels, hypervisors, container
-              image versions, etc.</t>
+              technologies, image versions, used MANO systems, used VIMs, used network element managers (EM), etc. This section should also provide information
+              about the configurations used by the involved software components.</t>
             </list></t>
 
             <t>Optionally, a VNF-PP execution environment might contain

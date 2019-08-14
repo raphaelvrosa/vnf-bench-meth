@@ -93,11 +93,11 @@ Table of Contents
    6.3.2.  Automated Execution . . . . . . . . . . . . . . . . . . .  17
    6.3.3.  Post-Execution  . . . . . . . . . . . . . . . . . . . . .  18
    6.4.  Particular Cases  . . . . . . . . . . . . . . . . . . . . .  18
-   6.4.1.  Capacity  . . . . . . . . . . . . . . . . . . . . . . . .  18
+   6.4.1.  Capacity  . . . . . . . . . . . . . . . . . . . . . . . .  19
    6.4.2.  Isolation . . . . . . . . . . . . . . . . . . . . . . . .  19
    6.4.3.  Failure Handling  . . . . . . . . . . . . . . . . . . . .  19
    6.4.4.  Elasticity and Flexibility  . . . . . . . . . . . . . . .  19
-   6.4.5.  Handling Configurations . . . . . . . . . . . . . . . . .  19
+   6.4.5.  Handling Configurations . . . . . . . . . . . . . . . . .  20
    6.4.6.  White Box VNF . . . . . . . . . . . . . . . . . . . . . .  20
    7.  Open Source Reference Implementations . . . . . . . . . . . .  20
    7.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  20
@@ -105,7 +105,7 @@ Table of Contents
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  22
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  22
    10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  22
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  22
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  23
 
 
 
@@ -114,7 +114,7 @@ Rosa, et al.            Expires February 15, 2020               [Page 2]
 Internet-Draft                  VNFBench                     August 2019
 
 
-   11.1.  Normative References . . . . . . . . . . . . . . . . . . .  22
+   11.1.  Normative References . . . . . . . . . . . . . . . . . . .  23
    11.2.  Informative References . . . . . . . . . . . . . . . . . .  23
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  24
 
@@ -664,8 +664,8 @@ Internet-Draft                  VNFBench                     August 2019
 6.1.4.  Environment
 
    The details referring to the name, description, and information
-   associated with the interfaces needed for the orchestration, if
-   necessary, of the specified VNF-BD scenario.  I.e., it refers to a
+   associated with the interfaces needed for the management and
+   orchestration (MANO), if necessary, of the specified VNF-BD scenario.
 
 
 
@@ -674,12 +674,16 @@ Rosa, et al.            Expires February 15, 2020              [Page 12]
 Internet-Draft                  VNFBench                     August 2019
 
 
-   specific interface that receives the VNF-BD scenario information and
-   converts it to the template needed for an orchestration platform.  In
-   this case, the means to the Manager component interface such
-   orchestration platform must be provided, as well as its outcome
-   orchestration status information (e.g., management interfaces of
-   deployed components).
+   I.e., it refers to a specific interface that receives the VNF-BD
+   scenario information and converts it to the template needed for an
+   orchestration platform.  In this case, the means to the manager
+   component interface such orchestration platform must be provided, as
+   well as its outcome orchestration status information (e.g.,
+   management interfaces of deployed components).
+
+   Further details about the concrete execution environment is, however,
+   provided by the VNF-PP to keep the VNF-BD technology agnostic (see
+   Section 6.2.1).
 
 6.1.5.  Scenario
 
@@ -718,10 +722,6 @@ Internet-Draft                  VNFBench                     August 2019
    forwarding flow entries.  Links also detain resource requirements,
    specifying the minimum bandwidth, latency, and frame loss rate for
    the execution of benchmarking Tests.
-
-
-
-
 
 
 
@@ -814,7 +814,10 @@ Internet-Draft                  VNFBench                     August 2019
    Software Specs:   Contains any information associated with the
       software apparatus offered and used during the benchmarking Tests.
       Examples include versions of operating systems, kernels,
-      hypervisors, container image versions, etc.
+      hypervisors, container technologies, image versions, used MANO
+      systems, used VIMs, used network element managers (EM), etc.  This
+      section should also provide information about the configurations
+      used by the involved software components.
 
    Optionally, a VNF-PP execution environment might contain references
    to an orchestration description document (e.g., HEAT template) to
@@ -832,9 +835,6 @@ Internet-Draft                  VNFBench                     August 2019
       processing (e.g., throughput, latency) or metrics specific to a
       particular VNF (e.g., HTTP confirmed transactions, DNS replies).
 
-   VNF Monitored/Passive Metrics:   Concerns the Monitors' metrics
-      captured from a VNF execution, classified according to the
-
 
 
 Rosa, et al.            Expires February 15, 2020              [Page 15]
@@ -842,6 +842,8 @@ Rosa, et al.            Expires February 15, 2020              [Page 15]
 Internet-Draft                  VNFBench                     August 2019
 
 
+   VNF Monitored/Passive Metrics:   Concerns the Monitors' metrics
+      captured from a VNF execution, classified according to the
       virtualization level (e.g., baremetal, VM, container) and
       technology domain (e.g., related to CPU, memory, disk) from where
       they were obtained.
@@ -888,8 +890,6 @@ Internet-Draft                  VNFBench                     August 2019
       components of the benchmarking VNF-BD deployment scenario is
       defined.
 
-   3.   The environment needed for a VNF-BD must be defined to realize
-      its deployment scenario, in an automated or manual method.  This
 
 
 
@@ -898,6 +898,8 @@ Rosa, et al.            Expires February 15, 2020              [Page 16]
 Internet-Draft                  VNFBench                     August 2019
 
 
+   3.   The environment needed for a VNF-BD must be defined to realize
+      its deployment scenario, in an automated or manual method.  This
       step might count on the instantiation of orchestration platforms
       and the composition of specific topology descriptors needed by
       those platforms to realize the VNF-BD deployment scenario.  At the
@@ -944,8 +946,6 @@ Internet-Draft                  VNFBench                     August 2019
       management interfaces to require the execution of the benchmarking
       probers (and listeners, if existing), and retrieve expected
       metrics captured during or at the end of each Trial.  I.e., for a
-      single Test, according to the VNF-BD execution settings, the
-      Manager must guarantee that one or more Trials realize the
 
 
 
@@ -954,6 +954,8 @@ Rosa, et al.            Expires February 15, 2020              [Page 17]
 Internet-Draft                  VNFBench                     August 2019
 
 
+      single Test, according to the VNF-BD execution settings, the
+      Manager must guarantee that one or more Trials realize the
       required measurements to characterize the performance behavior of
       a VNF.
 
@@ -996,12 +998,10 @@ Internet-Draft                  VNFBench                     August 2019
    and adapt existing benchmarking methodologies.  More specifically,
    the following cases need to be considered.
 
-6.4.1.  Capacity
 
-   VNFs are usually deployed inside containers or VMs to build an
-   abstraction layer between physical resources and the resources
-   available to the VNF.  According to [RFC8172], it may be more
-   representative to design experiments in a way that the VMs hosting
+
+
+
 
 
 
@@ -1010,6 +1010,12 @@ Rosa, et al.            Expires February 15, 2020              [Page 18]
 Internet-Draft                  VNFBench                     August 2019
 
 
+6.4.1.  Capacity
+
+   VNFs are usually deployed inside containers or VMs to build an
+   abstraction layer between physical resources and the resources
+   available to the VNF.  According to [RFC8172], it may be more
+   representative to design experiments in a way that the VMs hosting
    the VNFs are operating at maximum of 50% utilization and split the
    workload among several VMs, to mitigateside effects of overloaded
    VMs.  Those cases are supported by the presented automation
@@ -1049,6 +1055,17 @@ Internet-Draft                  VNFBench                     August 2019
    detailed characterization of the VNF's performance behavior in
    different states.
 
+
+
+
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 19]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
 6.4.5.  Handling Configurations
 
    As described in [RFC8172], does the sheer number of test conditions
@@ -1058,13 +1075,6 @@ Internet-Draft                  VNFBench                     August 2019
    procedures to optimize the tested configurations.  Approaches for
    this are, e.g., machine learning-based configuration space sub-
    sampling methods, such as [Peu-c].
-
-
-
-Rosa, et al.            Expires February 15, 2020              [Page 19]
-
-Internet-Draft                  VNFBench                     August 2019
-
 
 6.4.6.  White Box VNF
 
@@ -1103,6 +1113,15 @@ Internet-Draft                  VNFBench                     August 2019
    Virtualized Network Functions (VNFs).  It was coded following the
    initial ideas presented in a 2015 scientific paper entitled "VBaaS:
    VNF Benchmark-as-a-Service" [Rosa-a].  Later, the evolved design and
+
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 20]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    prototyping ideas were presented at IETF/IRTF meetings seeking impact
    into NFVRG and BMWG.
 
@@ -1113,14 +1132,6 @@ Internet-Draft                  VNFBench                     August 2019
    original research ideas [Rosa-a], such output profiles might be used
    by orchestrator functions to perform VNF lifecycle tasks (e.g.,
    deployment, maintenance, tear-down).
-
-
-
-
-Rosa, et al.            Expires February 15, 2020              [Page 20]
-
-Internet-Draft                  VNFBench                     August 2019
-
 
    In [Rosa-b] Gym was utilized to benchmark a decomposed IP Multimedia
    Subsystem VNF.  And in [Rosa-c], a virtual switch (Open vSwitch -
@@ -1159,6 +1170,14 @@ Internet-Draft                  VNFBench                     August 2019
    tng- bench specifically aims to explore description approaches for
    VNF benchmarking experiments.  In [Peu-b] a prototype specification
    for VNF-BDs is presented which not only allows to specify generic,
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 21]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    abstract VNF benchmarking experiments, it also allows to describe
    sets of parameter configurations to be tested during the benchmarking
    process, allowing the system to automatically execute complex
@@ -1170,14 +1189,6 @@ Internet-Draft                  VNFBench                     August 2019
    balancer, and a Socat TCP relay in [Peu-b].  Those VNFs have not only
    been benchmarked in isolation, but also in combined setups in which
    up to three VNFs were chained one after each other.  These
-
-
-
-Rosa, et al.            Expires February 15, 2020              [Page 21]
-
-Internet-Draft                  VNFBench                     August 2019
-
-
    experiments were used to test tng-bench for scenarios in which
    composed VNFs, consisting of multiple VNF components (VNFCs), have to
    be benchmarked.  The presented results highlight the need to
@@ -1216,6 +1227,13 @@ Internet-Draft                  VNFBench                     August 2019
    Union's Horizon 2020 research and innovation programme under grant
    agreement No.  H2020-ICT-2016-2 761493 (5GTANGO: https://5gtango.eu).
 
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 22]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
 11.  References
 
 11.1.  Normative References
@@ -1223,16 +1241,6 @@ Internet-Draft                  VNFBench                     August 2019
    [ETS14a]   ETSI, "Architectural Framework - ETSI GS NFV 002 V1.2.1",
               Dec 2014, <http://www.etsi.org/deliver/etsi\_gs/
               NFV/001\_099/002/01.02.01-\_60/gs\_NFV002v010201p.pdf>.
-
-
-
-
-
-
-Rosa, et al.            Expires February 15, 2020              [Page 22]
-
-Internet-Draft                  VNFBench                     August 2019
-
 
    [ETS14b]   ETSI, "Terminology for Main Concepts in NFV - ETSI GS NFV
               003 V1.2.1", Dec 2014,
@@ -1273,14 +1281,6 @@ Internet-Draft                  VNFBench                     August 2019
    [gym]      "Gym Framework Source Code",
               <https://github.com/intrig-unicamp/gym>.
 
-   [Peu-a]    M. Peuster, H. Karl, "Understand Your Chains: Towards
-              Performance Profile-based Network Service Management",
-              Fifth European Workshop on Software Defined Networks
-              (EWSDN) , 2016,
-              <http://ieeexplore.ieee.org/document/7956044/>.
-
-
-
 
 
 
@@ -1289,6 +1289,12 @@ Rosa, et al.            Expires February 15, 2020              [Page 23]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+   [Peu-a]    M. Peuster, H. Karl, "Understand Your Chains: Towards
+              Performance Profile-based Network Service Management",
+              Fifth European Workshop on Software Defined Networks
+              (EWSDN) , 2016,
+              <http://ieeexplore.ieee.org/document/7956044/>.
 
    [Peu-b]    M. Peuster, H. Karl, "Profile Your Chains, Not Functions:
               Automated Network Service Profiling in DevOps
@@ -1329,6 +1335,17 @@ Internet-Draft                  VNFBench                     August 2019
 
 Authors' Addresses
 
+
+
+
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 24]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    Raphael Vicente Rosa (editor)
    University of Campinas
    Av. Albert Einstein, 400
@@ -1337,13 +1354,6 @@ Authors' Addresses
 
    Email: rvrosa@dca.fee.unicamp.br
    URI:   https://intrig.dca.fee.unicamp.br/raphaelvrosa/
-
-
-
-
-Rosa, et al.            Expires February 15, 2020              [Page 24]
-
-Internet-Draft                  VNFBench                     August 2019
 
 
    Christian Esteve Rothenberg
@@ -1374,16 +1384,6 @@ Internet-Draft                  VNFBench                     August 2019
 
    Email: holger.karl@upb.de
    URI:   https://cs.uni-paderborn.de/cn/
-
-
-
-
-
-
-
-
-
-
 
 
 
