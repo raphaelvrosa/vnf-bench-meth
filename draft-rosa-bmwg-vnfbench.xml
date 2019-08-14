@@ -772,7 +772,10 @@
 
     <section title="Automated Execution" anchor="automated-exec">
       <t> Satisfied all the pre-execution procedures, the automated execution
-        of the Tests specified by the VNF-BD follow:</t>
+        of the Tests specified by the VNF-BD follow. The execution time of this 
+        automated execution can either be bound by a fixed time limit specified in
+        the VNF-BD or coupled to an exit condition, e.g., convergence of measured
+        values.</t>
           
       <t><list style="hanging">
         <t hangText="1. "> Upon the parsing of a VNF-BD, the Manager must

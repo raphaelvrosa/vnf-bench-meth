@@ -909,7 +909,10 @@ Internet-Draft                  VNFBench                     August 2019
 6.3.2.  Automated Execution
 
    Satisfied all the pre-execution procedures, the automated execution
-   of the Tests specified by the VNF-BD follow:
+   of the Tests specified by the VNF-BD follow.  The execution time of
+   this automated execution can either be bound by a fixed time limit
+   specified in the VNF-BD or coupled to an exit condition, e.g.,
+   convergence of measured values.
 
    1.   Upon the parsing of a VNF-BD, the Manager must detect the VNF-BD
       variable input field (e.g., list of resources values) and compose
@@ -942,10 +945,7 @@ Internet-Draft                  VNFBench                     August 2019
       defined in the VNF-BD instance.  After this step, the whole VNF-BD
       Test will be ready to be executed.
 
-   5.   Manager must interface Agent(s) and Monitor(s) (if existing) via
-      management interfaces to require the execution of the benchmarking
-      probers (and listeners, if existing), and retrieve expected
-      metrics captured during or at the end of each Trial.  I.e., for a
+
 
 
 
@@ -954,6 +954,10 @@ Rosa, et al.            Expires February 15, 2020              [Page 17]
 Internet-Draft                  VNFBench                     August 2019
 
 
+   5.   Manager must interface Agent(s) and Monitor(s) (if existing) via
+      management interfaces to require the execution of the benchmarking
+      probers (and listeners, if existing), and retrieve expected
+      metrics captured during or at the end of each Trial.  I.e., for a
       single Test, according to the VNF-BD execution settings, the
       Manager must guarantee that one or more Trials realize the
       required measurements to characterize the performance behavior of
@@ -997,10 +1001,6 @@ Internet-Draft                  VNFBench                     August 2019
    As described in [RFC8172], VNF benchmarking might require to change
    and adapt existing benchmarking methodologies.  More specifically,
    the following cases need to be considered.
-
-
-
-
 
 
 
