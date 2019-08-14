@@ -5,10 +5,10 @@
 BMWG                                                        R. Rosa, Ed.
 Internet-Draft                                             C. Rothenberg
 Intended status: Informational                                   UNICAMP
-Expires: November 23, 2019                                    M. Peuster
+Expires: February 15, 2020                                    M. Peuster
                                                                  H. Karl
                                                                      UPB
-                                                            May 22, 2019
+                                                         August 14, 2019
 
 
               Methodology for VNF Benchmarking Automation
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 23, 2019.
+   This Internet-Draft will expire on February 15, 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 1]
+Rosa, et al.            Expires February 15, 2020               [Page 1]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    to this document.  Code Components extracted from this document must
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 2]
+Rosa, et al.            Expires February 15, 2020               [Page 2]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    11.1.  Normative References . . . . . . . . . . . . . . . . . . .  22
@@ -165,9 +165,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 3]
+Rosa, et al.            Expires February 15, 2020               [Page 3]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
 2.  Terminology
@@ -221,9 +221,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 4]
+Rosa, et al.            Expires February 15, 2020               [Page 4]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
 4.1.  VNF Testing Methods
@@ -277,9 +277,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 5]
+Rosa, et al.            Expires February 15, 2020               [Page 5]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    Test, in the sections that follow different benchmarking phases are
@@ -333,9 +333,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 6]
+Rosa, et al.            Expires February 15, 2020               [Page 6]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
 4.2.4.  Phase IV: Report
@@ -389,9 +389,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 7]
+Rosa, et al.            Expires February 15, 2020               [Page 7]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
                               +---------------+
@@ -445,9 +445,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 8]
+Rosa, et al.            Expires February 15, 2020               [Page 8]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    Agent --  executes active stimulus using probers, i.e., benchmarking
@@ -501,9 +501,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 9]
+Rosa, et al.            Expires February 15, 2020               [Page 9]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    Manager --  performs (i) the discovery of available Agents/Monitors
@@ -557,9 +557,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 10]
+Rosa, et al.            Expires February 15, 2020              [Page 10]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    o  Repeatability: A Test setup shall be comprehensively defined
@@ -613,9 +613,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 11]
+Rosa, et al.            Expires February 15, 2020              [Page 11]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    VNF Performance Profile (VNF-PP) --   contains all measured metrics
@@ -669,9 +669,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 12]
+Rosa, et al.            Expires February 15, 2020              [Page 12]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    specific interface that receives the VNF-BD scenario information and
@@ -725,9 +725,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 13]
+Rosa, et al.            Expires February 15, 2020              [Page 13]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
 6.1.6.  Proceedings
@@ -781,9 +781,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 14]
+Rosa, et al.            Expires February 15, 2020              [Page 14]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    Ideally, any person who has a VNF-BD and its complementing VNF-PP
@@ -837,9 +837,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 15]
+Rosa, et al.            Expires February 15, 2020              [Page 15]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    composed of multiple VNFCs, those resulting data should be
@@ -893,9 +893,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 16]
+Rosa, et al.            Expires February 15, 2020              [Page 16]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
 6.3.2.  Automated Execution
@@ -949,9 +949,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 17]
+Rosa, et al.            Expires February 15, 2020              [Page 17]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
       VNF-BD, the Manager must check the Method repetition, and perform
@@ -1005,9 +1005,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 18]
+Rosa, et al.            Expires February 15, 2020              [Page 18]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
 6.4.2.  Isolation
@@ -1061,9 +1061,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 19]
+Rosa, et al.            Expires February 15, 2020              [Page 19]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    contrast, those additional sources of information from within the VNF
@@ -1117,9 +1117,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 20]
+Rosa, et al.            Expires February 15, 2020              [Page 20]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    set important contributions as discussion of the lessons learned and
@@ -1173,9 +1173,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 21]
+Rosa, et al.            Expires February 15, 2020              [Page 21]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    benchmark each individual component in isolation, to produce
@@ -1229,9 +1229,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 22]
+Rosa, et al.            Expires February 15, 2020              [Page 22]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    [ETS14c]   ETSI, "NFV Pre-deployment Testing - ETSI GS NFV TST001
@@ -1285,9 +1285,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 23]
+Rosa, et al.            Expires February 15, 2020              [Page 23]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    [Peu-c]    M. Peuster, H. Karl, "Understand your chains and keep your
@@ -1341,9 +1341,9 @@ Authors' Addresses
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 24]
+Rosa, et al.            Expires February 15, 2020              [Page 24]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    Christian Esteve Rothenberg
@@ -1363,7 +1363,7 @@ Internet-Draft                  VNFBench                        May 2019
    Germany
 
    Email: manuel.peuster@upb.de
-   URI:   http://go.upb.de/peuster
+   URI:   https://peuster.de
 
 
    Holger Karl
@@ -1397,4 +1397,4 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 25]
+Rosa, et al.            Expires February 15, 2020              [Page 25]
