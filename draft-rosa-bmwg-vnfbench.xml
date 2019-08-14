@@ -51,7 +51,7 @@
         <country>Germany</country>
       </postal>
       <email>manuel.peuster@upb.de</email>
-      <uri>http://go.upb.de/peuster</uri>
+      <uri>https://peuster.de</uri>
       </address>
     </author>
 
@@ -129,7 +129,7 @@
   Finally, two independent, open-source reference implementations are presented.
   The document addresses state-of-the-art work on VNF benchmarking from scientific
   publications and current developments in other standardization bodies (e.g.,
-  <xref target='ETS14c' /> and <xref target='RFC8204' />) wherever
+  <xref target='ETS14c' />, <xref target="ETS19f"/> and <xref target='RFC8204' />) wherever
   possible.</t>
 
 </section>
@@ -186,7 +186,8 @@
 <section title="Considerations" anchor="considerations">
   <t>VNF benchmarking considerations are defined in <xref target="RFC8172"/>.
   Additionally, VNF pre-deployment testing
-  considerations are well explored in <xref target="ETS14c"/>.</t>
+  considerations are well explored in <xref target="ETS14c"/>. Further, ETSI provides test specifications for networking benchmarks and measurement methods for NFV infrastructure in <xref target="ETS19f"/> which complements the presented work on VNF benchmarking methodologies. 
+ </t>
 
   <section title="VNF Testing Methods" anchor="methods">
     <t>Following ETSI's model in <xref target="ETS14c"/>, we distinguish three
@@ -294,7 +295,7 @@
     <t> The report of a VNF benchmarking Method might contain generic metrics
     (e.g., CPU and memory consumption) and VNF-specific traffic processing metrics
     (e.g., transactions or throughput), which can be stored and processed
-    in generic or specific ways (e.g., by statistics or machine learning algorithms).
+    in generic or specific ways (e.g., by statistics or machine learning algorithms). More details about possible metrics and the corresponding capturing methods can be found in <xref target="ETS19g"/>.
     If automated procedures are applied over the generation of a benchmarking report, 
     those must be detailed in the report itself, jointly with their input raw measurements 
     and output processed data.
@@ -399,7 +400,7 @@
               A Listener must provide programmable interfaces for its life cycle management workflows,
               e.g., configuration of operational parameters,
               execution of passive monitoring captures, parsing of extracted metrics,
-              and debugging options.
+              and debugging options (also see <xref target="ETS19g"/>).
               Varied methods of passive performance monitoring might be implemented as a Listener,
               depending on the interfaces exposed by the VNF and/or execution environment.</t>
           </list></t>
@@ -550,13 +551,17 @@
       <section title="Environment" anchor="overall-env">
           <t>The details referring to the name, description, and
             information associated with the interfaces needed for the 
-            orchestration, if necessary, of the specified VNF-BD scenario.
+            management and orchestration (MANO), if necessary, of the specified VNF-BD scenario.
             I.e., it refers to a specific interface that receives the
             VNF-BD scenario information and converts it to the 
             template needed for an orchestration platform.
-            In this case, the means to the Manager component interface
+            In this case, the means to the manager component interface
             such orchestration platform must be provided, as well as its outcome orchestration
             status information (e.g., management interfaces of deployed components).</t>
+
+          <t>Further details about the concrete execution environment is, however,
+            provided by the VNF-PP to keep the VNF-BD technology agnostic (see <xref target="exec-env" />).</t>
+
       </section>
 
       <section title="Scenario" anchor="scenario">
@@ -566,8 +571,13 @@
 
         <section title="Nodes" anchor="scenario-nodes">
           <t>Information about each component in a benchmarking setup (see <xref target="setup" />).
-          It contains the identification, name, image, role (i.e., agent, monitor, sut), connection-points and resource requirements
-          (i.e., allocation of cpu, memory, disk).</t>
+          It contains the identification, name, image, role (i.e., agent, monitor, SUT), connection-points and resource requirements
+          (i.e., allocation of CPU, memory, disk).</t>
+
+          <t>A SUT is always considered to be the full set of VNFCs comprised by the 
+            VNF. Thus all VNFCs of a VNF are always benchmarked together because all of them are 
+            needed to implement the full set of the VNF's functionalities. This is aligned with the results presented in <xref target="Peu-b"/> that show that VNF compositions should be benchmarked as a whole. Benchmarking 
+            single VNFCs in isolation could be considered as a particular case, i.e., whitebox scenario which is out of scope of this draft.</t>
 
           <t>The lifecycle specification of a node lists all the workflows that must be
             realized on it during a Test. For instance, main workflows include: create, start, stop, delete.
@@ -672,7 +682,8 @@
               associated with the software apparatus offered and used
               during the benchmarking Tests.  Examples include versions
               of operating systems, kernels, hypervisors, container
-              image versions, etc.</t>
+              technologies, image versions, used MANO systems, used VIMs, used network element managers (EM), etc. This section should also provide information
+              about the configurations used by the involved software components.</t>
             </list></t>
 
             <t>Optionally, a VNF-PP execution environment might contain
@@ -762,7 +773,10 @@
 
     <section title="Automated Execution" anchor="automated-exec">
       <t> Satisfied all the pre-execution procedures, the automated execution
-        of the Tests specified by the VNF-BD follow:</t>
+        of the Tests specified by the VNF-BD follow. The execution time of this 
+        automated execution can either be bound by a fixed time limit specified in
+        the VNF-BD or coupled to an exit condition, e.g., convergence of measured
+        values.</t>
           
       <t><list style="hanging">
         <t hangText="1. "> Upon the parsing of a VNF-BD, the Manager must
@@ -1125,6 +1139,26 @@
             <organization>ETSI</organization>
           </author>
           <date month="April" year="2018" />
+      </front>
+    </reference>
+
+    <reference anchor="ETS19f" target="https://docbox.etsi.org/ISG/NFV/Open/Publications_pdf/Specs-Reports/NFV-TST%20009v3.2.1%20-%20GS%20-%20NFVI_Benchmarks.pdf">
+      <front>
+        <title>Specification of Networking Benchmarks and Measurement Methods for NFVI  - ETSI GS NFV-TST 009 V3.2.1</title>
+          <author>
+            <organization>ETSI</organization>
+          </author>
+          <date month="June" year="2019" />
+      </front>
+    </reference>
+
+    <reference anchor="ETS19g" target="https://docbox.etsi.org/ISG/NFV/Open/Publications_pdf/Specs-Reports/NFV-TST%20008v3.2.1%20-%20GS%20-%20NFVI%20Compute%20and%20Nwk%20Metrics%20-%20Spec.pdf">
+      <front>
+        <title>NFVI Compute and Network Metrics Specification - ETSI GS NFV-TST 008 V3.2.1</title>
+          <author>
+            <organization>ETSI</organization>
+          </author>
+          <date month="March" year="2019" />
       </front>
     </reference>
 

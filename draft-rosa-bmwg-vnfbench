@@ -5,10 +5,10 @@
 BMWG                                                        R. Rosa, Ed.
 Internet-Draft                                             C. Rothenberg
 Intended status: Informational                                   UNICAMP
-Expires: November 23, 2019                                    M. Peuster
+Expires: February 15, 2020                                    M. Peuster
                                                                  H. Karl
                                                                      UPB
-                                                            May 22, 2019
+                                                         August 14, 2019
 
 
               Methodology for VNF Benchmarking Automation
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 23, 2019.
+   This Internet-Draft will expire on February 15, 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 1]
+Rosa, et al.            Expires February 15, 2020               [Page 1]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    to this document.  Code Components extracted from this document must
@@ -86,37 +86,37 @@ Table of Contents
    6.1.5.  Scenario  . . . . . . . . . . . . . . . . . . . . . . . .  13
    6.1.6.  Proceedings . . . . . . . . . . . . . . . . . . . . . . .  14
    6.2.  VNF Performance Profile (VNF-PP)  . . . . . . . . . . . . .  14
-   6.2.1.  Execution Environment . . . . . . . . . . . . . . . . . .  14
+   6.2.1.  Execution Environment . . . . . . . . . . . . . . . . . .  15
    6.2.2.  Measurement Results . . . . . . . . . . . . . . . . . . .  15
    6.3.  Procedures  . . . . . . . . . . . . . . . . . . . . . . . .  16
    6.3.1.  Pre-Execution . . . . . . . . . . . . . . . . . . . . . .  16
    6.3.2.  Automated Execution . . . . . . . . . . . . . . . . . . .  17
    6.3.3.  Post-Execution  . . . . . . . . . . . . . . . . . . . . .  18
-   6.4.  Particular Cases  . . . . . . . . . . . . . . . . . . . . .  18
-   6.4.1.  Capacity  . . . . . . . . . . . . . . . . . . . . . . . .  18
+   6.4.  Particular Cases  . . . . . . . . . . . . . . . . . . . . .  19
+   6.4.1.  Capacity  . . . . . . . . . . . . . . . . . . . . . . . .  19
    6.4.2.  Isolation . . . . . . . . . . . . . . . . . . . . . . . .  19
    6.4.3.  Failure Handling  . . . . . . . . . . . . . . . . . . . .  19
    6.4.4.  Elasticity and Flexibility  . . . . . . . . . . . . . . .  19
-   6.4.5.  Handling Configurations . . . . . . . . . . . . . . . . .  19
-   6.4.6.  White Box VNF . . . . . . . . . . . . . . . . . . . . . .  19
+   6.4.5.  Handling Configurations . . . . . . . . . . . . . . . . .  20
+   6.4.6.  White Box VNF . . . . . . . . . . . . . . . . . . . . . .  20
    7.  Open Source Reference Implementations . . . . . . . . . . . .  20
-   7.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  20
+   7.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  21
    7.2.  tng-bench . . . . . . . . . . . . . . . . . . . . . . . . .  21
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  22
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  22
-   10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  22
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  22
+   10. Acknowledgement . . . . . . . . . . . . . . . . . . . . . . .  23
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  23
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 2]
+Rosa, et al.            Expires February 15, 2020               [Page 2]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
-   11.1.  Normative References . . . . . . . . . . . . . . . . . . .  22
-   11.2.  Informative References . . . . . . . . . . . . . . . . . .  23
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  24
+   11.1.  Normative References . . . . . . . . . . . . . . . . . . .  23
+   11.2.  Informative References . . . . . . . . . . . . . . . . . .  24
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  25
 
 1.  Introduction
 
@@ -159,15 +159,15 @@ Internet-Draft                  VNFBench                        May 2019
    benchmarking.  Finally, two independent, open-source reference
    implementations are presented.  The document addresses state-of-the-
    art work on VNF benchmarking from scientific publications and current
-   developments in other standardization bodies (e.g., [ETS14c] and
-   [RFC8204]) wherever possible.
+   developments in other standardization bodies (e.g., [ETS14c],
+   [ETS19f] and [RFC8204]) wherever possible.
 
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 3]
+Rosa, et al.            Expires February 15, 2020               [Page 3]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
 2.  Terminology
@@ -216,15 +216,18 @@ Internet-Draft                  VNFBench                        May 2019
 
    VNF benchmarking considerations are defined in [RFC8172].
    Additionally, VNF pre-deployment testing considerations are well
-   explored in [ETS14c].
+   explored in [ETS14c].  Further, ETSI provides test specifications for
+   networking benchmarks and measurement methods for NFV infrastructure
 
 
 
-
-Rosa, et al.            Expires November 23, 2019               [Page 4]
+Rosa, et al.            Expires February 15, 2020               [Page 4]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
+
+   in [ETS19f] which complements the presented work on VNF benchmarking
+   methodologies.
 
 4.1.  VNF Testing Methods
 
@@ -272,16 +275,15 @@ Internet-Draft                  VNFBench                        May 2019
       value of such a range is to be realized in a Test.  I.e., Methods
       can define parameter studies.
 
+
+
+Rosa, et al.            Expires February 15, 2020               [Page 5]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    In general, automated VNF benchmarking Tests must capture relevant
    causes of performance variability.  To dissect a VNF benchmarking
-
-
-
-Rosa, et al.            Expires November 23, 2019               [Page 5]
-
-Internet-Draft                  VNFBench                        May 2019
-
-
    Test, in the sections that follow different benchmarking phases are
    categorized defining generic operations that may be automated.  When
    automating a VNF benchmarking methodology, all the influencing
@@ -328,15 +330,16 @@ Internet-Draft                  VNFBench                        May 2019
    which can interfere in observed benchmarking metrics.  For instance,
    in a particular benchmarking case where the monitoring measurements
    of the VNF and/or execution environment are available for extraction,
+
+
+
+Rosa, et al.            Expires February 15, 2020               [Page 6]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    Tests should be run to verify if the monitoring of the VNF and/or
    execution environment can impact the VNF performance metrics.
-
-
-
-Rosa, et al.            Expires November 23, 2019               [Page 6]
-
-Internet-Draft                  VNFBench                        May 2019
-
 
 4.2.4.  Phase IV: Report
 
@@ -344,11 +347,13 @@ Internet-Draft                  VNFBench                        May 2019
    (e.g., CPU and memory consumption) and VNF-specific traffic
    processing metrics (e.g., transactions or throughput), which can be
    stored and processed in generic or specific ways (e.g., by statistics
-   or machine learning algorithms).  If automated procedures are applied
-   over the generation of a benchmarking report, those must be detailed
-   in the report itself, jointly with their input raw measurements and
-   output processed data.  I.e., any algorithm used in the generation of
-   processed metrics must be disclosed in the report.
+   or machine learning algorithms).  More details about possible metrics
+   and the corresponding capturing methods can be found in [ETS19g].  If
+   automated procedures are applied over the generation of a
+   benchmarking report, those must be detailed in the report itself,
+   jointly with their input raw measurements and output processed data.
+   I.e., any algorithm used in the generation of processed metrics must
+   be disclosed in the report.
 
 5.  Generic VNF Benchmarking Architectural Framework
 
@@ -384,14 +389,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-
-
-
-
-
-Rosa, et al.            Expires November 23, 2019               [Page 7]
+Rosa, et al.            Expires February 15, 2020               [Page 7]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
                               +---------------+
@@ -445,9 +445,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019               [Page 8]
+Rosa, et al.            Expires February 15, 2020               [Page 8]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    Agent --  executes active stimulus using probers, i.e., benchmarking
@@ -493,17 +493,17 @@ Internet-Draft                  VNFBench                        May 2019
          interfaces for its life cycle management workflows, e.g.,
          configuration of operational parameters, execution of passive
          monitoring captures, parsing of extracted metrics, and
-         debugging options.  Varied methods of passive performance
-         monitoring might be implemented as a Listener, depending on the
-         interfaces exposed by the VNF and/or execution environment.
+         debugging options (also see [ETS19g]).  Varied methods of
+         passive performance monitoring might be implemented as a
+         Listener, depending on the interfaces exposed by the VNF and/or
+         execution environment.
 
 
 
 
-
-Rosa, et al.            Expires November 23, 2019               [Page 9]
+Rosa, et al.            Expires February 15, 2020               [Page 9]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    Manager --  performs (i) the discovery of available Agents/Monitors
@@ -557,9 +557,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 10]
+Rosa, et al.            Expires February 15, 2020              [Page 10]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    o  Repeatability: A Test setup shall be comprehensively defined
@@ -613,9 +613,9 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 11]
+Rosa, et al.            Expires February 15, 2020              [Page 11]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
    VNF Performance Profile (VNF-PP) --   contains all measured metrics
@@ -664,22 +664,26 @@ Internet-Draft                  VNFBench                        May 2019
 6.1.4.  Environment
 
    The details referring to the name, description, and information
-   associated with the interfaces needed for the orchestration, if
-   necessary, of the specified VNF-BD scenario.  I.e., it refers to a
+   associated with the interfaces needed for the management and
+   orchestration (MANO), if necessary, of the specified VNF-BD scenario.
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 12]
+Rosa, et al.            Expires February 15, 2020              [Page 12]
 
-Internet-Draft                  VNFBench                        May 2019
+Internet-Draft                  VNFBench                     August 2019
 
 
-   specific interface that receives the VNF-BD scenario information and
-   converts it to the template needed for an orchestration platform.  In
-   this case, the means to the Manager component interface such
-   orchestration platform must be provided, as well as its outcome
-   orchestration status information (e.g., management interfaces of
-   deployed components).
+   I.e., it refers to a specific interface that receives the VNF-BD
+   scenario information and converts it to the template needed for an
+   orchestration platform.  In this case, the means to the manager
+   component interface such orchestration platform must be provided, as
+   well as its outcome orchestration status information (e.g.,
+   management interfaces of deployed components).
+
+   Further details about the concrete execution environment is, however,
+   provided by the VNF-PP to keep the VNF-BD technology agnostic (see
+   Section 6.2.1).
 
 6.1.5.  Scenario
 
@@ -691,8 +695,17 @@ Internet-Draft                  VNFBench                        May 2019
 
    Information about each component in a benchmarking setup (see
    Section 5).  It contains the identification, name, image, role (i.e.,
-   agent, monitor, sut), connection-points and resource requirements
-   (i.e., allocation of cpu, memory, disk).
+   agent, monitor, SUT), connection-points and resource requirements
+   (i.e., allocation of CPU, memory, disk).
+
+   A SUT is always considered to be the full set of VNFCs comprised by
+   the VNF.  Thus all VNFCs of a VNF are always benchmarked together
+   because all of them are needed to implement the full set of the VNF's
+   functionalities.  This is aligned with the results presented in
+   [Peu-b] that show that VNF compositions should be benchmarked as a
+   whole.  Benchmarking single VNFCs in isolation could be considered as
+   a particular case, i.e., whitebox scenario which is out of scope of
+   this draft.
 
    The lifecycle specification of a node lists all the workflows that
    must be realized on it during a Test.  For instance, main workflows
@@ -709,6 +722,14 @@ Internet-Draft                  VNFBench                        May 2019
    network.  Depending on the link type, the network might be
    implemented as a layer 2 mesh, or as directional-oriented traffic
    forwarding flow entries.  Links also detain resource requirements,
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 13]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    specifying the minimum bandwidth, latency, and frame loss rate for
    the execution of benchmarking Tests.
 
@@ -719,16 +740,6 @@ Internet-Draft                  VNFBench                        May 2019
    for each component in the topology, min/max allocation of resources,
    and specific enabling technologies (e.g., DPDK, SR-IOV, PCIE) needed
    for each component.
-
-
-
-
-
-
-Rosa, et al.            Expires November 23, 2019              [Page 13]
-
-Internet-Draft                  VNFBench                        May 2019
-
 
 6.1.6.  Proceedings
 
@@ -767,6 +778,14 @@ Internet-Draft                  VNFBench                        May 2019
    performance metrics (e.g., throughput, latency, CPU, memory) obtained
    in a benchmarking Test conducted using a VNF-BD.  Logically, packet
    processing metrics are presented in a specific format addressing
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 14]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    statistical significance (e.g., median, standard deviation,
    percentiles) where a correspondence among VNF parameters and the
    delivery of a measured VNF performance exists.
@@ -778,13 +797,6 @@ Internet-Draft                  VNFBench                        May 2019
    Execution environment information has to be included in every VNF-PP
    and is required to describe the environment on which a benchmark Test
    was actually executed.
-
-
-
-Rosa, et al.            Expires November 23, 2019              [Page 14]
-
-Internet-Draft                  VNFBench                        May 2019
-
 
    Ideally, any person who has a VNF-BD and its complementing VNF-PP
    with its execution environment information available, must be able to
@@ -806,7 +818,10 @@ Internet-Draft                  VNFBench                        May 2019
    Software Specs:   Contains any information associated with the
       software apparatus offered and used during the benchmarking Tests.
       Examples include versions of operating systems, kernels,
-      hypervisors, container image versions, etc.
+      hypervisors, container technologies, image versions, used MANO
+      systems, used VIMs, used network element managers (EM), etc.  This
+      section should also provide information about the configurations
+      used by the involved software components.
 
    Optionally, a VNF-PP execution environment might contain references
    to an orchestration description document (e.g., HEAT template) to
@@ -817,6 +832,15 @@ Internet-Draft                  VNFBench                        May 2019
 
    Measurement results concern the extracted metrics, output of
    benchmarking procedures, classified into:
+
+
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 15]
+
+Internet-Draft                  VNFBench                     August 2019
+
 
    VNF Processing/Active Metrics:   Concerns metrics explicitly defined
       by or extracted from direct interactions of Agents with a VNF.
@@ -834,14 +858,6 @@ Internet-Draft                  VNFBench                        May 2019
    planned use cases for the resulting VNF-PPs, measurement results can
    be stored as raw data, e.g., time series data about CPU utilization
    of the VNF during a throughput benchmark.  In the case of VNFs
-
-
-
-Rosa, et al.            Expires November 23, 2019              [Page 15]
-
-Internet-Draft                  VNFBench                        May 2019
-
-
    composed of multiple VNFCs, those resulting data should be
    represented as vectors, capturing the behavior of each VNFC, if
    available from the used monitoring systems.  Alternatively, more
@@ -873,6 +889,15 @@ Internet-Draft                  VNFBench                        May 2019
       settings defined in Section 6.1.  At the end of this step, the
       complete Method of benchmarking the target VNF is defined.
 
+
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 16]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    2.   The VNF target image must be prepared to be benchmarked, having
       all its capabilities fully described.  In addition all the probers
       and listeners defined in the VNF-BD must be implemented to realize
@@ -888,20 +913,13 @@ Internet-Draft                  VNFBench                        May 2019
       end of this step, the whole environment needed to instantiate the
       components of a VNF-BD deployment scenario is defined.
 
-
-
-
-
-
-Rosa, et al.            Expires November 23, 2019              [Page 16]
-
-Internet-Draft                  VNFBench                        May 2019
-
-
 6.3.2.  Automated Execution
 
    Satisfied all the pre-execution procedures, the automated execution
-   of the Tests specified by the VNF-BD follow:
+   of the Tests specified by the VNF-BD follow.  The execution time of
+   this automated execution can either be bound by a fixed time limit
+   specified in the VNF-BD or coupled to an exit condition, e.g.,
+   convergence of measured values.
 
    1.   Upon the parsing of a VNF-BD, the Manager must detect the VNF-BD
       variable input field (e.g., list of resources values) and compose
@@ -929,6 +947,13 @@ Internet-Draft                  VNFBench                        May 2019
       interfaces of the VNF and the other components in the running
       instances for the benchmarking Test.
 
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 17]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    4.   Agent(s) and Monitor(s) (if existing) and the target VNF must be
       configured by the Manager according to the components settings
       defined in the VNF-BD instance.  After this step, the whole VNF-BD
@@ -946,14 +971,6 @@ Internet-Draft                  VNFBench                        May 2019
    6.   Output measurements from each obtained benchmarking Test, and
       its possible Trials, must be collected by the Manager, until all
       the Tests are finished.  In the execution settings of the parsed
-
-
-
-Rosa, et al.            Expires November 23, 2019              [Page 17]
-
-Internet-Draft                  VNFBench                        May 2019
-
-
       VNF-BD, the Manager must check the Method repetition, and perform
       the whole set of VNF-BD Tests (i.e., since step 1), until all
       methods specified are finished.
@@ -984,6 +1001,15 @@ Internet-Draft                  VNFBench                        May 2019
       research.  Iterate in the previous steps until composing a stable
       and representative VNF-BR.
 
+
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 18]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
 6.4.  Particular Cases
 
    As described in [RFC8172], VNF benchmarking might require to change
@@ -1002,13 +1028,6 @@ Internet-Draft                  VNFBench                        May 2019
    methodologies through VNF-BDs that enable direct control over the
    resource assignments and topology layouts used for a benchmarking
    experiment.
-
-
-
-Rosa, et al.            Expires November 23, 2019              [Page 18]
-
-Internet-Draft                  VNFBench                        May 2019
-
 
 6.4.2.  Isolation
 
@@ -1039,6 +1058,14 @@ Internet-Draft                  VNFBench                        May 2019
    functionalities associated with elasticity such as automated scaling.
    These state changes and triggers (e.g. the VNF's scaling state) must
    be captured in the benchmarking results (VNF-PP) to provide a
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 19]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    detailed characterization of the VNF's performance behavior in
    different states.
 
@@ -1058,14 +1085,6 @@ Internet-Draft                  VNFBench                        May 2019
    without monitoring components inside the VNFs and/or the hosting
    container or VM.  If no monitoring solution is available from within
    the VNFs, the benchmark is following the black-box concept.  If, in
-
-
-
-Rosa, et al.            Expires November 23, 2019              [Page 19]
-
-Internet-Draft                  VNFBench                        May 2019
-
-
    contrast, those additional sources of information from within the VNF
    are available, VNF-PPs must be able to handle these additional VNF
    performance metrics.
@@ -1091,6 +1110,18 @@ Internet-Draft                  VNFBench                        May 2019
    are two open source reference implementations that are build to
    automate benchmarking of Virtualized Network Functions (VNFs).
 
+
+
+
+
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 20]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
 7.1.  Gym
 
    The software, named Gym, is a framework for automated benchmarking of
@@ -1113,15 +1144,6 @@ Internet-Draft                  VNFBench                        May 2019
    OVS) was the target VNF of Gym for the analysis of VNF benchmarking
    automation.  Such articles validated Gym as a prominent open source
    reference implementation for VNF benchmarking tests.  Such articles
-
-
-
-
-Rosa, et al.            Expires November 23, 2019              [Page 20]
-
-Internet-Draft                  VNFBench                        May 2019
-
-
    set important contributions as discussion of the lessons learned and
    the overall NFV performance testing landscape, included automation.
 
@@ -1149,6 +1171,13 @@ Internet-Draft                  VNFBench                        May 2019
    fitting to the original research ideas presented in [Rosa-a] and
    [Peu-a].
 
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 21]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    Following the same high-level VNF testing purposes as Gym, namely:
    Comparability, repeatability, configurability, and interoperability,
    tng- bench specifically aims to explore description approaches for
@@ -1169,15 +1198,6 @@ Internet-Draft                  VNFBench                        May 2019
    composed VNFs, consisting of multiple VNF components (VNFCs), have to
    be benchmarked.  The presented results highlight the need to
    benchmark composed VNFs in end-to-end scenarios rather than only
-
-
-
-
-Rosa, et al.            Expires November 23, 2019              [Page 21]
-
-Internet-Draft                  VNFBench                        May 2019
-
-
    benchmark each individual component in isolation, to produce
    meaningful VNF- PPs for the complete VNF.
 
@@ -1205,6 +1225,15 @@ Internet-Draft                  VNFBench                        May 2019
 
    This document does not require any IANA actions.
 
+
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 22]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
 10.  Acknowledgement
 
    The authors would like to thank the support of Ericsson Research,
@@ -1225,15 +1254,6 @@ Internet-Draft                  VNFBench                        May 2019
               <http://www.etsi.org/deliver/etsi_gs/NFV/001_099-
               /003/01.02.01_60/gs_NFV003v010201p.pdf>.
 
-
-
-
-
-Rosa, et al.            Expires November 23, 2019              [Page 22]
-
-Internet-Draft                  VNFBench                        May 2019
-
-
    [ETS14c]   ETSI, "NFV Pre-deployment Testing - ETSI GS NFV TST001
               V1.1.1", April 2016,
               <http://docbox.etsi.org/ISG/NFV/Open/DRAFTS/TST001_-_Pre-
@@ -1250,6 +1270,31 @@ Internet-Draft                  VNFBench                        May 2019
               V0.0.9", April 2018,
               <https://docbox.etsi.org/isg/nfv/open/drafts/
               TST006_CICD_and_Devops_report>.
+
+   [ETS19f]   ETSI, "Specification of Networking Benchmarks and
+              Measurement Methods for NFVI - ETSI GS NFV-TST 009
+              V3.2.1", June 2019,
+              <https://docbox.etsi.org/ISG/NFV/Open/Publications_pdf/
+              Specs-Reports/
+              NFV-TST%20009v3.2.1%20-%20GS%20-%20NFVI_Benchmarks.pdf>.
+
+
+
+
+
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 23]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
+   [ETS19g]   ETSI, "NFVI Compute and Network Metrics Specification -
+              ETSI GS NFV-TST 008 V3.2.1", March 2019,
+              <https://docbox.etsi.org/ISG/NFV/Open/Publications_pdf/
+              Specs-Reports/NFV-TST%20008v3.2.1%20-%20GS%20-%20NFVI%20Co
+              mpute%20and%20Nwk%20Metrics%20-%20Spec.pdf>.
 
    [RFC1242]  S. Bradner, "Benchmarking Terminology for Network
               Interconnection Devices", July 1991,
@@ -1280,16 +1325,6 @@ Internet-Draft                  VNFBench                        May 2019
               Virtualization and Software Defined Networks (NFV-SDN) ,
               2017, <http://ieeexplore.ieee.org/document/8169826/>.
 
-
-
-
-
-
-Rosa, et al.            Expires November 23, 2019              [Page 23]
-
-Internet-Draft                  VNFBench                        May 2019
-
-
    [Peu-c]    M. Peuster, H. Karl, "Understand your chains and keep your
               deadlines: Introducing time-constrained profiling for
               NFV", IEEE/IFIP 14th International Conference on Network
@@ -1300,6 +1335,16 @@ Internet-Draft                  VNFBench                        May 2019
               Benchmark-as-a-Service", Fourth European Workshop on
               Software Defined Networks , Sept 2015,
               <http://ieeexplore.ieee.org/document/7313620>.
+
+
+
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 24]
+
+Internet-Draft                  VNFBench                     August 2019
+
 
    [Rosa-b]   R. Rosa, C. Bertoldo, C. Rothenberg, "Take your VNF to the
               Gym: A Testing Framework for Automated NFV Performance
@@ -1333,19 +1378,6 @@ Authors' Addresses
    URI:   https://intrig.dca.fee.unicamp.br/raphaelvrosa/
 
 
-
-
-
-
-
-
-
-
-Rosa, et al.            Expires November 23, 2019              [Page 24]
-
-Internet-Draft                  VNFBench                        May 2019
-
-
    Christian Esteve Rothenberg
    University of Campinas
    Av. Albert Einstein, 400
@@ -1356,6 +1388,20 @@ Internet-Draft                  VNFBench                        May 2019
    URI:   http://www.dca.fee.unicamp.br/~chesteve/
 
 
+
+
+
+
+
+
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 25]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    Manuel Peuster
    Paderborn University
    Warburgerstr. 100
@@ -1363,7 +1409,7 @@ Internet-Draft                  VNFBench                        May 2019
    Germany
 
    Email: manuel.peuster@upb.de
-   URI:   http://go.upb.de/peuster
+   URI:   https://peuster.de
 
 
    Holger Karl
@@ -1397,4 +1443,14 @@ Internet-Draft                  VNFBench                        May 2019
 
 
 
-Rosa, et al.            Expires November 23, 2019              [Page 25]
+
+
+
+
+
+
+
+
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 26]
