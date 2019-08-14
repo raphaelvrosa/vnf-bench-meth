@@ -86,7 +86,7 @@ Table of Contents
    6.1.5.  Scenario  . . . . . . . . . . . . . . . . . . . . . . . .  13
    6.1.6.  Proceedings . . . . . . . . . . . . . . . . . . . . . . .  14
    6.2.  VNF Performance Profile (VNF-PP)  . . . . . . . . . . . . .  14
-   6.2.1.  Execution Environment . . . . . . . . . . . . . . . . . .  14
+   6.2.1.  Execution Environment . . . . . . . . . . . . . . . . . .  15
    6.2.2.  Measurement Results . . . . . . . . . . . . . . . . . . .  15
    6.3.  Procedures  . . . . . . . . . . . . . . . . . . . . . . . .  16
    6.3.1.  Pre-Execution . . . . . . . . . . . . . . . . . . . . . .  16
@@ -98,7 +98,7 @@ Table of Contents
    6.4.3.  Failure Handling  . . . . . . . . . . . . . . . . . . . .  19
    6.4.4.  Elasticity and Flexibility  . . . . . . . . . . . . . . .  19
    6.4.5.  Handling Configurations . . . . . . . . . . . . . . . . .  19
-   6.4.6.  White Box VNF . . . . . . . . . . . . . . . . . . . . . .  19
+   6.4.6.  White Box VNF . . . . . . . . . . . . . . . . . . . . . .  20
    7.  Open Source Reference Implementations . . . . . . . . . . . .  20
    7.1.  Gym . . . . . . . . . . . . . . . . . . . . . . . . . . . .  20
    7.2.  tng-bench . . . . . . . . . . . . . . . . . . . . . . . . .  21
@@ -691,8 +691,15 @@ Internet-Draft                  VNFBench                     August 2019
 
    Information about each component in a benchmarking setup (see
    Section 5).  It contains the identification, name, image, role (i.e.,
-   agent, monitor, sut), connection-points and resource requirements
-   (i.e., allocation of cpu, memory, disk).
+   agent, monitor, SUT), connection-points and resource requirements
+   (i.e., allocation of CPU, memory, disk).
+
+   A SUT is always considered to be the full set of VNFCs comprised by
+   the VNF.  Thus all VNFCs of a VNF are always benchmarked together
+   because all of them are needed to implement the full set of the VNF's
+   functionalities.  Benchmarking single VNFCs in isolation could be
+   considered as a particular case, i.e., whitebox scenario which is out
+   of scope of this draft.
 
    The lifecycle specification of a node lists all the workflows that
    must be realized on it during a Test.  For instance, main workflows
@@ -712,13 +719,6 @@ Internet-Draft                  VNFBench                     August 2019
    specifying the minimum bandwidth, latency, and frame loss rate for
    the execution of benchmarking Tests.
 
-6.1.5.3.  Policies
-
-   Involves the definition of execution environment policies to run the
-   Tests.  Policies might specify the (anti-)affinity placement rules
-   for each component in the topology, min/max allocation of resources,
-   and specific enabling technologies (e.g., DPDK, SR-IOV, PCIE) needed
-   for each component.
 
 
 
@@ -729,6 +729,14 @@ Rosa, et al.            Expires February 15, 2020              [Page 13]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+6.1.5.3.  Policies
+
+   Involves the definition of execution environment policies to run the
+   Tests.  Policies might specify the (anti-)affinity placement rules
+   for each component in the topology, min/max allocation of resources,
+   and specific enabling technologies (e.g., DPDK, SR-IOV, PCIE) needed
+   for each component.
 
 6.1.6.  Proceedings
 
@@ -771,6 +779,13 @@ Internet-Draft                  VNFBench                     August 2019
    percentiles) where a correspondence among VNF parameters and the
    delivery of a measured VNF performance exists.
 
+
+
+Rosa, et al.            Expires February 15, 2020              [Page 14]
+
+Internet-Draft                  VNFBench                     August 2019
+
+
    The following items define the VNF-PP contents.
 
 6.2.1.  Execution Environment
@@ -778,13 +793,6 @@ Internet-Draft                  VNFBench                     August 2019
    Execution environment information has to be included in every VNF-PP
    and is required to describe the environment on which a benchmark Test
    was actually executed.
-
-
-
-Rosa, et al.            Expires February 15, 2020              [Page 14]
-
-Internet-Draft                  VNFBench                     August 2019
-
 
    Ideally, any person who has a VNF-BD and its complementing VNF-PP
    with its execution environment information available, must be able to
@@ -826,14 +834,6 @@ Internet-Draft                  VNFBench                     August 2019
 
    VNF Monitored/Passive Metrics:   Concerns the Monitors' metrics
       captured from a VNF execution, classified according to the
-      virtualization level (e.g., baremetal, VM, container) and
-      technology domain (e.g., related to CPU, memory, disk) from where
-      they were obtained.
-
-   Depending on the configuration of the benchmarking setup and the
-   planned use cases for the resulting VNF-PPs, measurement results can
-   be stored as raw data, e.g., time series data about CPU utilization
-   of the VNF during a throughput benchmark.  In the case of VNFs
 
 
 
@@ -842,6 +842,14 @@ Rosa, et al.            Expires February 15, 2020              [Page 15]
 Internet-Draft                  VNFBench                     August 2019
 
 
+      virtualization level (e.g., baremetal, VM, container) and
+      technology domain (e.g., related to CPU, memory, disk) from where
+      they were obtained.
+
+   Depending on the configuration of the benchmarking setup and the
+   planned use cases for the resulting VNF-PPs, measurement results can
+   be stored as raw data, e.g., time series data about CPU utilization
+   of the VNF during a throughput benchmark.  In the case of VNFs
    composed of multiple VNFCs, those resulting data should be
    represented as vectors, capturing the behavior of each VNFC, if
    available from the used monitoring systems.  Alternatively, more
@@ -882,14 +890,6 @@ Internet-Draft                  VNFBench                     August 2019
 
    3.   The environment needed for a VNF-BD must be defined to realize
       its deployment scenario, in an automated or manual method.  This
-      step might count on the instantiation of orchestration platforms
-      and the composition of specific topology descriptors needed by
-      those platforms to realize the VNF-BD deployment scenario.  At the
-      end of this step, the whole environment needed to instantiate the
-      components of a VNF-BD deployment scenario is defined.
-
-
-
 
 
 
@@ -897,6 +897,12 @@ Rosa, et al.            Expires February 15, 2020              [Page 16]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+      step might count on the instantiation of orchestration platforms
+      and the composition of specific topology descriptors needed by
+      those platforms to realize the VNF-BD deployment scenario.  At the
+      end of this step, the whole environment needed to instantiate the
+      components of a VNF-BD deployment scenario is defined.
 
 6.3.2.  Automated Execution
 
@@ -940,12 +946,6 @@ Internet-Draft                  VNFBench                     August 2019
       metrics captured during or at the end of each Trial.  I.e., for a
       single Test, according to the VNF-BD execution settings, the
       Manager must guarantee that one or more Trials realize the
-      required measurements to characterize the performance behavior of
-      a VNF.
-
-   6.   Output measurements from each obtained benchmarking Test, and
-      its possible Trials, must be collected by the Manager, until all
-      the Tests are finished.  In the execution settings of the parsed
 
 
 
@@ -954,6 +954,12 @@ Rosa, et al.            Expires February 15, 2020              [Page 17]
 Internet-Draft                  VNFBench                     August 2019
 
 
+      required measurements to characterize the performance behavior of
+      a VNF.
+
+   6.   Output measurements from each obtained benchmarking Test, and
+      its possible Trials, must be collected by the Manager, until all
+      the Tests are finished.  In the execution settings of the parsed
       VNF-BD, the Manager must check the Method repetition, and perform
       the whole set of VNF-BD Tests (i.e., since step 1), until all
       methods specified are finished.
@@ -996,12 +1002,6 @@ Internet-Draft                  VNFBench                     August 2019
    abstraction layer between physical resources and the resources
    available to the VNF.  According to [RFC8172], it may be more
    representative to design experiments in a way that the VMs hosting
-   the VNFs are operating at maximum of 50% utilization and split the
-   workload among several VMs, to mitigateside effects of overloaded
-   VMs.  Those cases are supported by the presented automation
-   methodologies through VNF-BDs that enable direct control over the
-   resource assignments and topology layouts used for a benchmarking
-   experiment.
 
 
 
@@ -1009,6 +1009,13 @@ Rosa, et al.            Expires February 15, 2020              [Page 18]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+   the VNFs are operating at maximum of 50% utilization and split the
+   workload among several VMs, to mitigateside effects of overloaded
+   VMs.  Those cases are supported by the presented automation
+   methodologies through VNF-BDs that enable direct control over the
+   resource assignments and topology layouts used for a benchmarking
+   experiment.
 
 6.4.2.  Isolation
 
@@ -1052,13 +1059,6 @@ Internet-Draft                  VNFBench                     August 2019
    this are, e.g., machine learning-based configuration space sub-
    sampling methods, such as [Peu-c].
 
-6.4.6.  White Box VNF
-
-   A benchmarking setup must be able to define scenarios with and
-   without monitoring components inside the VNFs and/or the hosting
-   container or VM.  If no monitoring solution is available from within
-   the VNFs, the benchmark is following the black-box concept.  If, in
-
 
 
 Rosa, et al.            Expires February 15, 2020              [Page 19]
@@ -1066,6 +1066,12 @@ Rosa, et al.            Expires February 15, 2020              [Page 19]
 Internet-Draft                  VNFBench                     August 2019
 
 
+6.4.6.  White Box VNF
+
+   A benchmarking setup must be able to define scenarios with and
+   without monitoring components inside the VNFs and/or the hosting
+   container or VM.  If no monitoring solution is available from within
+   the VNFs, the benchmark is following the black-box concept.  If, in
    contrast, those additional sources of information from within the VNF
    are available, VNF-PPs must be able to handle these additional VNF
    performance metrics.
@@ -1108,12 +1114,6 @@ Internet-Draft                  VNFBench                     August 2019
    by orchestrator functions to perform VNF lifecycle tasks (e.g.,
    deployment, maintenance, tear-down).
 
-   In [Rosa-b] Gym was utilized to benchmark a decomposed IP Multimedia
-   Subsystem VNF.  And in [Rosa-c], a virtual switch (Open vSwitch -
-   OVS) was the target VNF of Gym for the analysis of VNF benchmarking
-   automation.  Such articles validated Gym as a prominent open source
-   reference implementation for VNF benchmarking tests.  Such articles
-
 
 
 
@@ -1122,6 +1122,11 @@ Rosa, et al.            Expires February 15, 2020              [Page 20]
 Internet-Draft                  VNFBench                     August 2019
 
 
+   In [Rosa-b] Gym was utilized to benchmark a decomposed IP Multimedia
+   Subsystem VNF.  And in [Rosa-c], a virtual switch (Open vSwitch -
+   OVS) was the target VNF of Gym for the analysis of VNF benchmarking
+   automation.  Such articles validated Gym as a prominent open source
+   reference implementation for VNF benchmarking tests.  Such articles
    set important contributions as discussion of the lessons learned and
    the overall NFV performance testing landscape, included automation.
 
@@ -1165,11 +1170,6 @@ Internet-Draft                  VNFBench                     August 2019
    balancer, and a Socat TCP relay in [Peu-b].  Those VNFs have not only
    been benchmarked in isolation, but also in combined setups in which
    up to three VNFs were chained one after each other.  These
-   experiments were used to test tng-bench for scenarios in which
-   composed VNFs, consisting of multiple VNF components (VNFCs), have to
-   be benchmarked.  The presented results highlight the need to
-   benchmark composed VNFs in end-to-end scenarios rather than only
-
 
 
 
@@ -1178,6 +1178,10 @@ Rosa, et al.            Expires February 15, 2020              [Page 21]
 Internet-Draft                  VNFBench                     August 2019
 
 
+   experiments were used to test tng-bench for scenarios in which
+   composed VNFs, consisting of multiple VNF components (VNFCs), have to
+   be benchmarked.  The presented results highlight the need to
+   benchmark composed VNFs in end-to-end scenarios rather than only
    benchmark each individual component in isolation, to produce
    meaningful VNF- PPs for the complete VNF.
 
@@ -1220,10 +1224,6 @@ Internet-Draft                  VNFBench                     August 2019
               Dec 2014, <http://www.etsi.org/deliver/etsi\_gs/
               NFV/001\_099/002/01.02.01-\_60/gs\_NFV002v010201p.pdf>.
 
-   [ETS14b]   ETSI, "Terminology for Main Concepts in NFV - ETSI GS NFV
-              003 V1.2.1", Dec 2014,
-              <http://www.etsi.org/deliver/etsi_gs/NFV/001_099-
-              /003/01.02.01_60/gs_NFV003v010201p.pdf>.
 
 
 
@@ -1233,6 +1233,11 @@ Rosa, et al.            Expires February 15, 2020              [Page 22]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+   [ETS14b]   ETSI, "Terminology for Main Concepts in NFV - ETSI GS NFV
+              003 V1.2.1", Dec 2014,
+              <http://www.etsi.org/deliver/etsi_gs/NFV/001_099-
+              /003/01.02.01_60/gs_NFV003v010201p.pdf>.
 
    [ETS14c]   ETSI, "NFV Pre-deployment Testing - ETSI GS NFV TST001
               V1.1.1", April 2016,
@@ -1274,11 +1279,6 @@ Internet-Draft                  VNFBench                     August 2019
               (EWSDN) , 2016,
               <http://ieeexplore.ieee.org/document/7956044/>.
 
-   [Peu-b]    M. Peuster, H. Karl, "Profile Your Chains, Not Functions:
-              Automated Network Service Profiling in DevOps
-              Environments", IEEE Conference on Network Function
-              Virtualization and Software Defined Networks (NFV-SDN) ,
-              2017, <http://ieeexplore.ieee.org/document/8169826/>.
 
 
 
@@ -1289,6 +1289,12 @@ Rosa, et al.            Expires February 15, 2020              [Page 23]
 
 Internet-Draft                  VNFBench                     August 2019
 
+
+   [Peu-b]    M. Peuster, H. Karl, "Profile Your Chains, Not Functions:
+              Automated Network Service Profiling in DevOps
+              Environments", IEEE Conference on Network Function
+              Virtualization and Software Defined Networks (NFV-SDN) ,
+              2017, <http://ieeexplore.ieee.org/document/8169826/>.
 
    [Peu-c]    M. Peuster, H. Karl, "Understand your chains and keep your
               deadlines: Introducing time-constrained profiling for
@@ -1331,12 +1337,6 @@ Authors' Addresses
 
    Email: rvrosa@dca.fee.unicamp.br
    URI:   https://intrig.dca.fee.unicamp.br/raphaelvrosa/
-
-
-
-
-
-
 
 
 

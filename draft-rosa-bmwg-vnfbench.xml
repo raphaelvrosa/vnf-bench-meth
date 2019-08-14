@@ -566,8 +566,13 @@
 
         <section title="Nodes" anchor="scenario-nodes">
           <t>Information about each component in a benchmarking setup (see <xref target="setup" />).
-          It contains the identification, name, image, role (i.e., agent, monitor, sut), connection-points and resource requirements
-          (i.e., allocation of cpu, memory, disk).</t>
+          It contains the identification, name, image, role (i.e., agent, monitor, SUT), connection-points and resource requirements
+          (i.e., allocation of CPU, memory, disk).</t>
+
+          <t>A SUT is always considered to be the full set of VNFCs comprised by the 
+            VNF. Thus all VNFCs of a VNF are always benchmarked together because all of them are 
+            needed to implement the full set of the VNF's functionalities. Benchmarking 
+            single VNFCs in isolation could be considered as a particular case, i.e., whitebox scenario which is out of scope of this draft.</t>
 
           <t>The lifecycle specification of a node lists all the workflows that must be
             realized on it during a Test. For instance, main workflows include: create, start, stop, delete.
