@@ -870,6 +870,17 @@
     assignments and topology layouts used for a benchmarking experiment.</t>
     </section>
 
+    <section title="Redundancy" anchor="specific_redund">
+    <t>As a VNF might be composed of multiple components (VNFCs), there exist
+	different schemas of redundancy where particular VNFCs would be in active
+	or standby mode. For such cases, particular monitoring endpoints should be
+	specified in VNF-BD so listeners can capture the relevant aspects of benchmarking
+	when VNFCs would be in active/standby modes. In this particular case, capturing
+	the relevant aspects of internal functionalities of a VNF and its internal
+	components provides important measurements to characterize the dynamics of a
+	VNF, those must be reflected in its VNF-PP.
+	</t> </section>
+
     <section title="Isolation" anchor="specific_isolation">  <t>One of the main
     challenges of NFV is to create isolation between VNFs. Benchmarking the
     quality of this isolation behavior can be achieved by Agents that take the
