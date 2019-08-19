@@ -316,34 +316,33 @@
       title="Generic VNF Benchmarking Setup">
       <artwork align="center"><![CDATA[
 
+                         +---------------+
+                         |    Manager    |
+            Control      | (Coordinator) |
+           Interfaces    +---+-------+---+
+       +---------+-----------+       +-------------------+
+       |         |                                       |
+       |         |          +--------------------+       |
+       |         |          |  System Under Test |       |
+       |         |          |                    |       |
+       |         |          | +-----------------+|       |
+       |      +--+--------+ | |       VNF       ||       |
+       |      |           | | |                 ||       |
+       |      |           | | | +----+   +----+ ||       |
+       |      |           <===> |VNFC|...|VNFC| ||       |
+       |      |           | | | +----+   +----+ ||       |
+       |      | Monitor(s)| | +----.---------.--+|       |
+ +-----+---+  |{listeners}| |      :         :   | +-----+----+
+ | Agent(s)|  |           | | +----^---------V--+| |  Agent(s)|
+ |(Sender) |  |           <===>    Execution    || |(Receiver)|
+ |         |  |           | | |   Environment   || |          |
+ |{Probers}|  +-----------+ | |                 || |{Probers} |
+ +-----.---+                | +----.---------.--+| +-----.----+
+       :                    +------^---------V---+       :
+       V                           :         :           :
+       :.................>.........:         :........>..:
+        Stimulus Traffic Flow
 
-                        +---------------+
-                        |    Manager    |
-          Control       | (Coordinator) |
-          Interfaces    +---+-------+---+
-       +--------+-----------+       +-------------------+
-       |        |                                       |
-       |    +---|-------------------------------+       |
-       |    |   |    System Under Test          |       |
-       |    |   |                               |       |
-       |    |   |            +-----------------+|       |
-       |    |+--+--------+   |       VNF       ||       |
-       |    ||           |   |                 ||       |
-       |    ||           |   | +----+   +----+ ||       |
-       |    ||           <---> |VNFC|...|VNFC| ||       |
-       |    ||           |   | +----+   +----+ ||       |
-       |    ||           |   +----.---------.--+|       |
- +-----+---+||  Monitor  |        :         :   | +-----+----+
- | Agent   |||{listeners}|   +----^---------V--+| |  Agent   |
- |(Sender) |||           <--->    Execution    || |(Receiver)|
- |         |||           |   |   Environment   || |          |
- |{Probers}||+-----------+   |                 || |{Probers} |
- +-----.---+|                +----.---------.--+| +-----.----+
-       :    +---------------------^---------V---+       :
-       V                          :         :           :
-       :................>.........:         :........>..:
-       Stimulus Traffic Flow
-       
   ]]></artwork>
   </figure>
 
@@ -413,7 +412,11 @@
           (iii) the collection, processing and aggregation of all VNF benchmarking measurements
           that correlates the VNF stimuli and the, possible, SUT monitored metrics.
           A Manager executes the main configuration, operation, and management actions
-          to deliver the VNF benchmarking report.
+          to deliver the VNF benchmarking report. Hence, it detains interfaces
+          open for users interact with the whole benchmarking framework, realizing, for instance, the
+          retrival of the framework characteristics (e.g., available benchmarking components and their probers/listeners), 
+          the coordination of benchmarking tasks, the processing and the retrival of benchmarking metrics,
+          among other operational and management functionalities.
           A Manager can be defined as a physical or virtualized network function. </t>
 
     </list></t>
@@ -473,7 +476,7 @@
                          
                          ______________
 +--------+              |              |
-|        |              |  Automated   |
+|        |              | Automated    |
 | VNF-BD |--(defines)-->| Benchmarking |
 |        |              | Methodology  |
 +--------+              |______________|                                
