@@ -731,6 +731,14 @@
           deviations. The exact output format to be used is defined in
           the complementing VNF-BD (<xref target="vnf-bd" />).</t>
 
+          <t>Regarding the definition of the VNF-PP metrics, their specificity
+          is dependent of the specificity of the VNF Benchmark Methodology. 
+          I.e., in general each methodology defines its own metrics, which might 
+          be depend on the measurement interfaces avaliable for Agents and Monitors (
+          i.e., probers/listeners), and how they are implemented.
+      	  Comparison factors among virtual and physical network functions 
+      	  would depend on common metrics specified on methodologies for both cases.</t>
+
           <t>The representation format of a VNF-PP must be easily translated 
             to address the combined set of classified
             items in the 3x3 Matrix Coverage defined in <xref target="RFC8172"/>.</t>
