@@ -316,33 +316,34 @@
       title="Generic VNF Benchmarking Setup">
       <artwork align="center"><![CDATA[
 
+
                         +---------------+
                         |    Manager    |
           Control       | (Coordinator) |
-          Interface     +---+-------+---+
+          Interfaces    +---+-------+---+
        +--------+-----------+       +-------------------+
        |        |                                       |
-       |        |   +-------------------------+         |
-       |        |   |    System Under Test    |         |
-       |        |   |                         |         |
-       |        |   |    +-----------------+  |         |
-       |     +--+------- +       VNF       |  |         |
-       |     |           |                 |  |         |
-       |     |           | +----+   +----+ |  |         |
-       |     |           | |VNFC|...|VNFC| |  |         |
-       |     |           | +----+   +----+ |  |         |
-       |     |           +----.---------.--+  |         |
- +-----+---+ |  Monitor  |    :         :     |   +-----+----+
- | Agent   | |{listeners}|----^---------V--+  |   |  Agent   |
- |(Sender) | |           |    Execution    |  |   |(Receiver)|
- |         | |           |   Environment   |  |   |          |
- |{Probers}| +-----------|                 |  |   |{Probers} |
- +-----.---+        |    +----.---------.--+  |   +-----.----+
-       :            +---------^---------V-----+         :
-       V                      :         :               :
-       :................>.....:         :............>..:
+       |    +---|-------------------------------+       |
+       |    |   |    System Under Test          |       |
+       |    |   |                               |       |
+       |    |   |            +-----------------+|       |
+       |    |+--+--------+   |       VNF       ||       |
+       |    ||           |   |                 ||       |
+       |    ||           |   | +----+   +----+ ||       |
+       |    ||           <---> |VNFC|...|VNFC| ||       |
+       |    ||           |   | +----+   +----+ ||       |
+       |    ||           |   +----.---------.--+|       |
+ +-----+---+||  Monitor  |        :         :   | +-----+----+
+ | Agent   |||{listeners}|   +----^---------V--+| |  Agent   |
+ |(Sender) |||           <--->    Execution    || |(Receiver)|
+ |         |||           |   |   Environment   || |          |
+ |{Probers}||+-----------+   |                 || |{Probers} |
+ +-----.---+|                +----.---------.--+| +-----.----+
+       :    +---------------------^---------V---+       :
+       V                          :         :           :
+       :................>.........:         :........>..:
        Stimulus Traffic Flow
-
+       
   ]]></artwork>
   </figure>
 
@@ -362,7 +363,7 @@
           It can also define specific technology habilitation, incurring in viable
           settings for enhancing the performance of VNFs. </t>
 
-        <t hangText="Agent --"> executes active stimulus using probers, i.e., benchmarking tools,
+        <t hangText="Agent (Active Probing) --"> executes active stimulus using probers, i.e., benchmarking tools,
           to benchmark and collect network and system performance metrics.
           A single Agent can perform localized
           benchmarks in execution environments (e.g., stress tests on CPU,
@@ -385,7 +386,7 @@
                 the description of particular VNF benchmarking methodologies.</t>
           </list></t>
 
-        <t hangText="Monitor --"> when possible is instantiated inside the
+        <t hangText="Monitor (Passive Probing) --"> when possible is instantiated inside the
           System Under Test, VNF and/or infrastructure (e.g., as a plug-in process in a virtualized execution environment),
           to perform the passive monitoring, using Listeners, for the extraction of metrics
           while Agents` stimuli takes place.
