@@ -7,7 +7,7 @@
 <?rfc inline="yes"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" []>
 
-<rfc category="info" ipr="trust200902" docName="draft-rosa-bmwg-vnfbench-03">
+<rfc category="info" ipr="trust200902" docName="draft-rosa-bmwg-vnfbench-05">
   <front>
     <title abbrev="VNFBench">Methodology for VNF Benchmarking Automation</title>
 
@@ -643,19 +643,28 @@
 
     <section title="VNF Performance Profile (VNF-PP)" anchor="vnf-pp">
 
-      <t> VNF Performance Profile (VNF-PP) -- defines a mapping
-      between resources allocated to a VNF (e.g., CPU, memory)
-      as well as assigned configurations (e.g., routing table used by the VNF)
-      and the VNF performance metrics (e.g.,
-      throughput, latency, CPU, memory) obtained in a
-      benchmarking Test conducted using a VNF-BD.  Logically, packet
-      processing metrics are presented in a specific format
-      addressing statistical significance (e.g., median, standard deviation, percentiles)
-      where a correspondence
-      among VNF parameters and the delivery of a measured
-      VNF performance exists.</t>
+      <t> VNF Performance Profile (VNF-PP) -- an output artifact of a 
+        VNF-BD execution by a Manager component. It contains all the metrics
+        from monitor(s) and/or agent(s) components after realizing the prober(s)
+        and/or the listener(s) proceedings specified in its corresponding VNF-BD.
+        Metrics are grouped according to the execution of the trial(s) and test(s)
+        defined by a VNF-BD. A VNF-PP is specific to a unique VNF specification
+        (e.g., image, version, format). inside its unique corresponding VNF-BD.
+        It can be used to elaborate statistics regarding 
+        the the extraction of particular VNF performance metrics.</t>
 
         <t> The following items define the VNF-PP contents.</t>
+
+        <section title="Headers" anchor="vnf-pp-headers">
+          <t>The definition of parameters concerning the
+          profile file, e.g., its version, identidier, 
+          name, author, description, and the timestamp of 
+          when it was created.</t>
+        </section>
+
+        <section title="Reports" anchor="vnf-pp-reports">
+          <t>The specification of the resulting set of snapshots
+            from all the Agent(s) and Monitor(s)  obtained in a single test.</t>
 
         <section title="Execution Environment" anchor="exec-env">
           <t>Execution environment information has to be included in every VNF-PP
@@ -686,7 +695,9 @@
               associated with the software apparatus offered and used
               during the benchmarking Tests.  Examples include versions
               of operating systems, kernels, hypervisors, container
-              technologies, image versions, used MANO systems, used VIMs, used network element managers (EM), etc. This section should also provide information
+              technologies, image versions, used MANO systems, used VIMs,
+              used network element managers (EM), etc.
+              This section should also provide information
               about the configurations used by the involved software components.</t>
             </list></t>
 
@@ -697,52 +708,50 @@
             might contain for the VNF-PP.</t>
         </section>
 
-        <section title="Measurement Results" anchor="meas-res">
-          <t> Measurement results concern the extracted metrics,
-          output of benchmarking procedures, classified into:</t>
 
-          <t><list style="hanging">
-            <t hangText="VNF Processing/Active Metrics: "> Concerns
-            metrics explicitly defined by or extracted from direct
-            interactions of Agents with a VNF.  Those can be defined as generic
-            metric related to network packet processing (e.g.,
-            throughput, latency) or metrics specific to a particular
-            VNF (e.g., HTTP confirmed transactions, DNS replies).</t>
 
-            <t hangText="VNF Monitored/Passive Metrics: "> Concerns
-            the Monitors' metrics captured from a VNF execution, classified
-            according to the virtualization level (e.g., baremetal,
-            VM, container) and technology domain (e.g., related to
-            CPU, memory, disk) from where they were obtained.</t>
-          </list></t>
+          <section title="Snapshots" anchor="vnf-pp-snaps">
+            <t>The list of snapshots extracted for a single report. 
+              In essence, each snapshot is the result of a trial execution,
+              containing the evaluations provided by a single
+              Agent or Monitor.
+              It must contain the origin of the evaluations, i.e., 
+              the name of the source component, its role (i.e., Agent or Monitor),
+              and the name of the host were it was placed.</t>
 
-          <t>Depending on the configuration of the benchmarking setup
-          and the planned use cases for the resulting VNF-PPs,
-          measurement results can be stored as raw data, e.g., time
-          series data about CPU utilization of the VNF during a
-          throughput benchmark. 
-          In the case of VNFs composed of
-          multiple VNFCs, those resulting data should be represented
-          as vectors, capturing the behavior of each VNFC, if
-          available from the used monitoring systems. 
-          Alternatively, more compact representation formats can be used, e.g.,
-          statistical information about a series of latency
-          measurements, including averages and standard
-          deviations. The exact output format to be used is defined in
-          the complementing VNF-BD (<xref target="vnf-bd" />).</t>
+            <section title="Evaluations" anchor="vnf-pp-evals">
+              <t>The list of evaluations extracted for a single snapshot.
+                Each evaluation must contain the source of the metrics in it.
+                Such source must be specified by a unique identifier, name,
+                type (i.e., prober or listener), version of the tool it interfaces,
+                and the raw full command/call used by such tool to extract the
+                evaluation metrics.
+                In particular, an evaluation must contain the timestamp values
+                of the moments the prober/listener proceeded with the start and 
+                stop operations that incurred in the successful extraction of 
+                its metrics.</t>
 
-          <t>Regarding the definition of the VNF-PP metrics, their specificity
-          is dependent of the specificity of the VNF Benchmark Methodology. 
-          I.e., in general each methodology defines its own metrics, which might 
-          be depend on the measurement interfaces avaliable for Agents and Monitors (
-          i.e., probers/listeners), and how they are implemented.
-      	  Comparison factors among virtual and physical network functions 
-      	  would depend on common metrics specified on methodologies for both cases.</t>
+              <section title="Metrics" anchor="vnf-pp-metrics">
+                <t>The list of metrics extracted from a single evaluation.
+                  Metrics are output of a prober or listener execution.
+                  Each one of them must be specified with a clear definition of
+                  name, value, unit of value(s), and value(s). The value(s) of
+                  a metric can be specified as a single scalar, a vector of 
+                  scalars, and a vector of tuples (e.g., timeseries). </t>
 
-          <t>The representation format of a VNF-PP must be easily translated 
-            to address the combined set of classified
-            items in the 3x3 Matrix Coverage defined in <xref target="RFC8172"/>.</t>
+                <t>Regarding the definition of the VNF-PP metrics, their specificity
+                  is dependent of the specificity of the VNF benchmarking methodology. 
+                  I.e., in general each methodology defines its own metrics, which might 
+                  be depend on the measurement interfaces avaliable for Agents and Monitors 
+                  (i.e., probers/listeners), and how they are implemented.</t>
+              </section>
+
+            </section>
+
+          </section>
+
         </section>
+
     </section>
 
 
@@ -940,7 +949,6 @@
 
   </section>
 </section>
-
 
 
 <section title="Open Source Reference Implementations" anchor="opensource">

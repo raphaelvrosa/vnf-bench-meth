@@ -5,14 +5,14 @@
 BMWG                                                        R. Rosa, Ed.
 Internet-Draft                                             C. Rothenberg
 Intended status: Informational                                   UNICAMP
-Expires: February 20, 2020                                    M. Peuster
+Expires: April 17, 2020                                       M. Peuster
                                                                  H. Karl
                                                                      UPB
-                                                         August 19, 2019
+                                                        October 15, 2019
 
 
               Methodology for VNF Benchmarking Automation
-                      draft-rosa-bmwg-vnfbench-03
+                      draft-rosa-bmwg-vnfbench-05
 
 Abstract
 
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 20, 2020.
+   This Internet-Draft will expire on April 17, 2020.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Rosa, et al.            Expires February 20, 2020               [Page 1]
+Rosa, et al.             Expires April 17, 2020                 [Page 1]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    to this document.  Code Components extracted from this document must
@@ -86,8 +86,8 @@ Table of Contents
    6.1.5.  Scenario  . . . . . . . . . . . . . . . . . . . . . . . .  13
    6.1.6.  Proceedings . . . . . . . . . . . . . . . . . . . . . . .  14
    6.2.  VNF Performance Profile (VNF-PP)  . . . . . . . . . . . . .  15
-   6.2.1.  Execution Environment . . . . . . . . . . . . . . . . . .  15
-   6.2.2.  Measurement Results . . . . . . . . . . . . . . . . . . .  16
+   6.2.1.  Headers . . . . . . . . . . . . . . . . . . . . . . . . .  15
+   6.2.2.  Reports . . . . . . . . . . . . . . . . . . . . . . . . .  15
    6.3.  Procedures  . . . . . . . . . . . . . . . . . . . . . . . .  17
    6.3.1.  Pre-Execution . . . . . . . . . . . . . . . . . . . . . .  17
    6.3.2.  Automated Execution . . . . . . . . . . . . . . . . . . .  17
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Rosa, et al.            Expires February 20, 2020               [Page 2]
+Rosa, et al.             Expires April 17, 2020                 [Page 2]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  23
@@ -165,9 +165,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020               [Page 3]
+Rosa, et al.             Expires April 17, 2020                 [Page 3]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
 2.  Terminology
@@ -221,9 +221,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020               [Page 4]
+Rosa, et al.             Expires April 17, 2020                 [Page 4]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    in [ETS19f] which complements the presented work on VNF benchmarking
@@ -277,9 +277,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020               [Page 5]
+Rosa, et al.             Expires April 17, 2020                 [Page 5]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    In general, automated VNF benchmarking Tests must capture relevant
@@ -333,9 +333,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020               [Page 6]
+Rosa, et al.             Expires April 17, 2020                 [Page 6]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    Tests should be run to verify if the monitoring of the VNF and/or
@@ -389,9 +389,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020               [Page 7]
+Rosa, et al.             Expires April 17, 2020                 [Page 7]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
                                +---------------+
@@ -445,9 +445,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020               [Page 8]
+Rosa, et al.             Expires April 17, 2020                 [Page 8]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    Agent (Active Probing) --  executes active stimulus using probers,
@@ -501,9 +501,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020               [Page 9]
+Rosa, et al.             Expires April 17, 2020                 [Page 9]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    Manager --  performs (i) the discovery of available Agents/Monitors
@@ -557,9 +557,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020              [Page 10]
+Rosa, et al.             Expires April 17, 2020                [Page 10]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    benchmarking methodology must be described in a clear and objective
@@ -613,9 +613,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020              [Page 11]
+Rosa, et al.             Expires April 17, 2020                [Page 11]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    VNF Benchmarking Descriptor (VNF-BD) --   contains all required
@@ -669,9 +669,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020              [Page 12]
+Rosa, et al.             Expires April 17, 2020                [Page 12]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
 6.1.3.  Experiments
@@ -694,7 +694,7 @@ Internet-Draft                  VNFBench                     August 2019
 
    Further details about the concrete execution environment is, however,
    provided by the VNF-PP to keep the VNF-BD technology agnostic (see
-   Section 6.2.1).
+   Section 6.2.2.1).
 
 6.1.5.  Scenario
 
@@ -725,9 +725,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020              [Page 13]
+Rosa, et al.             Expires April 17, 2020                [Page 13]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    Those details must reflect the actions taken on or by a node that
@@ -781,9 +781,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020              [Page 14]
+Rosa, et al.             Expires April 17, 2020                [Page 14]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
       it is also detailed the output metrics to be extracted from it
@@ -791,19 +791,30 @@ Internet-Draft                  VNFBench                     August 2019
 
 6.2.  VNF Performance Profile (VNF-PP)
 
-   VNF Performance Profile (VNF-PP) -- defines a mapping between
-   resources allocated to a VNF (e.g., CPU, memory) as well as assigned
-   configurations (e.g., routing table used by the VNF) and the VNF
-   performance metrics (e.g., throughput, latency, CPU, memory) obtained
-   in a benchmarking Test conducted using a VNF-BD.  Logically, packet
-   processing metrics are presented in a specific format addressing
-   statistical significance (e.g., median, standard deviation,
-   percentiles) where a correspondence among VNF parameters and the
-   delivery of a measured VNF performance exists.
+   VNF Performance Profile (VNF-PP) -- an output artifact of a VNF-BD
+   execution by a Manager component.  It contains all the metrics from
+   monitor(s) and/or agent(s) components after realizing the prober(s)
+   and/or the listener(s) proceedings specified in its corresponding
+   VNF-BD.  Metrics are grouped according to the execution of the
+   trial(s) and test(s) defined by a VNF-BD.  A VNF-PP is specific to a
+   unique VNF specification (e.g., image, version, format). inside its
+   unique corresponding VNF-BD.  It can be used to elaborate statistics
+   regarding the the extraction of particular VNF performance metrics.
 
    The following items define the VNF-PP contents.
 
-6.2.1.  Execution Environment
+6.2.1.  Headers
+
+   The definition of parameters concerning the profile file, e.g., its
+   version, identidier, name, author, description, and the timestamp of
+   when it was created.
+
+6.2.2.  Reports
+
+   The specification of the resulting set of snapshots from all the
+   Agent(s) and Monitor(s) obtained in a single test.
+
+6.2.2.1.  Execution Environment
 
    Execution environment information has to be included in every VNF-PP
    and is required to describe the environment on which a benchmark Test
@@ -823,6 +834,14 @@ Internet-Draft                  VNFBench                     August 2019
       during the benchmarking Tests.  Examples of such specification
       include allocated CPU architecture, connected NIC specs, allocated
       memory DIMM, etc.  In addition, any information concerning details
+
+
+
+Rosa, et al.             Expires April 17, 2020                [Page 15]
+
+Internet-Draft                  VNFBench                    October 2019
+
+
       of resource isolation must also be described in this part of the
       VNF-PP.
 
@@ -834,69 +853,53 @@ Internet-Draft                  VNFBench                     August 2019
       section should also provide information about the configurations
       used by the involved software components.
 
-
-
-
-Rosa, et al.            Expires February 20, 2020              [Page 15]
-
-Internet-Draft                  VNFBench                     August 2019
-
-
    Optionally, a VNF-PP execution environment might contain references
    to an orchestration description document (e.g., HEAT template) to
    clarify technological aspects of the execution environment and any
    specific parameters that it might contain for the VNF-PP.
 
-6.2.2.  Measurement Results
+6.2.2.2.  Snapshots
 
-   Measurement results concern the extracted metrics, output of
-   benchmarking procedures, classified into:
+   The list of snapshots extracted for a single report.  In essence,
+   each snapshot is the result of a trial execution, containing the
+   evaluations provided by a single Agent or Monitor.  It must contain
+   the origin of the evaluations, i.e., the name of the source
+   component, its role (i.e., Agent or Monitor), and the name of the
+   host were it was placed.
 
-   VNF Processing/Active Metrics:   Concerns metrics explicitly defined
-      by or extracted from direct interactions of Agents with a VNF.
-      Those can be defined as generic metric related to network packet
-      processing (e.g., throughput, latency) or metrics specific to a
-      particular VNF (e.g., HTTP confirmed transactions, DNS replies).
+6.2.2.2.1.  Evaluations
 
-   VNF Monitored/Passive Metrics:   Concerns the Monitors' metrics
-      captured from a VNF execution, classified according to the
-      virtualization level (e.g., baremetal, VM, container) and
-      technology domain (e.g., related to CPU, memory, disk) from where
-      they were obtained.
+   The list of evaluations extracted for a single snapshot.  Each
+   evaluation must contain the source of the metrics in it.  Such source
+   must be specified by a unique identifier, name, type (i.e., prober or
+   listener), version of the tool it interfaces, and the raw full
+   command/call used by such tool to extract the evaluation metrics.  In
+   particular, an evaluation must contain the timestamp values of the
+   moments the prober/listener proceeded with the start and stop
+   operations that incurred in the successful extraction of its metrics.
 
-   Depending on the configuration of the benchmarking setup and the
-   planned use cases for the resulting VNF-PPs, measurement results can
-   be stored as raw data, e.g., time series data about CPU utilization
-   of the VNF during a throughput benchmark.  In the case of VNFs
-   composed of multiple VNFCs, those resulting data should be
-   represented as vectors, capturing the behavior of each VNFC, if
-   available from the used monitoring systems.  Alternatively, more
-   compact representation formats can be used, e.g., statistical
-   information about a series of latency measurements, including
-   averages and standard deviations.  The exact output format to be used
-   is defined in the complementing VNF-BD (Section 6.1).
+6.2.2.2.1.1.  Metrics
+
+   The list of metrics extracted from a single evaluation.  Metrics are
+   output of a prober or listener execution.  Each one of them must be
+   specified with a clear definition of name, value, unit of value(s),
+   and value(s).  The value(s) of a metric can be specified as a single
+   scalar, a vector of scalars, and a vector of tuples (e.g.,
+   timeseries).
 
    Regarding the definition of the VNF-PP metrics, their specificity is
-   dependent of the specificity of the VNF Benchmark Methodology.  I.e.,
-   in general each methodology defines its own metrics, which might be
-   depend on the measurement interfaces avaliable for Agents and
-   Monitors ( i.e., probers/listeners), and how they are implemented.
-   Comparison factors among virtual and physical network functions would
-   depend on common metrics specified on methodologies for both cases.
-
-   The representation format of a VNF-PP must be easily translated to
-   address the combined set of classified items in the 3x3 Matrix
-   Coverage defined in [RFC8172].
+   dependent of the specificity of the VNF benchmarking methodology.
+   I.e., in general each methodology defines its own metrics, which
 
 
 
-
-
-
-Rosa, et al.            Expires February 20, 2020              [Page 16]
+Rosa, et al.             Expires April 17, 2020                [Page 16]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
+
+   might be depend on the measurement interfaces avaliable for Agents
+   and Monitors (i.e., probers/listeners), and how they are implemented.
 
 6.3.  Procedures
 
@@ -943,17 +946,17 @@ Internet-Draft                  VNFBench                     August 2019
    1.   Upon the parsing of a VNF-BD, the Manager must detect the VNF-BD
       variable input field (e.g., list of resources values) and compose
       the all the permutations of parameters.  For each permutation, the
+
+
+
+Rosa, et al.             Expires April 17, 2020                [Page 17]
+
+Internet-Draft                  VNFBench                    October 2019
+
+
       Manager must elaborate a VNF-BD instance.  Each VNF-BD instance
       defines a Test, and it will have its deployment scenario
       instantiated accordingly.  I.e., the Manager must interface an
-
-
-
-Rosa, et al.            Expires February 20, 2020              [Page 17]
-
-Internet-Draft                  VNFBench                     August 2019
-
-
       orchestration platform to realize the automated instantiation of
       each deployment scenario defined by a VNF-BD instance (i.e., a
       Test).  The Manager must iterate through all the VNF-BD instances
@@ -999,16 +1002,16 @@ Internet-Draft                  VNFBench                     August 2019
       Methods) execution, the intended metrics, as described in the VNF-
       BD, must be parsed, extracted and combined to create the
       corresponding VNF-PP.  The combination of used VNF-BD and
+
+
+
+Rosa, et al.             Expires April 17, 2020                [Page 18]
+
+Internet-Draft                  VNFBench                    October 2019
+
+
       generated VNF-PP compose the resulting VNF benchmark report (VNF-
       BR).
-
-
-
-
-Rosa, et al.            Expires February 20, 2020              [Page 18]
-
-Internet-Draft                  VNFBench                     August 2019
-
 
 6.3.3.  Post-Execution
 
@@ -1055,17 +1058,16 @@ Internet-Draft                  VNFBench                     August 2019
    in active or standby mode.  For such cases, particular monitoring
    endpoints should be specified in VNF-BD so listeners can capture the
    relevant aspects of benchmarking when VNFCs would be in active/
+
+
+
+Rosa, et al.             Expires April 17, 2020                [Page 19]
+
+Internet-Draft                  VNFBench                    October 2019
+
+
    standby modes.  In this particular case, capturing the relevant
    aspects of internal functionalities of a VNF and its internal
-
-
-
-
-Rosa, et al.            Expires February 20, 2020              [Page 19]
-
-Internet-Draft                  VNFBench                     August 2019
-
-
    components provides important measurements to characterize the
    dynamics of a VNF, those must be reflected in its VNF-PP.
 
@@ -1115,11 +1117,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-
-
-Rosa, et al.            Expires February 20, 2020              [Page 20]
+Rosa, et al.             Expires April 17, 2020                [Page 20]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
 6.4.7.  White Box VNF
@@ -1173,9 +1173,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020              [Page 21]
+Rosa, et al.             Expires April 17, 2020                [Page 21]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    In [Rosa-b] Gym was utilized to benchmark a decomposed IP Multimedia
@@ -1229,9 +1229,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020              [Page 22]
+Rosa, et al.             Expires April 17, 2020                [Page 22]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    experiments were used to test tng-bench for scenarios in which
@@ -1285,9 +1285,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020              [Page 23]
+Rosa, et al.             Expires April 17, 2020                [Page 23]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
    [ETS14b]   ETSI, "Terminology for Main Concepts in NFV - ETSI GS NFV
@@ -1341,9 +1341,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020              [Page 24]
+Rosa, et al.             Expires April 17, 2020                [Page 24]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
 11.2.  Informative References
@@ -1397,9 +1397,9 @@ Internet-Draft                  VNFBench                     August 2019
 
 
 
-Rosa, et al.            Expires February 20, 2020              [Page 25]
+Rosa, et al.             Expires April 17, 2020                [Page 25]
 
-Internet-Draft                  VNFBench                     August 2019
+Internet-Draft                  VNFBench                    October 2019
 
 
 Authors' Addresses
@@ -1453,4 +1453,4 @@ Authors' Addresses
 
 
 
-Rosa, et al.            Expires February 20, 2020              [Page 26]
+Rosa, et al.             Expires April 17, 2020                [Page 26]
