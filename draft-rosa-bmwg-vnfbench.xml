@@ -668,7 +668,7 @@
 
         <section title="Headers" anchor="vnf-pp-headers">
           <t>The definition of parameters concerning the
-          VNF-PP, e.g., its version, identidier, 
+          VNF-PP, e.g., its version, identifier, 
           name, author, description, and the timestamp of 
           when it was created.</t>
         </section>
@@ -753,7 +753,7 @@
                 <t>Regarding the definition of the VNF-PP metrics, their specificity
                   is dependent of the specificity of the VNF benchmarking methodology. 
                   I.e., in general each methodology defines its own metrics, which might 
-                  be depend on the measurement interfaces avaliable for Agents and Monitors 
+                  be depend on the measurement interfaces available for Agents and Monitors 
                   (i.e., probers/listeners), and how they are implemented.</t>
               </section>
 
