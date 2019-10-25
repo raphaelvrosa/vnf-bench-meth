@@ -644,19 +644,19 @@
     <section title="VNF Performance Profile (VNF-PP)" anchor="vnf-pp">
 
       <t> VNF Performance Profile (VNF-PP) -- an output artifact of a 
-        VNF-BD execution by a Manager component. It contains all the metrics
-        from monitor(s) and/or agent(s) components after realizing the prober(s)
+        VNF-BD execution performed by a Manager component. It contains all the metrics
+        from monitor(s) and/or agent(s) components after realizing and executing the prober(s)
         and/or the listener(s) proceedings specified in its corresponding VNF-BD.
         Metrics are grouped according to the execution of the trial(s) and test(s)
         defined by a VNF-BD. A VNF-PP is specific to a unique VNF specification
-        (e.g., image, version, format). inside its unique corresponding VNF-BD.
-        It can be used to elaborate statistics regarding 
-        the the extraction of particular VNF performance metrics.</t>
+        (e.g., image, version, format).
+        It can be used to derive and extract statistics
+        of particular VNF performance metrics recorded in the VNF-PP.</t>
 
-      <t>In specific, each VNF-PP is defined by a structure that allows 
-        benchmarking results to be presented in a logical format.
-        A report is the result of an unique Test, while its content, snapshot(s),
-        correspond each to a single Trial. A snapshot is defined by a single Agent or Monitor.
+      <t>More specifically, each VNF-PP is defined by a structure that allows 
+        benchmarking results to be presented in a logical and unified format.
+        A VNF-PP report is the result of an unique Test, while its content, the so called snapshot(s),
+        correspond to a single Trial each. A snapshot is defined by a single Agent or Monitor.
         Each snapshot contains evaluation(s), each one being the output of a single 
         prober/listener. And each evaluation contains one or more metrics.
         In summary, a VNF-PP aggregates results from reports (i.e., Test(s)); 
@@ -667,19 +667,19 @@
       <t> The following items define the VNF-PP contents.</t>
 
         <section title="Headers" anchor="vnf-pp-headers">
-          <t>The definition of parameters concerning the
+          <t>The definition of header parameters concerning the
           VNF-PP, e.g., its version, identifier, 
           name, author, description, and the timestamp of 
           when it was created.</t>
         </section>
 
         <section title="Reports" anchor="vnf-pp-reports">
-          <t> The list of reports extracted for a single VNF-PP. 
+          <t> The list of reports stored in a single VNF-PP. 
             Each report is the result of a Test execution,
             containing the snapshot(s) provided by all the
             Agent(s) and Monitor(s) specified to execute that Test.
-            Besides, each report contains the details of the 
-            execution environment where such Test was conducted.</t>
+            Besides this, each report contains the details of the 
+            execution environment in which a Test was conducted.</t>
 
           <section title="Execution Environment" anchor="exec-env">
             <t>Specific information is required to describe the 
@@ -709,7 +709,7 @@
                 associated with the software apparatus offered and used
                 during the benchmarking Test.  Examples include details 
                 of operating system, kernel, hypervisor, container
-                technologies, orchestration system, network element managers (EM), etc.
+                technologies, orchestration system, network element managers (EM), etc. and their specific versions.
                 This section should also provide information
                 about the configurations used by the involved software components.</t>
               </list></t>
@@ -737,7 +737,7 @@
                 type (i.e., prober or listener), version of the tool it interfaces,
                 and the raw full command/call used by such tool to extract the
                 evaluation metrics.
-                In particular, an evaluation must contain the timestamp values
+                In particular, an evaluation must contain the exact timestamp values
                 of the moments the prober/listener proceeded with the start and 
                 stop operations that incurred in the successful extraction of 
                 its metrics.</t>
@@ -748,12 +748,12 @@
                   Each one of them must be specified with a clear definition of
                   name, value, unit of value(s), and value(s). The value(s) of
                   a metric can be specified as a single scalar, a vector of 
-                  scalars, and a vector of tuples (e.g., timeseries). </t>
+                  scalars, and a vector of tuples (e.g., timestamp and value). </t>
 
                 <t>Regarding the definition of the VNF-PP metrics, their specificity
-                  is dependent of the specificity of the VNF benchmarking methodology. 
+                   depends on the VNF benchmarking methodology. 
                   I.e., in general each methodology defines its own metrics, which might 
-                  be depend on the measurement interfaces available for Agents and Monitors 
+                  depend on the measurement interfaces available for Agents and Monitors 
                   (i.e., probers/listeners), and how they are implemented.</t>
               </section>
 
