@@ -529,7 +529,8 @@
     components).  A VNF-BD may be specific to a VNF or applicable to
     several VNF types. It can be used to elaborate a VNF
     benchmark deployment scenario aiming at the extraction of
-    particular VNF performance metrics.</t>
+    particular VNF performance metrics. An initial YANG model
+	for VNF-BDs is available at <xref target="yang-vnf-bd"/>.</t>
 
     <t> The following items define the VNF-BD contents.</t>
 
@@ -662,7 +663,9 @@
         In summary, a VNF-PP aggregates results from reports (i.e., Test(s)); 
         a report aggregates Agent(s) and Monitor(s) results (i.e., Trial(s)); 
         a snapshot aggregates prober(s) or listener(s) results; 
-        and an evaluation aggregates metrics.</t>
+        and an evaluation aggregates metrics. An initial YANG model
+		for VNF-PPs is available at <xref target="yang-vnf-pp"/>.
+    	</t>
 
       <t> The following items define the VNF-PP contents.</t>
 
@@ -1056,7 +1059,8 @@
     PPs for the complete VNF.</t>
 
     <t>Tng-bench is actively developed and released as open source tool under
-    Apache 2.0 license <xref target="tng-bench"/>.</t>
+    Apache 2.0 license <xref target="tng-bench"/>. A larger set of example
+	benchmarking results of various VNFs is available in <xref target="Peu-d"/>.</t>
 
   </section>
 
@@ -1283,6 +1287,17 @@
       <seriesInfo name="IEEE/IFIP 14th International Conference on Network and Service Management (CNSM)" value="" />
     </reference>
 
+    <reference anchor="Peu-d" target="https://sndzoo.github.io/">
+      <front>
+        <title>The Softwarised Network Data Zoo</title>
+          <author>
+            <organization>M. Peuster and S. Schneider and H. Karl</organization>
+          </author>
+          <date year="2019" />
+      </front>
+      <seriesInfo name="IEEE/IFIP 15th International Conference on Network and Service Management (CNSM)" value="" />
+    </reference>
+
     <reference anchor="tango" target="https://5gtango.eu">
       <front>
         <title>5GTANGO: Development and validation platform for global industry-specific network services and apps</title>
@@ -1294,6 +1309,22 @@
     <reference anchor="tng-bench" target="https://github.com/sonata-nfv/tng-sdk-benchmark">
       <front>
         <title>5GTANGO VNF/NS Benchmarking Framework</title>
+        <author/>
+        <date/>
+      </front>
+    </reference>
+
+    <reference anchor="yang-vnf-bd" target="https://github.com/raphaelvrosa/vnf-bench-model/tree/master/vnf-br/yang/vnfbd">
+      <front>
+        <title>VNF-BD YANG model</title>
+        <author/>
+        <date/>
+      </front>
+    </reference>
+
+    <reference anchor="yang-vnf-pp" target="https://github.com/raphaelvrosa/vnf-bench-model/tree/master/vnf-br/yang/vnfpp">
+      <front>
+        <title>VNF-PP YANG model</title>
         <author/>
         <date/>
       </front>
