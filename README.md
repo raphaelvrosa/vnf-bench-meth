@@ -10,7 +10,7 @@ pip install xml2rfc
 ## Compile
 
 ```sh
-xml2rfc draft-rosa-bmwg-vnfbench.xml -o draft-rosa-bmwg-vnfbench
+xml2rfc --v3 draft-rosa-bmwg-vnfbench.xml -o draft-rosa-bmwg-vnfbench
 ```
 
 

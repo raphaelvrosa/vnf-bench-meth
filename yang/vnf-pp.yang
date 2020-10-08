@@ -1,0 +1,332 @@
+module vnf-pp {
+  namespace "urn:ietf:params:xml:ns:yang:vnf-pp";
+  prefix "vnf-pp";
+
+  organization "IETF/BMWG";
+  contact "Raphael Vicente Rosa <raphaelvrosa@gmail.com>, 
+  Manuel Peuster <peuster@mail.uni-paderborn.de>";
+  
+  description "Yang model for a VNF Performance Profile (VNF-PP).";
+
+  revision "2020-10-08" {
+    description "V0.4: Reviewed header and descriptions.";
+    reference ""; 
+  }
+
+  revision "2019-10-15" {
+      description "Reviewed VNF-PP structure - 
+      defines reports, snapshots, evaluations";
+      reference ""; 
+  }
+
+  revision "2019-08-13" {
+      description "V0.1: First release";
+      reference ""; 
+  }
+
+  grouping tuple {
+    description "A tuple used as key-value.";
+    leaf key { 
+      type string; 
+      description "Tuple key.";
+    }
+    
+    leaf value { 
+      type string; 
+      description "Tuple value.";
+    }
+  }
+
+  
+  grouping metric {   
+    leaf name { 
+      type string; 
+      description "The metric name";    
+    }
+    
+    leaf unit { 
+      type string; 
+      description "The unit of the metric value(s).";    
+    }
+    
+    leaf type {
+      type string;
+      mandatory true;
+      description "The data type encoded in the value.
+      It must refer to a known variable type, i.e., 
+      string, float, uint, etc.";
+    }
+
+    choice value {
+      case scalar {
+        leaf scalar {
+          type string;
+          mandatory true;
+          description "A single scalar value.";
+        }
+      }
+      case vector {
+        leaf-list vector {
+          type string;
+          min-elements 1;
+          description "A list of scalar values";
+        }
+      }
+      case series {
+        list series {
+          key "key";
+          uses tuple;
+          description "A list of key/values,
+          e.g., a timeseries.";
+        }
+      }
+
+      mandatory true;     
+      description "Value choice: scalar, vector, series.
+      A metric can only contain a value with one of them.";
+    }
+
+    description "A metric that holds the recorded benchmarking
+    results, can be a single value (scalar), a list of values
+    (vector), or a list of key/value
+    data (series), e.g., for timeseries.";
+
+  }
+
+  grouping evaluation {
+      leaf id { 
+        type string; 
+        description "The evaluation 
+        unique identifier.";
+      }
+
+      leaf instance { 
+        type uint32; 
+        description "The unique identifier of the 
+        parallel instance of the prober/listener that
+        was executed and created the evaluation.";
+      }
+
+      leaf repeat { 
+          type uint32; 
+          description "The unique identifier of the 
+          prober/listener repeatition instance
+          was executed and created the evaluation.";
+      }
+
+      container source {
+        
+        leaf id { 
+          type string; 
+          description "The unique identifier of the source 
+          of the evaluation,
+          i.e., the prober/listener unique identifier.";
+        }
+        
+        leaf name { 
+          type string; 
+          description "The name of the source of the evaluation,
+          i.e., the prober/listener name.";
+        }
+
+        leaf type { 
+          type string; 
+          description "The type of the source of the evaluation,
+          i.e., one of prober or listener,  that was used to obtain
+          it.";
+        }
+        
+        leaf version { 
+          type string; 
+          description "The version of the tool interfacing
+          the prober/listener that was used to obtain
+          the evaluation.";
+        }
+        
+        leaf call { 
+          type string; 
+          description "The full call of the tool realized by
+          the source of the evaluation that performed
+          the acquisiton of the metrics.";
+        }
+
+        description "The details regarding the
+        source of the evaluation.";
+      }
+
+      container timestamp {
+        
+        leaf start { 
+          type string; 
+          description "Time (date, hour, minute, second)
+          when the evaluation started";
+        }
+
+        leaf stop { 
+          type string; 
+          description "Time (date, hour, minute, second)
+          when the evaluation stopped";
+        }
+
+        description "Timestamps of the procedures 
+        that realized the extraction of the evaluation.";
+      }
+
+    list metrics {
+      key "name";
+      uses metric;
+      description "List of metrics obtained 
+      from a single evaluation.";
+    }
+
+    leaf error {
+      type string;
+      description "Error, if existent, 
+      when obtaining evaluation.";    
+    }
+
+    description "The set of metrics and their source
+    associated with a single Trial.";
+  }
+
+
+  grouping snapshot {
+    leaf id { 
+      type string; 
+      description "The snapshot 
+      unique identifier.";
+    }
+    
+    leaf trial { 
+      type uint32; 
+      description "The identifier of the trial
+      when the snapshot was obtained.";
+    }
+
+    container origin {
+      
+      leaf id { 
+        type string; 
+        description "The unique identifier of the
+        component of the origin of the snapshot, 
+        i.e., the agent or monitor unique identifier.";
+      }
+
+      leaf role { 
+        type string; 
+        description "The role of the component,
+        origin of the snapshop, i.e.,
+        one of agent or monitor.";
+      }
+      
+      leaf host { 
+        type string; 
+        description "The hostname where the
+        source of the snapshot was placed.";
+      }
+
+      description "The detailed origin of
+      the snapshot.";
+
+    }
+
+    list evaluations {
+      key "id";
+      uses evaluation;
+      description "The list of evaluations
+      contained in a single snapshot Test.";
+    }
+
+    leaf timestamp {
+      type string;
+      description "Time (date, hour, minute, second)
+      when the snapshot was created.";    
+    }
+
+    leaf error {
+      type string;
+      description "Error, if existent, 
+      when obtaining the snapshot.";    
+    }
+    
+    description "The set of evaluations and their origin
+    output of the execution of a single trial.";
+  }
+
+  grouping report {
+    leaf id { 
+      type string; 
+      description "The report unique identifier.";
+    }
+
+    leaf test { 
+      type uint32; 
+      description "The identifier of the Test 
+      when the snapshots were obtained.";
+    }
+    
+    list snapshots {
+      key "id";
+      uses snapshot;
+      description "List of snapshots contained
+      in a single report.";
+    }
+
+    leaf timestamp {
+      type string;
+      description "Time (date, hour, minute, second)
+      when the report was created.";    
+    }
+
+    leaf error {
+      type string;
+      description "Error, if existent, 
+      when obtaining the report.";    
+    }
+  
+    description "The set of snapshots output
+    of a single Test.";
+  }
+
+
+  grouping header {
+    leaf id {
+      type string;
+      description "Unique identifier of the VNF-PP.";    
+    }
+    leaf name {
+      type string;
+      description "Name of the VNF-PP.";    
+    }
+    leaf version {
+      type string;
+      description "Version of the VNF-PP.";
+    }
+    leaf description {
+      type string;
+      description "Description of the VNF-PP";    
+    }
+    leaf timestamp {
+      type string;
+      description "Time (date, hour, minute, second) 
+      when the VNF-PP was created.";
+    }
+    
+    description "The header content of a VNF-PP.";
+  }
+
+  grouping vnf-pp {
+
+    uses header;
+
+    list reports {
+      key "id";
+      uses report;
+      description "List of the reports of a VNF-PP.";
+    }
+
+    description "A single VNF-PP.";
+  }
+
+  uses vnf-pp;
+}

@@ -1,0 +1,526 @@
+module vnf-bd {
+  namespace "urn:ietf:params:xml:ns:yang:vnf-bd";
+  prefix "vnf-bd";
+
+  organization "IETF/BMWG";
+  contact "Raphael Vicente Rosa <raphaelvrosa@gmail.com>, 
+  Manuel Peuster <peuster@mail.uni-paderborn.de>";
+  
+  description "Yang model for a VNF Benchmarking Descriptor (VNF-BD).";
+
+  revision "2020-10-08" {
+    description "V0.4: Reviewed header and descriptions.";
+    reference ""; 
+  }
+  
+  revision "2019-08-13" {
+    description "V0.3: Reviewed proceedings, tool - not VNF specific";
+    reference ""; 
+  }
+
+  revision "2019-03-13" {
+    description "V0.2: Reviewed role, policies, connection-points,
+    lifecycle workflows, resources";
+    reference ""; 
+  }
+
+  revision "2019-02-28" {
+    description "V0.1: First release";
+    reference "";
+  }
+
+  typedef workflows {
+    type enumeration {
+      enum create {
+        description "When calling the create workflow.";
+      }
+      enum configure {
+        description "When calling the configure workflow.";
+      }
+      enum start {
+        description "When calling the start workflow.";
+      }
+      enum stop {
+        description "When calling the stop workflow.";
+      }
+      enum delete {
+        description "When calling the delete workflow.";
+      }
+      enum custom {
+        description "When calling a custom workflow.";
+      }
+    }
+    description "Defines basic life cycle workflows for a
+    node in a scenario.";
+  }
+
+  grouping node_requirements {
+    container resources {
+      container cpu { 
+        leaf vcpus {
+          type uint32;
+          description "The number of cores to be allocated
+          for a node.";
+        }
+        leaf cpu_bw {
+          type string;
+          description "The CPU bandwidth (CFS limit in 0.01-1.0)";
+        }
+        leaf pinning {
+          type string;
+          description "The list of CPU cores, separated by comma,
+          that a node must be pinned to.";
+        }
+        description "The node CPU resources that must
+        be allocated for a benchmarking Test.";
+      }
+      container memory { 
+        leaf size {
+          type uint32;
+          description "The memory allocation size.";
+        }
+        leaf unit {
+          type string;
+          description "The memory unit.";
+        }
+        description "The node memory resources
+        that must be allocated for a benchmarking
+        Test.";
+      }
+      container storage { 
+        leaf size {
+          type uint32;
+          description "The storage allocation size.";
+        }
+        leaf unit {
+          type string;
+          description "The storage unit.";
+        }
+        leaf volumes {
+          type string;
+          description "Volumes to be allocated by
+          a node storage.
+          A volume defines a mapping of an outside storage
+          partition inside the node storage system.
+          Volumes must be separated by comma and be defined
+          using a colon to separate the node internal and external
+          references of storage system paths.";
+        }
+    
+        description "The node storage resources
+        that must be allocated for a benchmarking Test.";
+      }
+    
+      description "The set of resources that must be allocated 
+      for a node in a benchmarking Test.";
+    }
+
+    description "'The grouping determining the 
+    resource requirements for a node in a scenario.";
+  }  
+
+  grouping connection_points {
+    leaf id {
+      type string;
+      description "The connection-point
+      unique identifier";
+    }
+    leaf interface {
+      type string;
+      description "The name of the node interface
+      associated with the connection-point.";
+    }
+    leaf type {
+      type string;
+      description "The type of the network the
+      connection-point interface is attached to.";
+    }
+    leaf address {
+      type string;
+      description "The Network address of the
+      connection-point. It can be specified as a 
+      Ethernet MAC address, a IPv4 address or an IPv6 address.";
+    }
+    description "A connections-point of a node.";
+  }
+
+  grouping nodes {
+    leaf id {
+      type string;
+      description "The unique identifier of a node
+      in a scenario.";
+    }
+    leaf type {
+      type string;
+      description "The type of a node.";
+    }
+    leaf image {
+      type string;
+      description "The name of the image to be used to instantiate
+      a node.";
+    }
+    leaf format {
+      type string;
+      description "The node format (e.g., container, process, VM).";
+    }
+    leaf role {
+      type string;
+      description "The role of the node in the Test scenario.
+      The role must be one of: manager, agent, monitor, sut.";
+    }
+
+    uses node_requirements;
+    
+    list connection_points {
+      key "id";
+      uses connection_points;
+      description "The list of connection points of a node.";
+    }
+
+    list relationships {
+      key "name";
+      leaf name {
+        type string;
+        description "Name of the relationship.";
+      }
+      leaf type {
+        type string;
+        description "Type of the relationship.";
+      }
+      leaf target {
+        type string;
+        description "Target of the relationship.";
+      }
+
+      description "Relationship of a node with the other
+      scenario components.";
+    }
+
+
+    list lifecycle {
+      key "workflow";
+      leaf workflow {
+        type workflows;
+        description "The type of the Workflow.";
+      }
+      leaf name {
+        type string;
+        description "The workflow name.";
+      }
+      
+      list parameters { 
+        key "input";
+        leaf input {
+          type string;
+          description "The name of the parameter.";
+        }
+        leaf value {
+          type string;
+          description "The value of the parameter";
+        }
+      
+        description "The list of parameters to be
+        applied to the node workflow.";
+      }
+
+      leaf-list implementation {
+        type string;
+        description "The workflow implementation.";
+      }
+
+      description "The life cycle workflows to be
+      applied to this node.";
+    }
+
+    description "The specification of a node to be used
+    in a scenario for a benchmarking Test.";
+  }
+
+  grouping link {
+    leaf id {
+      type string;
+      description "The link unique identifier.";
+    }
+    leaf name {
+      type string;
+      description "The name of the link.";
+    }
+    leaf type {
+        type string;
+        description "The type of the link.";
+    }
+    leaf network {
+        type string;
+        description "The network the link belongs to.";
+    }
+    leaf-list connection_points { 
+        type leafref {
+            path "../../nodes/connection_points/id";
+        } 
+        description "Reference to the connection points of nodes
+        the link is adjacent.";
+    }
+    description "A link between nodes in a scenario.";
+  }
+
+  grouping scenario {
+    list nodes {
+      key "id";
+      uses nodes;
+      description "The list of nodes that must be 
+      instantiated in a scenario in order to enable
+      a benchmarking Test.";
+    }
+
+    list links {
+      key "id";
+      uses link;
+      description "The list of links among nodes that must be 
+      instantiated in a scenario in order to enable
+      a benchmarking Test.";
+    }
+
+    list policies {
+      key "name";
+      leaf name {
+        type string;
+        description "The name of the policy.";
+      }
+      leaf type {
+        type string;
+        description "The type of the policy";
+      }
+      leaf targets {
+        type string;
+        description "The targets of the policy.
+        Uuid of nodes and/or links separated by comma.";
+      }
+      leaf action {
+        type string;
+        description "The action of the policy";
+      }
+
+      description "Definition of policies to be
+      utilized on the instantiation of the scenario.
+      A policy is defined by a name, it type, 
+      the targets (nodes and/or links) to which it must be applied to,
+      and the proper action that realizes the policy.";
+    }
+
+    description "Describes the deployment of all 
+    involved functional components mandatory for 
+    the execution of a benchmarking Test.";
+  }
+
+  grouping tool {
+    leaf id {
+      type uint32;
+      description "The unique identifier of a tool.
+      This information specifies how a tool can be 
+      identified in a list of probers/listeners of an
+      Agent/Monitor.";    
+    }
+    leaf instances {
+      type uint32;
+      description "The number of the tool instances that 
+      must be executed in parallel.";
+    }
+    leaf name {
+      type string;
+      description "The name of a tool.";
+    }
+    list parameters { 
+      key "input";
+      leaf input {
+          type string;
+          description "The input key of a parameter";
+      }
+      leaf value {
+          type string;
+          description "The value of a parameter";
+      }
+      description "List of parameters for the execution 
+      of the tool. Each tool detains the proper set of running
+      parameters that must be utilized to realize a benchmarking
+      test.";
+    }
+    
+    container sched {
+      leaf from {
+        type uint32;
+        default 0;
+        description "The initial time (in seconds)
+        of the execution of the tool.";
+      }
+
+      leaf until {
+        type uint32;
+        description "The final/maximum time (in seconds)
+        of the execution of the tool summed all its instances
+        repeat, duration and interval parameters.";
+      }
+
+      leaf duration {
+        type uint32;
+        description "The total duration (in seconds) of the execution
+        of each instance of the tool.";
+      }
+
+      leaf interval {
+        type uint32;
+        description "The interval (in seconds) to be awaited 
+        among each one of the instances of the execution of the tool.";
+      }
+
+      leaf repeat {
+        type uint32;
+        description "The number of times the tool must be executed.";
+      }
+
+      description "The scheduling parameters of a tool.
+      Each Agent/Monitor must utilize the scheduling parameters
+      to perform the execution of its tools (probers/listeners)
+      accordingly.";
+    }
+
+    description "A tool to be used in a benchmarking test.
+    A tool can be inferred as a prober or a listener.";
+  }
+
+  grouping component {
+    leaf uuid {
+      type string;
+      description "A unique identifier";
+    }
+    leaf name {
+      type string;
+      description "The name of component";
+    }
+
+    description "A generic component.";
+  }
+
+  grouping agent {
+    uses component; 
+
+    list probers {
+      key "id";
+      uses tool;
+      description "Defines a list of the Prober(s)
+      that must be used in a benchmarking test.";
+    }
+    description "An Agent defined by its uuid,
+    name and the mandatory list of probers to be used
+    by a benchmarking test.";
+  }
+
+  grouping monitor {
+    uses component; 
+    
+    list listeners {
+      key "id";
+      uses tool;
+      description "Defines a list of the Listeners(s)
+      that must used in a benchmarking test.";
+    }
+    description "A Monitor defined by its uuid,
+    name and the mandatory list of probers to be used
+    by a benchmarking test.";
+  }
+
+  grouping proceedings {
+    list agents {
+      key "uuid";
+      uses agent;
+      description "Defines a list containing the
+      Agent(s) needed for a VNF-BD test.";
+    }
+
+    list monitors {
+      key "uuid";
+      uses monitor;
+      description "Defines a list containing the
+      Monitor(s) needed for a VNF-BD test.";
+    }
+    description "Information utilized by a Manager
+    component to execute a benchmarking test.";
+  }
+  grouping header {
+    leaf id {
+      type string;
+      description "Unique identifier of the VNF-BD.";    
+    }
+    leaf name {
+      type string;
+      description "Name of the VNF-BD.";    
+    }
+    leaf version {
+      type string;
+      description "Version of the VNF-BD.";
+    }
+    leaf description {
+      type string;
+      description "Description of the VNF-BD";    
+    }
+    leaf timestamp {
+      type string;
+      description "Time (date, hour, minute, second) 
+      when the VNF-BD was created.";
+    }
+    
+    description "The header content of a VNF-BD.";
+  }
+
+  grouping vnf-bd {
+    
+    uses header;
+    
+    container experiments {
+      leaf trials {
+        type uint32;
+        default 1;
+        description "Number of trials.
+        A trial is a single process or iteration
+        to obtain VNF performance metrics from
+        benchmarking the VNF-BD proceedings.";
+      }
+      leaf tests {
+        type uint32;
+        default 1;
+        description "Number of tests. 
+        Each test defines unique structural
+        and functional parameters (e.g., configurations,
+        resource assignment) for benchmarked components
+        to perform one or multiple Trials.
+        Each Test must be executed following a 
+        particular scenario.";
+      }
+      description "Defines the number of trials and tests
+      the VNF-BD must execute.";
+    }
+
+    container scenario {
+      uses scenario;
+      description "Scenarios defined by this VNF-BD.
+      A scenario contains all information needed to describe
+      the deployment of all involved functional components 
+      mandatory for the execution of a benchmarking Test.";
+    }
+
+    container proceedings {
+      uses proceedings;
+      description "Proceedings of VNF-BD.
+      The proceedings are utilized by the Manager component
+      to execute a benchmarking Test. It consists of 
+      agent(s)/monitor(s) settings, detailing their prober(s)/listener(s)
+      specification and running parameters.";
+    }
+
+    description "A single VNF-BD.
+    A VNF-BD contains all required definitions and
+    requirements to deploy, configure, execute, and
+    reproduce VNF benchmarking tests.";
+  }
+
+  uses vnf-bd;
+}
